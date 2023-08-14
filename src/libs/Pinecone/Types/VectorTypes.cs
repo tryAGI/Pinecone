@@ -57,5 +57,7 @@ public readonly record struct MetadataValue
     public static implicit operator MetadataValue(decimal value) => new((double)value);
     public static implicit operator MetadataValue(MetadataMap value) => new(value);
     public static implicit operator MetadataValue(MetadataValue[]? value) => new(value);
+#pragma warning disable CA1002
     public static implicit operator MetadataValue(List<MetadataValue>? value) => new(value);
+#pragma warning restore CA1002
 }
