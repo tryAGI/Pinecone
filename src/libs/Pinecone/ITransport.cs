@@ -2,8 +2,6 @@ namespace Pinecone;
 
 public interface ITransport<T> : IDisposable
 {
-    static abstract T Create(string host, string apiKey);
-
     Task<IndexStats> DescribeStats(MetadataMap? filter = null);
     Task<ScoredVector[]> Query(
         string? id,

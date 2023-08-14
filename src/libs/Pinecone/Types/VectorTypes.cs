@@ -27,7 +27,18 @@ public record ScoredVector
     public MetadataMap? Metadata { get; init; }
 }
 
-public sealed class MetadataMap : Dictionary<string, MetadataValue> { }
+[Serializable]
+public sealed class MetadataMap : Dictionary<string, MetadataValue>
+{
+    public MetadataMap()
+    {
+    }
+    
+    private MetadataMap(System.Runtime.Serialization.SerializationInfo serializationInfo, System.Runtime.Serialization.StreamingContext streamingContext)
+        : base(serializationInfo, streamingContext)
+    {
+    }
+}
 
 [JsonConverter(typeof(MetadataValueConverter))]
 public readonly record struct MetadataValue

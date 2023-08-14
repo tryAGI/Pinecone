@@ -1,0 +1,12 @@
+<Project>
+
+  <PropertyGroup Label="Common">
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsAotCompatible>true</IsAotCompatible>
+    <Features>strict</Features>
+    <WarningLevel>9999</WarningLevel>
+  </PropertyGroup>
+  
+</Project>

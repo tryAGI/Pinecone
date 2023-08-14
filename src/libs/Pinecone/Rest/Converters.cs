@@ -102,7 +102,11 @@ public class IndexNamespaceArrayConverter : JsonConverter<IndexNamespace[]>
                     ThrowHelper.ThrowFormatException("Expected number value");
                 }
 
-                buffer.Add(new() { Name = Encoding.UTF8.GetString(nameSpan), VectorCount = reader.GetUInt32() });
+                buffer.Add(new() { Name = Encoding.UTF8.GetString(nameSpan
+#if NETSTANDARD2_0 || NET462_OR_GREATER
+                        .ToArray()  
+#endif
+                ), VectorCount = reader.GetUInt32() });
             }
         }
 

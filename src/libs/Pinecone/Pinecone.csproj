@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net4.6.2;net6.0;net7.0</TargetFrameworks>
+    <PolySharpIncludeRuntimeSupportedAttributes>true</PolySharpIncludeRuntimeSupportedAttributes>
+    <NoWarn>$(NoWarn);CS8002;CA2007;CA1852;CA1062;CA2234;CS1591;CA1001;CA1819;CA2201;CA2225;CA1002;CA2252;CA1000;NU5104</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Nuget">
+    <PackageId>tryAGI.Pinecone</PackageId>
+    <Description>Pinecone is a fully-fledged C# library for the Pinecone vector database. It aims to provide identical functionality to the official Python and Rust libraries.</Description>
+    <PackageTags>api;client;sdk;dotnet;pinecone;vector;database;vector-databases;pineconeio</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.0-preview.7.23375.6" />
+    <PackageReference Include="System.Net.Http.Json" Version="8.0.0-preview.7.23375.6" />
+    <PackageReference Include="PolySharp" Version="1.13.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.1" />
+    <PackageReference Include="RangeExtensions" Version="2.1.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.24.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.55.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.55.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.57.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="TA.System.Runtime.CompilerServices.RuntimeHelpers.GetSubArray" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Grpc\Protos\vector_service.proto" GrpcServices="Client" Access="Internal">
+      <SourceUrl>https://raw.githubusercontent.com/pinecone-io/pinecone-client/main/client_sdk/src/proto/vector_service.proto</SourceUrl>
+    </Protobuf>
+  </ItemGroup>
+
+
+</Project>
+

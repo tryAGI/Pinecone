@@ -59,21 +59,18 @@ public sealed class PineconeClient : IDisposable
         await response.CheckStatusCode();
     }
 
-    public Task<Index<GrpcTransport>> GetIndex(IndexName name) => GetIndex<GrpcTransport>(name);
-
-    public async Task<Index<TTransport>> GetIndex<TTransport>(IndexName name)
-        where TTransport : ITransport<TTransport>
+    public async Task<Index<GrpcTransport>> GetIndex(IndexName name)
     {
         var response = await Http.GetFromJsonAsync(
             $"/databases/{name.Value}",
-            typeof(Index<TTransport>),
+            typeof(Index<GrpcTransport>),
             SerializerContext.Default) ?? throw new HttpRequestException("GetIndex request has failed.");
 
-        var index = (Index<TTransport>)response;
+        var index = (Index<GrpcTransport>)response;
         var host = index.Status.Host;
         var apiKey = Http.DefaultRequestHeaders.GetValues(Constants.RestApiKey).First();
 
-        index.Transport = TTransport.Create(host, apiKey);
+        index.Transport = GrpcTransport.Create(host, apiKey);
         return index;
     }
 
