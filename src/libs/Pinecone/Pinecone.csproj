@@ -8,7 +8,7 @@
 
   <PropertyGroup Label="Nuget">
     <PackageId>tryAGI.Pinecone</PackageId>
-    <Description>Pinecone is a fully-fledged C# library for the Pinecone vector database. It aims to provide identical functionality to the official Python and Rust libraries.</Description>
+    <Description>Pinecone is a fully-fledged C# library for the Pinecone vector database. It aims to provide identical functionality to the official Python and Rust libraries. This is fork of Pinecone.NET.</Description>
     <PackageTags>api;client;sdk;dotnet;pinecone;vector;database;vector-databases;pineconeio</PackageTags>
   </PropertyGroup>
 

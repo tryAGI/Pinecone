@@ -5,7 +5,9 @@
 [![License: MIT](https://img.shields.io/github/license/tryAGI/Pinecone)](https://github.com/tryAGI/Pinecone/blob/main/LICENSE.txt)
 [![Discord](https://img.shields.io/discord/1115206893015662663?label=Discord&logo=discord&logoColor=white&color=d82679)](https://discord.gg/Ca2xhfBf3v)
 
-Pinecone is a fully-fledged C# library for the Pinecone vector database. It aims to provide identical functionality to the official Python and Rust libraries.
+Pinecone is a fully-fledged C# library for the Pinecone vector database. 
+It aims to provide identical functionality to the official Python and Rust libraries.  
+This is a fork of [this project](https://github.com/neon-sunset/Pinecone.NET) with netstandard2.0/net framework support.
 
 ## Features
 
