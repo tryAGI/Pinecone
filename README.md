@@ -127,6 +127,6 @@ Contributions are welcome! Feel free open an issue or a PR.
 
 ## Support
 
-Priority place for bugs: https://github.com/tryAGI/Cohere/issues  
-Priority place for ideas and general questions: https://github.com/tryAGI/Cohere/discussions  
+Priority place for bugs: https://github.com/tryAGI/Pinecone/issues  
+Priority place for ideas and general questions: https://github.com/tryAGI/Pinecone/discussions  
 Discord: https://discord.gg/Ca2xhfBf3v  
