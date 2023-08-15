@@ -5,12 +5,11 @@ using Pinecone.Rest;
 
 namespace Pinecone;
 
-public abstract class PineconeClient<T>
-    where T : ITransport
+public class PineconeClient
 {
     protected HttpClient HttpClient { get; set; }
 
-    protected PineconeClient(string apiKey, Uri baseUrl, HttpClient httpClient)
+    public PineconeClient(string apiKey, Uri baseUrl, HttpClient httpClient)
     {
         Guard.IsNotNullOrWhiteSpace(apiKey);
         Guard.IsNotNull(baseUrl);
@@ -20,7 +19,7 @@ public abstract class PineconeClient<T>
         HttpClient.DefaultRequestHeaders.Add("Api-Key", apiKey);
     }
 
-    protected PineconeClient(string apiKey, string environment, HttpClient httpClient)
+    public PineconeClient(string apiKey, string environment, HttpClient httpClient)
         : this(apiKey, new Uri($"https://controller.{environment}.pinecone.io"), httpClient)
     {
     }
@@ -56,8 +55,37 @@ public abstract class PineconeClient<T>
 
         await response.CheckStatusCode();
     }
+    
+    private async Task<(Index Index, string Host, string ApiKey)> GetIndexData(IndexName name)
+    {
+        var index = await HttpClient.GetFromJsonAsync(
+            $"/databases/{name.Value}",
+            SerializerContext.Default.Index) ?? throw new HttpRequestException("GetIndex request has failed.");
 
-    public abstract Task<Index<T>> GetIndex(IndexName name);
+        var host = index.Status.Host;
+        var apiKey = HttpClient.DefaultRequestHeaders.GetValues(Constants.RestApiKey).First();
+
+        return (index, host, apiKey);
+    }
+    
+    public async Task<IndexClient<RestTransport>> GetIndexWithRestTransport(IndexName name)
+    {
+        var (index, host, apiKey) = await GetIndexData(name);
+
+        return new IndexClient<RestTransport>(index, RestTransport.Create(host, apiKey));
+    }
+    
+    public async Task<IndexClient<GrpcTransport>> GetIndexWithGrpcTransport(IndexName name)
+    {
+        var (index, host, apiKey) = await GetIndexData(name);
+
+        return new IndexClient<GrpcTransport>(index, GrpcTransport.Create(host, apiKey));
+    }
+    
+    public async Task<IndexClient<GrpcTransport>> GetIndex(IndexName name)
+    {
+        return await GetIndexWithGrpcTransport(name);
+    }
     
     public async Task ConfigureIndex(IndexName name, int replicas, string podType)
     {
