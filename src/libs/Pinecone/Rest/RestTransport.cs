@@ -5,10 +5,16 @@ using CommunityToolkit.Diagnostics;
 
 namespace Pinecone.Rest;
 
+/// <inheritdoc cref="ITransport"/>
 public readonly record struct RestTransport : ITransport
 {
     private readonly HttpClient Http;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="host"></param>
+    /// <param name="apiKey"></param>
     public RestTransport(string host, string apiKey)
     {
         Guard.IsNotNullOrWhiteSpace(host);
@@ -18,19 +24,20 @@ public readonly record struct RestTransport : ITransport
         Http.DefaultRequestHeaders.Add(Constants.RestApiKey, apiKey);
     }
 
-    public static RestTransport Create(string host, string apiKey) => new(host, apiKey);
-
+    /// <inheritdoc/>
     public async Task<IndexStats> DescribeStats(MetadataMap? filter = null)
     {
         var request = new DescribeStatsRequest { Filter = filter };
         var response = await Http.PostAsJsonAsync(
-            "/describe_index_stats", request, SerializerContext.Default.DescribeStatsRequest);
+            "/describe_index_stats", request, SerializerContext.Default.DescribeStatsRequest).ConfigureAwait(false);
 
-        await response.CheckStatusCode();
-        return await response.Content.ReadFromJsonAsync(SerializerContext.Default.IndexStats)
+        await response.CheckStatusCode().ConfigureAwait(false);
+        
+        return await response.Content.ReadFromJsonAsync(SerializerContext.Default.IndexStats).ConfigureAwait(false)
             ?? ThrowHelpers.JsonException<IndexStats>();
     }
 
+    /// <inheritdoc/>
     public async Task<ScoredVector[]> Query(
         string? id,
         float[]? values,
@@ -60,13 +67,15 @@ public readonly record struct RestTransport : ITransport
         };
 
         var response = await Http.PostAsJsonAsync(
-            "/query", request, SerializerContext.Default.QueryRequest);
+            "/query", request, SerializerContext.Default.QueryRequest).ConfigureAwait(false);
 
-        await response.CheckStatusCode();
-        return (await response.Content.ReadFromJsonAsync(SerializerContext.Default.QueryResponse))
+        await response.CheckStatusCode().ConfigureAwait(false);
+        
+        return (await response.Content.ReadFromJsonAsync(SerializerContext.Default.QueryResponse).ConfigureAwait(false))
             .Matches ?? ThrowHelpers.JsonException<ScoredVector[]>();
     }
 
+    /// <inheritdoc/>
     public async Task<uint> Upsert(IEnumerable<Vector> vectors, string? indexNamespace = null)
     {
         var request = new UpsertRequest
@@ -75,22 +84,29 @@ public readonly record struct RestTransport : ITransport
             Namespace = indexNamespace ?? ""
         };
 
-        var response = await Http.PostAsJsonAsync("/vectors/upsert", request, SerializerContext.Default.UpsertRequest);
+        var response = await Http.PostAsJsonAsync("/vectors/upsert", request, SerializerContext.Default.UpsertRequest).ConfigureAwait(false);
 
-        await response.CheckStatusCode();
-        return (await response.Content.ReadFromJsonAsync(SerializerContext.Default.UpsertResponse)).UpsertedCount;
+        await response.CheckStatusCode().ConfigureAwait(false);
+        
+        return (await response.Content.ReadFromJsonAsync(SerializerContext.Default.UpsertResponse).ConfigureAwait(false)).UpsertedCount;
     }
 
+    /// <inheritdoc/>
     public async Task Update(Vector vector, string? indexNamespace = null)
     {
+        vector = vector ?? throw new ArgumentNullException(nameof(vector));
+        
         var request = UpdateRequest.From(vector, indexNamespace);
-        var response = await Http.PostAsJsonAsync("/vectors/update", request, SerializerContext.Default.UpdateRequest);
-        await response.CheckStatusCode();
+        var response = await Http.PostAsJsonAsync("/vectors/update", request, SerializerContext.Default.UpdateRequest).ConfigureAwait(false);
+        await response.CheckStatusCode().ConfigureAwait(false);
     }
 
+    /// <inheritdoc/>
     public async Task<Dictionary<string, Vector>> Fetch(
         IEnumerable<string> ids, string? indexNamespace = null)
     {
+        ids = ids ?? throw new ArgumentNullException(nameof(ids));
+        
         using var enumerator = ids.GetEnumerator();
         if (!enumerator.MoveNext())
         {
@@ -107,10 +123,11 @@ public readonly record struct RestTransport : ITransport
         }
 
         return (await Http.GetFromJsonAsync(
-            addressBuilder.ToString(), SerializerContext.Default.FetchResponse))
+            addressBuilder.ToString(), SerializerContext.Default.FetchResponse).ConfigureAwait(false))
                 .Vectors;
     }
 
+    /// <inheritdoc/>
     public Task Delete(IEnumerable<string> ids, string? indexNamespace = null) =>
         Delete(new()
         {
@@ -119,6 +136,7 @@ public readonly record struct RestTransport : ITransport
             Namespace = indexNamespace ?? ""
         });
 
+    /// <inheritdoc/>
     public Task Delete(MetadataMap filter, string? indexNamespace = null) =>
         Delete(new()
         {
@@ -127,14 +145,16 @@ public readonly record struct RestTransport : ITransport
             Namespace = indexNamespace ?? ""
         });
 
+    /// <inheritdoc/>
     public Task DeleteAll(string? indexNamespace = null) =>
         Delete(new() { DeleteAll = true, Namespace = indexNamespace ?? "" });
 
     private async Task Delete(DeleteRequest request)
     {
-        var response = await Http.PostAsJsonAsync("/vectors/delete", request, SerializerContext.Default.DeleteRequest);
-        await response.CheckStatusCode();
+        var response = await Http.PostAsJsonAsync("/vectors/delete", request, SerializerContext.Default.DeleteRequest).ConfigureAwait(false);
+        await response.CheckStatusCode().ConfigureAwait(false);
     }
 
+    /// <inheritdoc/>
     public void Dispose() => Http.Dispose();
 }

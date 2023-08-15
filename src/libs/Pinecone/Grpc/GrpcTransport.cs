@@ -4,6 +4,7 @@ using Grpc.Net.Client;
 
 namespace Pinecone.Grpc;
 
+/// <inheritdoc cref="ITransport"/>
 public readonly record struct GrpcTransport : ITransport
 {
     private readonly Metadata Auth;
@@ -12,6 +13,11 @@ public readonly record struct GrpcTransport : ITransport
 
     private readonly VectorService.VectorServiceClient Grpc;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="host"></param>
+    /// <param name="apiKey"></param>
     public GrpcTransport(string host, string apiKey)
     {
         Guard.IsNotNullOrWhiteSpace(host);
@@ -22,8 +28,7 @@ public readonly record struct GrpcTransport : ITransport
         Grpc = new(Channel);
     }
 
-    public static GrpcTransport Create(string host, string apiKey) => new(host, apiKey);
-
+    /// <inheritdoc/>
     public async Task<IndexStats> DescribeStats(MetadataMap? filter = null)
     {
         var request = new DescribeIndexStatsRequest();
@@ -35,7 +40,8 @@ public readonly record struct GrpcTransport : ITransport
         using var call = Grpc.DescribeIndexStatsAsync(request, Auth);
         return (await call).ToPublicType();
     }
-
+    
+    /// <inheritdoc/>
     public async Task<ScoredVector[]> Query(
         string? id,
         float[]? values,
@@ -83,6 +89,7 @@ public readonly record struct GrpcTransport : ITransport
         return vectors;
     }
 
+    /// <inheritdoc/>
     public async Task<uint> Upsert(IEnumerable<Vector> vectors, string? indexNamespace = null)
     {
         var request = new UpsertRequest { Namespace = indexNamespace ?? "" };
@@ -92,8 +99,11 @@ public readonly record struct GrpcTransport : ITransport
         return (await call).UpsertedCount;
     }
 
+    /// <inheritdoc/>
     public async Task Update(Vector vector, string? indexNamespace = null)
     {
+        vector = vector ?? throw new ArgumentNullException(nameof(vector));
+        
         var request = new UpdateRequest
         {
             Id = vector.Id,
@@ -107,6 +117,7 @@ public readonly record struct GrpcTransport : ITransport
         _ = await call;
     }
 
+    /// <inheritdoc/>
     public async Task<Dictionary<string, Vector>> Fetch(
         IEnumerable<string> ids, string? indexNamespace = null)
     {
@@ -124,6 +135,7 @@ public readonly record struct GrpcTransport : ITransport
             kvp => kvp.Value.ToPublicType());
     }
 
+    /// <inheritdoc/>
     public Task Delete(IEnumerable<string> ids, string? indexNamespace = null) =>
         Delete(new()
         {
@@ -132,14 +144,20 @@ public readonly record struct GrpcTransport : ITransport
             Namespace = indexNamespace ?? ""
         });
 
-    public Task Delete(MetadataMap filter, string? indexNamespace = null) =>
-        Delete(new()
+    /// <inheritdoc/>
+    public Task Delete(MetadataMap filter, string? indexNamespace = null)
+    {
+        filter = filter ?? throw new ArgumentNullException(nameof(filter));
+
+        return Delete(new()
         {
             Filter = filter.ToProtoStruct(),
             DeleteAll = false,
             Namespace = indexNamespace ?? ""
         });
+    }
 
+    /// <inheritdoc/>
     public Task DeleteAll(string? indexNamespace = null) =>
         Delete(new() { DeleteAll = true, Namespace = indexNamespace ?? "" });
 
@@ -149,5 +167,6 @@ public readonly record struct GrpcTransport : ITransport
         _ = await call;
     }
 
+    /// <inheritdoc/>
     public void Dispose() => Channel.Dispose();
 }

@@ -1,8 +1,14 @@
 namespace Pinecone;
 
+/// <summary>
+/// 
+/// </summary>
 [Serializable]
 public sealed class MetadataMap : Dictionary<string, MetadataValue>
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public MetadataMap()
     {
     }

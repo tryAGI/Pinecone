@@ -17,7 +17,7 @@ internal static class Extensions
         static async Task ThrowOnFailedResponse(HttpResponseMessage response, string requestName)
         {
             throw new HttpRequestException($"{requestName} request has failed. " +
-                $"Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
+                $"Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync().ConfigureAwait(false)}");
         }
     }
 }

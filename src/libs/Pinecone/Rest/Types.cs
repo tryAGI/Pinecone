@@ -45,7 +45,7 @@ internal readonly record struct CreateCollectionRequest
     public required string Source { get; init; }
 }
 
-internal record QueryRequest
+internal sealed record QueryRequest
 {
     public string? Id { get; set; }
     public float[]? Vector { get; set; }
@@ -74,7 +74,7 @@ internal readonly record struct UpsertResponse
     public required uint UpsertedCount { get; init; }
 }
 
-internal record UpdateRequest : Vector
+internal sealed record UpdateRequest : Vector
 {
     /// <summary>Make sure to not set regular Metadata prop when serializing this</summary>
     public MetadataMap? SetMetadata { get; init; }

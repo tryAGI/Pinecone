@@ -11,10 +11,10 @@ internal static class Converters
     private static class FieldAccessors<T> where T : unmanaged
     {
         public static readonly FieldInfo ArrayField = typeof(RepeatedField<T>)
-            .GetField("array", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new NullReferenceException();
+            .GetField("array", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException();
 
         public static readonly FieldInfo CountField = typeof(RepeatedField<T>)
-            .GetField("count", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new NullReferenceException();
+            .GetField("count", BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException();
     }
 
     // gRPC types conversion to sane and usable ones
@@ -133,15 +133,6 @@ internal static class Converters
             Value.KindOneofCase.ListValue => new(source.ListValue.Values.Select(v => v.ToPublicType()).ToArray()),
             _ => ThrowHelper.ThrowArgumentException<MetadataValue>($"Unsupported metadata type: {source.KindCase}")
         };
-    }
-
-    public static RepeatedField<T> AsRepeatedField<T>(this T[] source) where T : unmanaged
-    {
-        var repeatedField = new RepeatedField<T>();
-        FieldAccessors<T>.ArrayField.SetValue(repeatedField, source);
-        FieldAccessors<T>.CountField.SetValue(repeatedField, source.Length);
-
-        return repeatedField;
     }
 
     public static T[] AsArray<T>(this RepeatedField<T> source) where T : unmanaged

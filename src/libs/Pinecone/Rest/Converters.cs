@@ -61,9 +61,18 @@ internal sealed class IndexStateConverter : JsonConverter<IndexState>
     }
 }
 
-// Co-implemented with Bing Chat :D
+/// <summary>
+/// 
+/// </summary>
 public class IndexNamespaceArrayConverter : JsonConverter<IndexNamespace[]>
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="reader"></param>
+    /// <param name="typeToConvert"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
     public override IndexNamespace[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType != JsonTokenType.StartObject)
@@ -113,8 +122,18 @@ public class IndexNamespaceArrayConverter : JsonConverter<IndexNamespace[]>
         return buffer.ToArray();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="writer"></param>
+    /// <param name="value"></param>
+    /// <param name="options"></param>
+    /// <exception cref="ArgumentNullException"></exception>
     public override void Write(Utf8JsonWriter writer, IndexNamespace[] value, JsonSerializerOptions options)
     {
+        writer = writer ?? throw new ArgumentNullException(nameof(writer));
+        value = value ?? throw new ArgumentNullException(nameof(value));
+        
         writer.WriteStartObject();
 
         foreach (var indexNamespace in value)
@@ -129,13 +148,34 @@ public class IndexNamespaceArrayConverter : JsonConverter<IndexNamespace[]>
     }
 }
 
+/// <summary>
+/// 
+/// </summary>
 public class MetadataValueConverter : JsonConverter<MetadataValue>
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="reader"></param>
+    /// <param name="typeToConvert"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
     public override MetadataValue Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
         ReadValue(ref reader);
 
-    public override void Write(Utf8JsonWriter writer, MetadataValue value, JsonSerializerOptions options) =>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="writer"></param>
+    /// <param name="value"></param>
+    /// <param name="options"></param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public override void Write(Utf8JsonWriter writer, MetadataValue value, JsonSerializerOptions options)
+    {
+        writer = writer ?? throw new ArgumentNullException(nameof(writer));
+        
         WriteValue(writer, value);
+    }
 
     private static MetadataValue ReadValue(ref Utf8JsonReader reader)
     {
