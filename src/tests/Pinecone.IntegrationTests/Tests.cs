@@ -6,13 +6,98 @@ namespace tryAGI.OpenAI.IntegrationTests;
 public class GeneralTests
 {
     [TestMethod]
-    public void Generate()
+    public async Task Generate()
     {
         var apiKey =
-            Environment.GetEnvironmentVariable("POE_API_KEY") ??
-            throw new AssertInconclusiveException("POE_API_KEY environment variable is not found.");
+            Environment.GetEnvironmentVariable("PINECONE_API_KEY") ??
+            throw new AssertInconclusiveException("PINECONE_API_KEY environment variable is not found.");
+        var environment =
+            Environment.GetEnvironmentVariable("PINECONE_ENVIRONMENT") ??
+            throw new AssertInconclusiveException("PINECONE_ENVIRONMENT environment variable is not found.");
 
-        using var client = new HttpClient();
-        //var api = new PoeApi(apiKey, client);
+        const string indexName = "test-index";
+
+        var openAiApiKey =
+            Environment.GetEnvironmentVariable("OPENAI_API_KEY") ??
+            throw new AssertInconclusiveException("OPENAI_API_KEY environment variable is not found.");
+        
+        var clientHandler = new HttpClientHandler();
+        clientHandler.ServerCertificateCustomValidationCallback = static (_, _, _, _) => true;
+
+        using var httpClient = new HttpClient(clientHandler);
+        var pinecone = new PineconeClient(apiKey, environment, httpClient);
+
+        // Check if the index exists and create it if it doesn't
+        // Depending on the storage type and infrastructure state this may take a while
+        // Free tier is limited to 1 index only
+        if (!(await pinecone.ListIndexes()).Contains(indexName))
+        {
+            await pinecone.CreateIndex(indexName, dimension: 1536, Metric.Cosine);
+        }
+
+        // Create an OpenAI Azure client and declare a helper method to embed our text
+        var openAiApi = new OpenAiApi(openAiApiKey, new HttpClient());
+
+        // Get our Pinecone index (uses gRPC by default)
+        using var index = await pinecone.GetIndexWithRestTransport(indexName);
+
+        var first = new Vector
+        {
+            Id = "first",
+            Values = await Embed("Hello world!"),
+            Metadata = new MetadataMap
+            {
+                ["price"] = 50,
+            }
+        };
+
+        var second = new Vector
+        {
+            Id = "second",
+            Values = await Embed("Hello world!"),
+            Metadata = new MetadataMap
+            {
+                ["price"] = 100,
+            }
+        };
+
+        // Upsert vectors into the index
+        await index.Upsert(new[] { first, second });
+
+        // Specify metadata filter to query the index with
+        var priceRange = new MetadataMap
+        {
+            ["price"] = new MetadataMap
+            {
+                ["$gte"] = 75,
+                ["$lte"] = 125,
+            }
+        };
+
+        // Query the index by embedding and metadata filter
+        var results = await index.Query(
+            await Embed("Hello world!"),
+            topK: 3,
+            filter: priceRange,
+            includeMetadata: true);
+
+        Console.WriteLine(string.Join('\n', results.SelectMany(v => v.Metadata!)));
+
+        // Remove the example vectors we just added
+        await index.Delete(new[] { "first", "second" });
+        return;
+
+        async Task<float[]> Embed(string text)
+        {
+            var response = await openAiApi.CreateEmbeddingAsync(new CreateEmbeddingRequest
+            {
+                Input = text,
+                Model = "text-embedding-ada-002",
+            });
+            
+            return response.Data.ElementAt(0).Embedding
+                .Select(static x => (float)x)
+                .ToArray(); // IReadOnlyList<float>, really Microsoft?
+        }
     }
 }
