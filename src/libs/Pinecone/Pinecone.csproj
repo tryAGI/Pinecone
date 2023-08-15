@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net4.6.2;net6.0;net7.0</TargetFrameworks>
     <PolySharpIncludeRuntimeSupportedAttributes>true</PolySharpIncludeRuntimeSupportedAttributes>
-    <NoWarn>$(NoWarn);CS8002;CS1591;CA1001;CA1819;CA2225;NU5104</NoWarn>
+    <NoWarn>$(NoWarn);CS8002;CS1591;CA2234;CA1001;CA1819;CA2225;NU5104</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Label="Nuget">

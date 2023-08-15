@@ -81,14 +81,17 @@ public readonly record struct RestTransport : ITransport
         var request = new UpsertRequest
         {
             Vectors = vectors as Vector[] ?? vectors.ToArray(),
-            Namespace = indexNamespace ?? ""
+            Namespace = indexNamespace ?? "",
         };
 
         var response = await Http.PostAsJsonAsync("/vectors/upsert", request, SerializerContext.Default.UpsertRequest).ConfigureAwait(false);
 
         await response.CheckStatusCode().ConfigureAwait(false);
+
+        var upsertResponse = await response.Content.ReadFromJsonAsync(SerializerContext.Default.UpsertResponse)
+            .ConfigureAwait(false);
         
-        return (await response.Content.ReadFromJsonAsync(SerializerContext.Default.UpsertResponse).ConfigureAwait(false)).UpsertedCount;
+        return upsertResponse.UpsertedCount;
     }
 
     /// <inheritdoc/>

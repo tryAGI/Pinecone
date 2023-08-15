@@ -167,8 +167,12 @@ public class PineconeClient
     /// 
     /// </summary>
     /// <param name="name"></param>
-    public async Task DeleteIndex(IndexName name) =>
-        await (await HttpClient.DeleteAsync(new Uri($"/databases/{name.Value}")).ConfigureAwait(false)).CheckStatusCode().ConfigureAwait(false);
+    public async Task DeleteIndex(IndexName name)
+    {
+        var response = await HttpClient.DeleteAsync($"/databases/{name.Value}").ConfigureAwait(false);
+        
+        await response.CheckStatusCode().ConfigureAwait(false);
+    }
 
     /// <summary>
     /// 
@@ -222,6 +226,9 @@ public class PineconeClient
     /// 
     /// </summary>
     /// <param name="name"></param>
-    public async Task DeleteCollection(CollectionName name) =>
-        await (await HttpClient.DeleteAsync(new Uri($"/collections/{name.Value}")).ConfigureAwait(false)).CheckStatusCode().ConfigureAwait(false);
+    public async Task DeleteCollection(CollectionName name)
+    {
+        var response = await HttpClient.DeleteAsync($"/collections/{name.Value}").ConfigureAwait(false);
+        await response.CheckStatusCode().ConfigureAwait(false);
+    }
 }

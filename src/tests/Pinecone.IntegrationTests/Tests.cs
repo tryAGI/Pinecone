@@ -21,10 +21,7 @@ public class GeneralTests
             Environment.GetEnvironmentVariable("OPENAI_API_KEY") ??
             throw new AssertInconclusiveException("OPENAI_API_KEY environment variable is not found.");
         
-        var clientHandler = new HttpClientHandler();
-        clientHandler.ServerCertificateCustomValidationCallback = static (_, _, _, _) => true;
-
-        using var httpClient = new HttpClient(clientHandler);
+        using var httpClient = new HttpClient();
         var pinecone = new PineconeClient(apiKey, environment, httpClient);
 
         // Check if the index exists and create it if it doesn't
@@ -85,6 +82,8 @@ public class GeneralTests
 
         // Remove the example vectors we just added
         await index.Delete(new[] { "first", "second" });
+
+        await pinecone.DeleteIndex(indexName);
         return;
 
         async Task<float[]> Embed(string text)
