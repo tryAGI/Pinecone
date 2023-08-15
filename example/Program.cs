@@ -1,9 +1,9 @@
-﻿using Azure.AI.OpenAI;
-using Pinecone;
+﻿using Pinecone;
+using tryAGI.OpenAI;
 
 const string indexName = "your-index";
 
-var openAIKey = "your-key";
+var openAiKey = "your-key";
 var pineconeKey = "your-key";
 var pineconeEnv = "your-env";
 
@@ -19,13 +19,7 @@ if (!(await pinecone.ListIndexes()).Contains(indexName))
 }
 
 // Create an OpenAI Azure client and declare a helper method to embed our text
-var openAI = new OpenAIClient(openAIKey);
-async Task<float[]> Embed(string text)
-{
-    var request = new EmbeddingsOptions(text);
-    var response = await openAI.GetEmbeddingsAsync("text-embedding-ada-002", request);
-    return response.Value.Data[0].Embedding.ToArray(); // IReadOnlyList<float>, really Microsoft?
-}
+var openAiApi = new OpenAiApi(apiKey: openAiKey, new HttpClient());
 
 // Get our Pinecone index (uses gRPC by default)
 using var index = await pinecone.GetIndex(indexName);
@@ -54,7 +48,7 @@ var priceRange = new MetadataMap
     {
         ["$gte"] = 75,
         ["$lte"] = 125
-    }
+    },
 };
 
 // Query the index by embedding and metadata filter
@@ -68,3 +62,9 @@ Console.WriteLine(string.Join('\n', results.SelectMany(v => v.Metadata!)));
 
 // Remove the example vectors we just added
 await index.Delete(new[] { "first", "second" });
+return;
+
+async Task<float[]> Embed(string text)
+{
+    return await openAiApi.CreateEmbeddingAsync(text);
+}

@@ -89,15 +89,7 @@ public class GeneralTests
 
         async Task<float[]> Embed(string text)
         {
-            var response = await openAiApi.CreateEmbeddingAsync(new CreateEmbeddingRequest
-            {
-                Input = text,
-                Model = "text-embedding-ada-002",
-            });
-            
-            return response.Data.ElementAt(0).Embedding
-                .Select(static x => (float)x)
-                .ToArray(); // IReadOnlyList<float>, really Microsoft?
+            return await openAiApi.CreateEmbeddingAsync(text);
         }
     }
 }

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.6" />
+    <PackageReference Include="tryAGI.OpenAI" Version="1.7.2" />
   </ItemGroup>
 
 </Project>
