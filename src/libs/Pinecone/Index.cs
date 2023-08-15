@@ -4,7 +4,7 @@ namespace Pinecone;
 
 // Contract
 public sealed partial record Index<TTransport>
-    where TTransport : ITransport<TTransport>
+    where TTransport : ITransport
 {
     [JsonPropertyName("database")]
     public required IndexDetails Details { get; init; }
@@ -18,7 +18,7 @@ public sealed partial record Index<TTransport>
 
 // Implementation
 public sealed partial record Index<TTransport> : IDisposable
-    where TTransport : ITransport<TTransport>
+    where TTransport : ITransport
 {
     [JsonIgnore]
     internal TTransport Transport { get; set; } = default!;

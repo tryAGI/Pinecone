@@ -5,7 +5,7 @@ using CommunityToolkit.Diagnostics;
 
 namespace Pinecone.Rest;
 
-public readonly record struct RestTransport : ITransport<RestTransport>
+public readonly record struct RestTransport : ITransport
 {
     private readonly HttpClient Http;
 

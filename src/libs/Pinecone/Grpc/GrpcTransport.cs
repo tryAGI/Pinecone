@@ -4,7 +4,7 @@ using Grpc.Net.Client;
 
 namespace Pinecone.Grpc;
 
-public readonly record struct GrpcTransport : ITransport<GrpcTransport>
+public readonly record struct GrpcTransport : ITransport
 {
     private readonly Metadata Auth;
 

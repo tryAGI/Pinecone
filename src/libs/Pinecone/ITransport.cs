@@ -1,6 +1,6 @@
 namespace Pinecone;
 
-public interface ITransport<T> : IDisposable
+public interface ITransport : IDisposable
 {
     Task<IndexStats> DescribeStats(MetadataMap? filter = null);
     Task<ScoredVector[]> Query(

@@ -7,7 +7,8 @@ var openAIKey = "your-key";
 var pineconeKey = "your-key";
 var pineconeEnv = "your-env";
 
-using var pinecone = new PineconeClient(pineconeKey, pineconeEnv);
+using var httpClient = new HttpClient();
+var pinecone = new PineconeGrpcClient(pineconeKey, pineconeEnv, httpClient);
 
 // Check if the index exists and create it if it doesn't
 // Depending on the storage type and infrastructure state this may take a while

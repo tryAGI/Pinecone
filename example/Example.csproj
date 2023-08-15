@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Pinecone.csproj" />
+    <ProjectReference Include="..\src\libs\Pinecone\Pinecone.csproj" />
   </ItemGroup>
 
   <ItemGroup>
