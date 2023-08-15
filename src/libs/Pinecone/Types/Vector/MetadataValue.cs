@@ -4,42 +4,6 @@ using Pinecone.Rest;
 
 namespace Pinecone;
 
-public record Vector
-{
-    public required string Id { get; init; }
-    public required float[] Values { get; init; }
-    public SparseVector? SparseValues { get; init; }
-    public MetadataMap? Metadata { get; init; }
-}
-
-public readonly record struct SparseVector
-{
-    public required uint[] Indices { get; init; }
-    public required float[] Values { get; init; }
-}
-
-public record ScoredVector
-{
-    public required string Id { get; init; }
-    public required double Score { get; init; }
-    public float[]? Values { get; init; }
-    public SparseVector? SparseValues { get; init; }
-    public MetadataMap? Metadata { get; init; }
-}
-
-[Serializable]
-public sealed class MetadataMap : Dictionary<string, MetadataValue>
-{
-    public MetadataMap()
-    {
-    }
-    
-    private MetadataMap(System.Runtime.Serialization.SerializationInfo serializationInfo, System.Runtime.Serialization.StreamingContext streamingContext)
-        : base(serializationInfo, streamingContext)
-    {
-    }
-}
-
 [JsonConverter(typeof(MetadataValueConverter))]
 public readonly record struct MetadataValue
 {

@@ -15,7 +15,7 @@ var pinecone = new PineconeClient(pineconeKey, pineconeEnv, httpClient);
 // Free tier is limited to 1 index only
 if (!(await pinecone.ListIndexes()).Contains(indexName))
 {
-    await pinecone.CreateIndex(indexName, 1536, Metric.Cosine);
+    await pinecone.CreateIndex(indexName, dimension: 1536, Metric.Cosine);
 }
 
 // Create an OpenAI Azure client and declare a helper method to embed our text

@@ -3,8 +3,8 @@ namespace Pinecone;
 public sealed class IndexClient<TTransport>(Index index, TTransport transport) : IDisposable
     where TTransport : ITransport
 {
-    internal Index Index { get; } = index;
-    internal TTransport Transport { get; } = transport;
+    public Index Index { get; } = index;
+    public TTransport Transport { get; } = transport;
 
     public Task<IndexStats> DescribeStats(MetadataMap? filter = null)
     {
