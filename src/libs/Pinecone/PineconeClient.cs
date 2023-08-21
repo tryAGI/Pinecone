@@ -55,13 +55,13 @@ public class PineconeClient
             return Array.Empty<IndexName>();
         }
 
-        var indexes = new IndexName[response.Length];
-        foreach (var i in 0..response.Length)
+        var indexes = new List<IndexName>(capacity: response.Length);
+        foreach (var value in response)
         {
-            indexes[i] = new(response[i]);
+            indexes.Add(new IndexName(value));
         }
 
-        return indexes;
+        return indexes.ToArray();
     }
 
     /// <summary>
@@ -186,13 +186,13 @@ public class PineconeClient
             return Array.Empty<CollectionName>();
         }
 
-        var collections = new CollectionName[response.Length];
-        foreach (var i in 0..response.Length)
+        var collections = new List<CollectionName>(capacity: response.Length);
+        foreach (var value in response)
         {
-            collections[i] = new(response[i]);
+            collections.Add(new CollectionName(value));
         }
 
-        return collections;
+        return collections.ToArray();
     }
 
     /// <summary>

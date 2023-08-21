@@ -80,13 +80,13 @@ public readonly record struct GrpcTransport : ITransport
         var response = await call;
 
         var matches = response.Matches;
-        var vectors = new ScoredVector[response.Matches.Count];
-        foreach (var i in 0..matches.Count)
+        var vectors = new List<ScoredVector>(capacity: response.Matches.Capacity);
+        foreach (var match in matches)
         {
-            vectors[i] = matches[i].ToPublicType();
+            vectors.Add(match.ToPublicType());
         }
 
-        return vectors;
+        return vectors.ToArray();
     }
 
     /// <inheritdoc/>
