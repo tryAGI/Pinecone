@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IndexRange" Version="1.0.2" />
+    <PackageReference Include="IndexRange" Version="1.0.3" />
     <PackageReference Include="System.Text.Json" Version="8.0.0-preview.7.23375.6" />
     <PackageReference Include="System.Net.Http.Json" Version="8.0.0-preview.7.23375.6" />
     <PackageReference Include="PolySharp" Version="1.13.2">
@@ -21,9 +21,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.1" />
-    <PackageReference Include="Google.Protobuf" Version="3.24.0" />
-    <PackageReference Include="Grpc.Net.Client" Version="2.55.0" />
-    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.55.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.24.2" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.56.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.56.0" />
     <PackageReference Include="Grpc.Tools" Version="2.57.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
