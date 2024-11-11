@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="tryAGI.OpenAI" Version="3.8.0" />
+    <PackageReference Include="tryAGI.OpenAI" Version="3.9.2" />
   </ItemGroup>
 
 </Project>
