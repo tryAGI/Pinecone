@@ -10,10 +10,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.6.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.6.3" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.6.4" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.6.4" />
     <PackageReference Include="FluentAssertions" Version="7.0.0" />
-    <PackageReference Include="tryAGI.OpenAI" Version="3.9.1" />
+    <PackageReference Include="tryAGI.OpenAI" Version="3.9.2" />
   </ItemGroup>
 
   <ItemGroup Label="GlobalUsings">
