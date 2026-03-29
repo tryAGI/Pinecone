@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <NoWarn>$(NoWarn);CS3002;CS3003;CS1591;CA1822</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Nuget">
+    <PackageId>tryAGI.Pinecone</PackageId>
+    <Description>C# SDK for the Pinecone API -- vector database with similarity search, index management, inference (embeddings and reranking).</Description>
+    <PackageTags>pinecone;vector-database;embeddings;reranking;ai;sdk;dotnet;openapi;autosdk</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="[9.6.0,)" />
+  </ItemGroup>
+
+</Project>
