@@ -33,6 +33,7 @@ var client = new PineconeClient(apiKey); // PINECONE_API_KEY env var
 - `src/libs/Pinecone/Extensions/InferenceClient.PrepareRequest.cs` -- Bearer to Api-Key auth conversion
 - `src/libs/Pinecone/Extensions/ManageIndexesClient.PrepareRequest.cs` -- Bearer to Api-Key auth conversion
 - `src/libs/Pinecone/Extensions/PineconeClient.Tools.cs` -- MEAI AIFunction tools
+- `src/libs/Pinecone/Extensions/InferenceClient.EmbeddingGenerator.cs` -- MEAI IEmbeddingGenerator implementation
 - `src/tests/IntegrationTests/Tests.cs` -- Test helper with API key auth
 - `src/tests/IntegrationTests/Examples/` -- Example tests (also generate docs)
 
@@ -41,6 +42,15 @@ var client = new PineconeClient(apiKey); // PINECONE_API_KEY env var
 The SDK has sub-clients accessed via properties:
 - `client.ManageIndexes.*` -- Index CRUD, collections, backups, restore jobs
 - `client.Inference.*` -- Embeddings, reranking, model listing
+
+## MEAI Integration
+
+- **Interface:** `IEmbeddingGenerator<string, Embedding<float>>` on `InferenceClient`
+- **Namespace conflict:** Yes -- `Pinecone.Embedding` struct shadows MEAI `Embedding<T>`. Uses `using Meai = Microsoft.Extensions.AI;` alias
+- **Provider name:** `"pinecone"`
+- **Default model:** `multilingual-e5-large`
+- **Features:** Dense embeddings, token usage tracking
+- **Access:** `client.Inference` (implements `IEmbeddingGenerator`)
 
 ## MEAI Tools
 
