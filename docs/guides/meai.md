@@ -3,7 +3,7 @@
 !!! tip "Cross-SDK comparison"
     See the [centralized MEAI documentation](https://tryagi.github.io/docs/meai/) for feature matrices and comparisons across all tryAGI SDKs.
 
-The Pinecone SDK implements `IEmbeddingGenerator<string, Embedding<float>>` from [Microsoft.Extensions.AI](https://learn.microsoft.com/en-us/dotnet/ai/microsoft-extensions-ai) for text embeddings, plus `AIFunction` tool wrappers for use with any `IChatClient`.
+The Pinecone SDK implements `IEmbeddingGenerator<string, Embedding<float>>` and provides `AIFunction` tool wrappers, all compatible with [Microsoft.Extensions.AI](https://learn.microsoft.com/en-us/dotnet/ai/microsoft-extensions-ai).
 
 ## Installation
 
