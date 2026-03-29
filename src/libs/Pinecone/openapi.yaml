@@ -4260,8 +4260,7 @@ components:
     BearerAuth:
       type: http
       scheme: bearer
-      description: An API Key is required to call Pinecone APIs. Get yours from the
-        console.
+      description: An API Key is required to call Pinecone APIs.
 security:
 - BearerAuth: []
 tags:
