@@ -4256,13 +4256,6 @@ components:
       required:
       - index
       - score
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: An API Key is required to call Pinecone APIs.
-security:
-- BearerAuth: []
 tags:
 - name: Manage Indexes
   description: Actions that manage indexes

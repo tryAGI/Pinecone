@@ -32,15 +32,11 @@ for tag in inference.get('tags', []):
     if tag['name'] not in existing_tag_names:
         merged['tags'].append(tag)
 
-# Convert apiKey auth to http/bearer for AutoSDK
-merged['components']['securitySchemes'] = {
-    'BearerAuth': {
-        'type': 'http',
-        'scheme': 'bearer',
-        'description': 'An API Key is required to call Pinecone APIs.'
-    }
-}
-merged['security'] = [{'BearerAuth': []}]
+# Remove existing securitySchemes (will be overridden by --security-scheme flag)
+if 'securitySchemes' in merged.get('components', {}):
+    del merged['components']['securitySchemes']
+if 'security' in merged:
+    del merged['security']
 
 with open('openapi.yaml', 'w') as f:
     yaml.dump(merged, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
@@ -48,9 +44,11 @@ with open('openapi.yaml', 'w') as f:
 
 rm -f db_control.yaml inference.yaml
 
+# Auth: Api-Key header.
 autosdk generate openapi.yaml \
   --namespace Pinecone \
   --clientClassName PineconeClient \
   --targetFramework net10.0 \
   --output Generated \
-  --exclude-deprecated-operations
+  --exclude-deprecated-operations \
+  --security-scheme ApiKey:Header:Api-Key

@@ -6,7 +6,7 @@ namespace Pinecone
     public sealed partial class PineconeClient
     {
         /// <inheritdoc/>
-        public void AuthorizeUsingBearer(
+        public void AuthorizeUsingApiKeyInHeader(
             string apiKey)
         {
             apiKey = apiKey ?? throw new global::System.ArgumentNullException(nameof(apiKey));
@@ -14,9 +14,9 @@ namespace Pinecone
             Authorizations.Clear();
             Authorizations.Add(new global::Pinecone.EndPointAuthorization
             {
-                Type = "Http",
+                Type = "ApiKey",
                 Location = "Header",
-                Name = "Bearer",
+                Name = "Api-Key",
                 Value = apiKey,
             });
         }
