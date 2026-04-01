@@ -548,6 +548,7 @@ namespace Pinecone
             string? vectorType = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::Pinecone.CreateIndexRequest
             {
                 Name = name,

@@ -156,19 +156,19 @@ namespace Pinecone.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.IndexSpecServerless), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.IndexSpecServerless?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.IndexSpecServerless).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Serverless, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Serverless!, typeInfo);
             }
             else if (value.IsPodBased)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.IndexSpecPodBased), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.IndexSpecPodBased?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.IndexSpecPodBased).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PodBased, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PodBased!, typeInfo);
             }
             else if (value.IsByoc)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.IndexSpecByoc), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.IndexSpecByoc?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.IndexSpecByoc).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Byoc, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Byoc!, typeInfo);
             }
         }
     }

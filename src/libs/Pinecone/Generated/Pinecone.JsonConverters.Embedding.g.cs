@@ -59,13 +59,13 @@ namespace Pinecone.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.DenseEmbedding), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.DenseEmbedding?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.DenseEmbedding).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Dense, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Dense!, typeInfo);
             }
             else if (value.IsSparse)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.SparseEmbedding), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.SparseEmbedding?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.SparseEmbedding).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Sparse, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Sparse!, typeInfo);
             }
         }
     }
