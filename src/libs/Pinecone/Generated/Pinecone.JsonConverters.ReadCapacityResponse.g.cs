@@ -59,13 +59,13 @@ namespace Pinecone.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.ReadCapacityOnDemandSpecResponse), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.ReadCapacityOnDemandSpecResponse?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.ReadCapacityOnDemandSpecResponse).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OnDemand, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OnDemand!, typeInfo);
             }
             else if (value.IsDedicated)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.ReadCapacityDedicatedSpecResponse), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.ReadCapacityDedicatedSpecResponse?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.ReadCapacityDedicatedSpecResponse).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Dedicated, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Dedicated!, typeInfo);
             }
         }
     }

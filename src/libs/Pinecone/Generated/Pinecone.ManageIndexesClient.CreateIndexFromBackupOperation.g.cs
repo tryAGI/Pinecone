@@ -532,6 +532,7 @@ namespace Pinecone
             string? deletionProtection = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::Pinecone.CreateIndexFromBackupRequest
             {
                 Name = name,
