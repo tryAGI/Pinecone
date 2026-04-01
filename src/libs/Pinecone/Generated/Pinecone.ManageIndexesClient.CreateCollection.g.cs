@@ -483,7 +483,6 @@ namespace Pinecone
             string xPineconeApiVersion = "2026-04",
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::Pinecone.CreateCollectionRequest
             {
                 Name = name,

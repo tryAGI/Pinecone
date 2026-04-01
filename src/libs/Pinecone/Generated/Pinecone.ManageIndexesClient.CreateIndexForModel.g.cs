@@ -479,7 +479,6 @@ namespace Pinecone
             global::Pinecone.ReadCapacity? readCapacity = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::Pinecone.CreateIndexForModelRequest
             {
                 Name = name,
