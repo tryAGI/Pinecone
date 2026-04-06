@@ -3,7 +3,7 @@
 namespace Pinecone.JsonConverters
 {
     /// <inheritdoc />
-    public class AnyOfJsonConverter<T1, T2> : global::System.Text.Json.Serialization.JsonConverter<global::Pinecone.AnyOf<T1, T2>>
+    public class AnyOfJsonConverter<[global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties)] T1, [global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties)] T2> : global::System.Text.Json.Serialization.JsonConverter<global::Pinecone.AnyOf<T1, T2>>
     {
         /// <inheritdoc />
         public override global::Pinecone.AnyOf<T1, T2> Read(
