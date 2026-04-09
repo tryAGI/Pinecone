@@ -5,6 +5,25 @@ namespace Pinecone
 {
     public partial class ManageIndexesClient
     {
+
+
+        private static readonly global::Pinecone.EndPointSecurityRequirement s_DescribeRestoreJobSecurityRequirement0 =
+            new global::Pinecone.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Pinecone.EndPointAuthorizationRequirement[]
+                {                    new global::Pinecone.EndPointAuthorizationRequirement
+                    {
+                        Type = "ApiKey",
+                        Location = "Header",
+                        Name = "Api-Key",
+                        FriendlyName = "ApiKeyInHeader",
+                    },
+                },
+            };
+        private static readonly global::Pinecone.EndPointSecurityRequirement[] s_DescribeRestoreJobSecurityRequirements =
+            new global::Pinecone.EndPointSecurityRequirement[]
+            {                s_DescribeRestoreJobSecurityRequirement0,
+            };
         partial void PrepareDescribeRestoreJobArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref string xPineconeApiVersion,
@@ -45,9 +64,15 @@ namespace Pinecone
                 xPineconeApiVersion: ref xPineconeApiVersion,
                 jobId: ref jobId);
 
+
+            var __authorizations = global::Pinecone.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_DescribeRestoreJobSecurityRequirements,
+                operationName: "DescribeRestoreJobAsync");
+
             var __pathBuilder = new global::Pinecone.PathBuilder(
                 path: $"/restore-jobs/{jobId}",
-                baseUri: HttpClient.BaseAddress); 
+                baseUri: HttpClient.BaseAddress);
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Get,
@@ -57,7 +82,7 @@ namespace Pinecone
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")

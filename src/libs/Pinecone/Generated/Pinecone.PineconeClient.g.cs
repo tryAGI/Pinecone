@@ -13,7 +13,7 @@ namespace Pinecone
         /// <summary>
         /// Production API endpoints
         /// </summary>
-        public const string DefaultBaseUrl = "https://api.pinecone.io";
+        public const string DefaultBaseUrl = "https://api.pinecone.io/";
 
         private bool _disposeHttpClient = true;
 
@@ -38,7 +38,7 @@ namespace Pinecone
 
 
         /// <summary>
-        /// Model inference
+        /// Model inference.
         /// </summary>
         public InferenceClient Inference => new InferenceClient(HttpClient, authorizations: Authorizations)
         {
@@ -47,7 +47,7 @@ namespace Pinecone
         };
 
         /// <summary>
-        /// Actions that manage indexes
+        /// Actions that manage indexes.
         /// </summary>
         public ManageIndexesClient ManageIndexes => new ManageIndexesClient(HttpClient, authorizations: Authorizations)
         {
