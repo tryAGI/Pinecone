@@ -5,6 +5,25 @@ namespace Pinecone
 {
     public partial class InferenceClient
     {
+
+
+        private static readonly global::Pinecone.EndPointSecurityRequirement s_RerankSecurityRequirement0 =
+            new global::Pinecone.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Pinecone.EndPointAuthorizationRequirement[]
+                {                    new global::Pinecone.EndPointAuthorizationRequirement
+                    {
+                        Type = "ApiKey",
+                        Location = "Header",
+                        Name = "Api-Key",
+                        FriendlyName = "ApiKeyInHeader",
+                    },
+                },
+            };
+        private static readonly global::Pinecone.EndPointSecurityRequirement[] s_RerankSecurityRequirements =
+            new global::Pinecone.EndPointSecurityRequirement[]
+            {                s_RerankSecurityRequirement0,
+            };
         partial void PrepareRerankArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref string xPineconeApiVersion,
@@ -49,9 +68,15 @@ namespace Pinecone
                 xPineconeApiVersion: ref xPineconeApiVersion,
                 request: request);
 
+
+            var __authorizations = global::Pinecone.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_RerankSecurityRequirements,
+                operationName: "RerankAsync");
+
             var __pathBuilder = new global::Pinecone.PathBuilder(
                 path: "/rerank",
-                baseUri: HttpClient.BaseAddress); 
+                baseUri: HttpClient.BaseAddress);
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Post,
@@ -61,7 +86,7 @@ namespace Pinecone
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")

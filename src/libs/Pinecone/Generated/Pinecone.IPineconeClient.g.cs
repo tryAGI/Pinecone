@@ -41,12 +41,12 @@ namespace Pinecone
 
 
         /// <summary>
-        /// Model inference
+        /// Model inference.
         /// </summary>
         public InferenceClient Inference { get; }
 
         /// <summary>
-        /// Actions that manage indexes
+        /// Actions that manage indexes.
         /// </summary>
         public ManageIndexesClient ManageIndexes { get; }
 

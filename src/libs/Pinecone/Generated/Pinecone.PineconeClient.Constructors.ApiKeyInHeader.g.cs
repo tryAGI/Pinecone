@@ -6,6 +6,7 @@ namespace Pinecone
     public sealed partial class PineconeClient
     {
         /// <inheritdoc cref="PineconeClient(global::System.Net.Http.HttpClient?, global::System.Uri?, global::System.Collections.Generic.List{global::Pinecone.EndPointAuthorization}?, bool)"/>
+
         public PineconeClient(
             string apiKey,
             global::System.Net.Http.HttpClient? httpClient = null,
