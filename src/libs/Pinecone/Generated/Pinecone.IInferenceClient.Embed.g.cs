@@ -12,12 +12,14 @@ namespace Pinecone
         /// Default Value: 2026-04
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Pinecone.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Pinecone.EmbeddingsList> EmbedAsync(
 
             global::Pinecone.EmbedRequest request,
             string xPineconeApiVersion = "2026-04",
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Generate vectors<br/>
@@ -37,6 +39,7 @@ namespace Pinecone
         /// <param name="inputs">
         /// List of inputs to generate embeddings for.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Pinecone.EmbeddingsList> EmbedAsync(
@@ -44,6 +47,7 @@ namespace Pinecone
             global::System.Collections.Generic.IList<global::Pinecone.EmbedRequestInput> inputs,
             string xPineconeApiVersion = "2026-04",
             object? parameters = default,
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

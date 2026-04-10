@@ -13,12 +13,14 @@ namespace Pinecone
         /// Default Value: 2026-04
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Pinecone.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Pinecone.RerankResult> RerankAsync(
 
             global::Pinecone.RerankRequest request,
             string xPineconeApiVersion = "2026-04",
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Rerank results<br/>
@@ -57,6 +59,7 @@ namespace Pinecone
         /// Additional model-specific parameters. Refer to the [model guide](https://docs.pinecone.io/guides/search/rerank-results#reranking-models) for available model parameters.<br/>
         /// Example: {"truncate":"END"}
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Pinecone.RerankResult> RerankAsync(
@@ -68,6 +71,7 @@ namespace Pinecone
             bool? returnDocuments = default,
             global::System.Collections.Generic.IList<string>? rankFields = default,
             object? parameters = default,
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
