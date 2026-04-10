@@ -26,6 +26,7 @@ namespace Pinecone
             Authorizations.Add(new global::Pinecone.EndPointAuthorization
             {
                 Type = "ApiKey",
+                SchemeId = "ApikeyApiKey",
                 Location = "Header",
                 Name = "Api-Key",
                 Value = apiKey,

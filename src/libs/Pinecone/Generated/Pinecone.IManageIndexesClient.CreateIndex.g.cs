@@ -14,12 +14,14 @@ namespace Pinecone
         /// Default Value: 2026-04
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Pinecone.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Pinecone.IndexModel> CreateIndexAsync(
 
             global::Pinecone.CreateIndexRequest request,
             string xPineconeApiVersion = "2026-04",
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an index<br/>
@@ -59,6 +61,7 @@ namespace Pinecone
         /// The index vector type. You can use 'dense' or 'sparse'. If 'dense', the vector dimension must be specified.  If 'sparse', the vector dimension should not be specified.<br/>
         /// Default Value: dense
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Pinecone.IndexModel> CreateIndexAsync(
@@ -70,6 +73,7 @@ namespace Pinecone
             string? deletionProtection = default,
             global::System.Collections.Generic.Dictionary<string, string>? tags = default,
             string? vectorType = default,
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

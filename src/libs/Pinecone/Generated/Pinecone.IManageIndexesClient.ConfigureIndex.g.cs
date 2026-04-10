@@ -13,6 +13,7 @@ namespace Pinecone
         /// </param>
         /// <param name="indexName"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Pinecone.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Pinecone.IndexModel> ConfigureIndexAsync(
@@ -20,6 +21,7 @@ namespace Pinecone
 
             global::Pinecone.ConfigureIndexRequest request,
             string xPineconeApiVersion = "2026-04",
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Configure an index<br/>
@@ -47,6 +49,7 @@ namespace Pinecone
         /// You can later change the embedding configuration to update the field map, read parameters, or write parameters. Once set, the model cannot be changed.<br/>
         /// Example: {"field_map":{"text":"your-text-field"},"model":"multilingual-e5-large","read_parameters":{"input_type":"query","truncate":"NONE"},"write_parameters":{"input_type":"passage"}}
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Pinecone.IndexModel> ConfigureIndexAsync(
@@ -56,6 +59,7 @@ namespace Pinecone
             string? deletionProtection = default,
             global::System.Collections.Generic.Dictionary<string, string>? tags = default,
             global::Pinecone.ConfigureIndexRequestEmbed? embed = default,
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
