@@ -4,7 +4,7 @@
 namespace Pinecone
 {
     /// <summary>
-    /// Actions that manage indexes.<br/>
+    /// Actions that manage indexes<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>
