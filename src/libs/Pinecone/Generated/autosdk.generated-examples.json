@@ -1,0 +1,246 @@
+{
+  "Examples": [
+    {
+      "Order": 1,
+      "Title": "Generate vectors",
+      "Slug": "embed",
+      "Description": "Generate vector embeddings for input data. This endpoint uses Pinecone\u0027s [hosted embedding models](https://docs.pinecone.io/guides/index-data/create-an-index#embedding-models).",
+      "Language": "http",
+      "Code": "### Generate vectors\n# @name embed\nPOST {{host}}/embed\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022model\u0022: \u0022multilingual-e5-large\u0022,\n  \u0022parameters\u0022: {\n    \u0022input_type\u0022: \u0022passage\u0022,\n    \u0022truncate\u0022: \u0022END\u0022\n  },\n  \u0022inputs\u0022: [\n    {\n      \u0022text\u0022: \u0022The quick brown fox jumps over the lazy dog.\u0022\n    }\n  ]\n}\n\n## Responses\n# 200\n# Description: OK\n# Content-Type: application/json\n# 400\n# Description: Bad request. The request body included invalid request parameters.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "embed",
+      "Setup": null
+    },
+    {
+      "Order": 2,
+      "Title": "Describe a model",
+      "Slug": "get-model",
+      "Description": "Get a description of a model hosted by Pinecone. \n\nYou can use hosted models as an integrated part of Pinecone operations or for standalone embedding and reranking. For more details, see [Vector embedding](https://docs.pinecone.io/guides/index-data/indexing-overview#vector-embedding) and [Rerank results](https://docs.pinecone.io/guides/search/rerank-results).",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar response = await client.Inference.GetModelAsync(\n    modelName: \u0022multilingual-e5-large\u0022\n);\n\n// Example response:\n// {\n//   \u0022default_dimension\u0022: 256,\n//   \u0022max_batch_size\u0022: 96,\n//   \u0022max_sequence_length\u0022: 512,\n//   \u0022modality\u0022: \u0022text\u0022,\n//   \u0022model\u0022: \u0022example-embedding-model\u0022,\n//   \u0022provider_name\u0022: \u0022Embedding Model Provider\u0022,\n//   \u0022short_description\u0022: \u0022An example embedding model.\u0022,\n//   \u0022supported_dimensions\u0022: [\n//     256,\n//     512\n//   ],\n//   \u0022supported_metrics\u0022: [\n//     \u0022cosine\u0022,\n//     \u0022euclidean\u0022\n//   ],\n//   \u0022supported_parameters\u0022: [\n//     {\n//       \u0022allowed_values\u0022: [\n//         \u0022value1\u0022,\n//         \u0022value2\u0022\n//       ],\n//       \u0022parameter\u0022: \u0022example_required_param\u0022,\n//       \u0022required\u0022: true,\n//       \u0022type\u0022: \u0022one_of\u0022,\n//       \u0022value_type\u0022: \u0022string\u0022\n//     },\n//     {\n//       \u0022allowed_values\u0022: [\n//         \u0022value1\u0022,\n//         \u0022value2\u0022\n//       ],\n//       \u0022default\u0022: \u0022value1\u0022,\n//       \u0022parameter\u0022: \u0022example_param_with_default\u0022,\n//       \u0022required\u0022: false,\n//       \u0022type\u0022: \u0022one_of\u0022,\n//       \u0022value_type\u0022: \u0022string\u0022\n//     },\n//     {\n//       \u0022default\u0022: 5,\n//       \u0022max\u0022: 10,\n//       \u0022min\u0022: 0,\n//       \u0022parameter\u0022: \u0022example_numeric_range\u0022,\n//       \u0022required\u0022: false,\n//       \u0022type\u0022: \u0022numeric_range\u0022,\n//       \u0022value_type\u0022: \u0022integer\u0022\n//     }\n//   ],\n//   \u0022type\u0022: \u0022embed\u0022,\n//   \u0022vector_type\u0022: \u0022dense\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "get_model",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 3,
+      "Title": "List available models",
+      "Slug": "list-models",
+      "Description": "List the embedding and reranking models hosted by Pinecone. \n\nYou can use hosted models as an integrated part of Pinecone operations or for standalone embedding and reranking. For more details, see [Vector embedding](https://docs.pinecone.io/guides/index-data/indexing-overview#vector-embedding) and [Rerank results](https://docs.pinecone.io/guides/search/rerank-results).",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar response = await client.Inference.ListModelsAsync(\n    type: \u0022embed\u0022,\n    vectorType: \u0022sparse\u0022\n);\n\n// Example response:\n// {\n//   \u0022models\u0022: [\n//     {\n//       \u0022default_dimension\u0022: 256,\n//       \u0022max_batch_size\u0022: 96,\n//       \u0022max_sequence_length\u0022: 512,\n//       \u0022modality\u0022: \u0022text\u0022,\n//       \u0022model\u0022: \u0022example-embedding-model\u0022,\n//       \u0022provider_name\u0022: \u0022Embedding Model Provider\u0022,\n//       \u0022short_description\u0022: \u0022An example embedding model.\u0022,\n//       \u0022supported_dimensions\u0022: [\n//         256,\n//         512\n//       ],\n//       \u0022supported_metrics\u0022: [\n//         \u0022cosine\u0022,\n//         \u0022euclidean\u0022\n//       ],\n//       \u0022supported_parameters\u0022: [\n//         {\n//           \u0022allowed_values\u0022: [\n//             \u0022value1\u0022,\n//             \u0022value2\u0022\n//           ],\n//           \u0022parameter\u0022: \u0022example_required_param\u0022,\n//           \u0022required\u0022: true,\n//           \u0022type\u0022: \u0022one_of\u0022,\n//           \u0022value_type\u0022: \u0022string\u0022\n//         },\n//         {\n//           \u0022allowed_values\u0022: [\n//             \u0022value1\u0022,\n//             \u0022value2\u0022\n//           ],\n//           \u0022default\u0022: \u0022value1\u0022,\n//           \u0022parameter\u0022: \u0022example_param_with_default\u0022,\n//           \u0022required\u0022: false,\n//           \u0022type\u0022: \u0022one_of\u0022,\n//           \u0022value_type\u0022: \u0022string\u0022\n//         },\n//         {\n//           \u0022default\u0022: 5,\n//           \u0022max\u0022: 10,\n//           \u0022min\u0022: 0,\n//           \u0022parameter\u0022: \u0022example_numeric_range\u0022,\n//           \u0022required\u0022: false,\n//           \u0022type\u0022: \u0022numeric_range\u0022,\n//           \u0022value_type\u0022: \u0022integer\u0022\n//         }\n//       ],\n//       \u0022type\u0022: \u0022embed\u0022,\n//       \u0022vector_type\u0022: \u0022dense\u0022\n//     },\n//     {\n//       \u0022max_batch_size\u0022: 100,\n//       \u0022max_sequence_length\u0022: 1024,\n//       \u0022modality\u0022: \u0022text\u0022,\n//       \u0022model\u0022: \u0022example-reranking-model\u0022,\n//       \u0022provider_name\u0022: \u0022Reranking Model Provider\u0022,\n//       \u0022short_description\u0022: \u0022An example reranking model.\u0022,\n//       \u0022supported_parameters\u0022: [\n//         {\n//           \u0022default\u0022: true,\n//           \u0022parameter\u0022: \u0022example_any_value\u0022,\n//           \u0022required\u0022: false,\n//           \u0022type\u0022: \u0022any\u0022,\n//           \u0022value_type\u0022: \u0022boolean\u0022\n//         }\n//       ],\n//       \u0022type\u0022: \u0022rerank\u0022\n//     }\n//   ]\n// }",
+      "Format": "sdk",
+      "OperationId": "list_models",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 4,
+      "Title": "Rerank results",
+      "Slug": "rerank",
+      "Description": "Rerank results according to their relevance to a query.\n\nFor guidance and examples, see [Rerank results](https://docs.pinecone.io/guides/search/rerank-results).",
+      "Language": "http",
+      "Code": "### Rerank results\n# @name rerank\nPOST {{host}}/rerank\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022model\u0022: \u0022bge-reranker-v2-m3\u0022,\n  \u0022query\u0022: \u0022What is the capital of France?\u0022,\n  \u0022top_n\u0022: 5,\n  \u0022return_documents\u0022: true,\n  \u0022rank_fields\u0022: [\n    \u0022text\u0022\n  ],\n  \u0022documents\u0022: [\n    {\n      \u0022id\u0022: \u00221\u0022,\n      \u0022text\u0022: \u0022Paris is the capital of France.\u0022,\n      \u0022title\u0022: \u0022France\u0022,\n      \u0022url\u0022: \u0022https://example.com\u0022\n    }\n  ],\n  \u0022parameters\u0022: {\n    \u0022truncate\u0022: \u0022END\u0022\n  }\n}\n\n## Responses\n# 200\n# Description: OK\n# Content-Type: application/json\n# 400\n# Description: Bad request. The request body included invalid request parameters.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "rerank",
+      "Setup": null
+    },
+    {
+      "Order": 5,
+      "Title": "Configure an index",
+      "Slug": "configure-index",
+      "Description": "Configure an existing index. For guidance and examples, see [Manage indexes](https://docs.pinecone.io/guides/manage-data/manage-indexes).",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Pinecone.ConfigureIndexRequest\u003E(\n    @\u0022{\n  \u0022\u0022delete_protection\u0022\u0022: \u0022\u0022disabled\u0022\u0022\n}\u0022)!;\n\nvar response = await client.ManageIndexes.ConfigureIndexAsync(\n    indexName: \u0022test-index\u0022,\n    request: request\n);",
+      "Format": "sdk",
+      "OperationId": "configure_index",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 6,
+      "Title": "Create a backup of an index",
+      "Slug": "create-backup",
+      "Description": "Create a backup of an index.",
+      "Language": "http",
+      "Code": "### Create a backup of an index\n# @name create_backup\nPOST {{host}}/indexes/{{index_name}}/backups\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nContent-Type: application/json\nAccept: application/json\n\n{}\n\n## Responses\n# 201\n# Description: The backup has been successfully created.\n# Content-Type: application/json\n# 400\n# Description: Bad request. The request body included invalid request parameters.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 402\n# Description: Payment required. Organization is on a paid plan and is delinquent on payment.\n# Content-Type: application/json\n# 403\n# Description: You\u0027ve exceed your backup quota.\n# Content-Type: application/json\n# 422\n# Description: Unprocessable entity. The request body could not be deserialized.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "create_backup",
+      "Setup": null
+    },
+    {
+      "Order": 7,
+      "Title": "Create a collection",
+      "Slug": "create-collection",
+      "Description": "Create a Pinecone collection.\n  \nServerless indexes do not support collections.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Pinecone.CreateCollectionRequest\u003E(\n    @\u0022{\n  \u0022\u0022name\u0022\u0022: \u0022\u0022example-collection\u0022\u0022,\n  \u0022\u0022source\u0022\u0022: \u0022\u0022example-source-index\u0022\u0022\n}\u0022)!;\n\nvar response = await client.ManageIndexes.CreateCollectionAsync(\n    request: request\n);",
+      "Format": "sdk",
+      "OperationId": "create_collection",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 8,
+      "Title": "Create an index",
+      "Slug": "create-index",
+      "Description": "Create a Pinecone index. This is where you specify the measure of similarity, the dimension of vectors to be stored in the index, which cloud provider you would like to deploy with, and more.\n  \nFor guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index).",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Pinecone.CreateIndexRequest\u003E(\n    @\u0022{\n  \u0022\u0022deletion_protection\u0022\u0022: \u0022\u0022enabled\u0022\u0022,\n  \u0022\u0022dimension\u0022\u0022: 1536,\n  \u0022\u0022metric\u0022\u0022: \u0022\u0022cosine\u0022\u0022,\n  \u0022\u0022name\u0022\u0022: \u0022\u0022movie-recommendations\u0022\u0022,\n  \u0022\u0022spec\u0022\u0022: {\n    \u0022\u0022pod\u0022\u0022: {\n      \u0022\u0022environment\u0022\u0022: \u0022\u0022us-east-1-aws\u0022\u0022,\n      \u0022\u0022metadata_config\u0022\u0022: {\n        \u0022\u0022indexed\u0022\u0022: [\n          \u0022\u0022genre\u0022\u0022,\n          \u0022\u0022title\u0022\u0022,\n          \u0022\u0022imdb_rating\u0022\u0022\n        ]\n      },\n      \u0022\u0022pod_type\u0022\u0022: \u0022\u0022p1.x1\u0022\u0022,\n      \u0022\u0022pods\u0022\u0022: 1,\n      \u0022\u0022replicas\u0022\u0022: 1,\n      \u0022\u0022shards\u0022\u0022: 1,\n      \u0022\u0022source_collection\u0022\u0022: \u0022\u0022movie-embeddings\u0022\u0022\n    }\n  }\n}\u0022)!;\n\nvar response = await client.ManageIndexes.CreateIndexAsync(\n    request: request\n);",
+      "Format": "sdk",
+      "OperationId": "create_index",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 9,
+      "Title": "Create an index with integrated embedding",
+      "Slug": "create-index-for-model",
+      "Description": "Create an index with integrated embedding.\nWith this type of index, you provide source text, and  Pinecone uses a [hosted embedding model](https://docs.pinecone.io/guides/index-data/create-an-index#embedding-models)  to convert the text automatically during [upsert](https://docs.pinecone.io/reference/api/2026-04/data-plane/upsert_records)  and [search](https://docs.pinecone.io/reference/api/2026-04/data-plane/search_records).  \nFor guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index#integrated-embedding).",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Pinecone.CreateIndexForModelRequest\u003E(\n    @\u0022{\n  \u0022\u0022cloud\u0022\u0022: \u0022\u0022gcp\u0022\u0022,\n  \u0022\u0022deletion_protection\u0022\u0022: \u0022\u0022enabled\u0022\u0022,\n  \u0022\u0022embed\u0022\u0022: {\n    \u0022\u0022field_map\u0022\u0022: {\n      \u0022\u0022text\u0022\u0022: \u0022\u0022your-text-field\u0022\u0022\n    },\n    \u0022\u0022metric\u0022\u0022: \u0022\u0022cosine\u0022\u0022,\n    \u0022\u0022model\u0022\u0022: \u0022\u0022multilingual-e5-large\u0022\u0022\n  },\n  \u0022\u0022name\u0022\u0022: \u0022\u0022multilingual-e5-large-index\u0022\u0022,\n  \u0022\u0022region\u0022\u0022: \u0022\u0022us-east1\u0022\u0022\n}\u0022)!;\n\nvar response = await client.ManageIndexes.CreateIndexForModelAsync(\n    request: request\n);",
+      "Format": "sdk",
+      "OperationId": "create_index_for_model",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 10,
+      "Title": "Create an index from a backup",
+      "Slug": "create-index-from-backup-operation",
+      "Description": "Create an index from a backup.",
+      "Language": "http",
+      "Code": "### Create an index from a backup\n# @name create_index_from_backup_operation\nPOST {{host}}/backups/{{backup_id}}/create-index\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022name\u0022: \u0022example-index\u0022,\n  \u0022tags\u0022: {\n    \u0022tag0\u0022: \u0022val0\u0022,\n    \u0022tag1\u0022: \u0022val1\u0022\n  },\n  \u0022deletion_protection\u0022: \u0022disabled\u0022\n}\n\n## Responses\n# 202\n# Description: The request to create the index has been accepted.\n# Content-Type: application/json\n# 400\n# Description: Bad request. The request body included invalid request parameters.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 402\n# Description: Payment required. Organization is on a paid plan and is delinquent on payment.\n# Content-Type: application/json\n# 403\n# Description: You\u0027ve exceed your pod quota.\n# Content-Type: application/json\n# 404\n# Description: Backup not found.\n# Content-Type: application/json\n# 409\n# Description: Index of given name already exists.\n# Content-Type: application/json\n# 422\n# Description: Unprocessable entity. The request body could not be deserialized.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "create_index_from_backup_operation",
+      "Setup": null
+    },
+    {
+      "Order": 11,
+      "Title": "Delete a backup",
+      "Slug": "delete-backup",
+      "Description": "Delete a backup.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nawait client.ManageIndexes.DeleteBackupAsync(\n    backupId: \u0022670e8400-e29b-41d4-a716-446655440000\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "delete_backup",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 12,
+      "Title": "Delete a collection",
+      "Slug": "delete-collection",
+      "Description": "Delete an existing collection.\nServerless indexes do not support collections.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nawait client.ManageIndexes.DeleteCollectionAsync(\n    collectionName: \u0022test-collection\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "delete_collection",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 13,
+      "Title": "Delete an index",
+      "Slug": "delete-index",
+      "Description": "Delete an existing index.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nawait client.ManageIndexes.DeleteIndexAsync(\n    indexName: \u0022test-index\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "delete_index",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 14,
+      "Title": "Describe a backup",
+      "Slug": "describe-backup",
+      "Description": "Get a description of a backup.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar response = await client.ManageIndexes.DescribeBackupAsync(\n    backupId: \u0022670e8400-e29b-41d4-a716-446655440000\u0022\n);\n\n// Example response:\n// {\n//   \u0022backup_id\u0022: \u0022670e8400-e29b-41d4-a716-446655440000\u0022,\n//   \u0022cloud\u0022: \u0022aws\u0022,\n//   \u0022created_at\u0022: \u00222024-03-15 10:30:00\\u002B00:00\u0022,\n//   \u0022description\u0022: \u0022Monthly backup of production index\u0022,\n//   \u0022dimension\u0022: 1536,\n//   \u0022metric\u0022: \u0022cosine\u0022,\n//   \u0022name\u0022: \u0022backup_2024_03_15\u0022,\n//   \u0022namespace_count\u0022: 3,\n//   \u0022record_count\u0022: 120000,\n//   \u0022region\u0022: \u0022us-east-1\u0022,\n//   \u0022schema\u0022: {\n//     \u0022fields\u0022: {\n//       \u0022genre\u0022: {\n//         \u0022filterable\u0022: true\n//       },\n//       \u0022title\u0022: {\n//         \u0022filterable\u0022: true\n//       }\n//     }\n//   },\n//   \u0022size_bytes\u0022: 10000000,\n//   \u0022source_index_id\u0022: \u0022670e8400-e29b-41d4-a716-446655440001\u0022,\n//   \u0022source_index_name\u0022: \u0022my-index\u0022,\n//   \u0022status\u0022: \u0022Ready\u0022,\n//   \u0022tags\u0022: {\n//     \u0022environment\u0022: \u0022production\u0022,\n//     \u0022type\u0022: \u0022monthly\u0022\n//   }\n// }",
+      "Format": "sdk",
+      "OperationId": "describe_backup",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 15,
+      "Title": "Describe a collection",
+      "Slug": "describe-collection",
+      "Description": "Get a description of a collection.\nServerless indexes do not support collections.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar response = await client.ManageIndexes.DescribeCollectionAsync(\n    collectionName: \u0022tiny-collection\u0022\n);\n\n// Example response:\n// {\n//   \u0022dimension\u0022: 3,\n//   \u0022environment\u0022: \u0022us-east1-gcp\u0022,\n//   \u0022name\u0022: \u0022tiny-collection\u0022,\n//   \u0022size\u0022: 3126700,\n//   \u0022status\u0022: \u0022Ready\u0022,\n//   \u0022vector_count\u0022: 99\n// }",
+      "Format": "sdk",
+      "OperationId": "describe_collection",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 16,
+      "Title": "Describe an index",
+      "Slug": "describe-index",
+      "Description": "Get a description of an index.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar response = await client.ManageIndexes.DescribeIndexAsync(\n    indexName: \u0022test-index\u0022\n);\n\n// Example response:\n// {\n//   \u0022dimension\u0022: 1536,\n//   \u0022host\u0022: \u0022movie-recommendations-c01b5b5.svc.us-east1-gcp.pinecone.io\u0022,\n//   \u0022metric\u0022: \u0022cosine\u0022,\n//   \u0022name\u0022: \u0022movie-recommendations\u0022,\n//   \u0022spec\u0022: {\n//     \u0022pod\u0022: {\n//       \u0022environment\u0022: \u0022us-east-1-aws\u0022,\n//       \u0022metadata_config\u0022: {\n//         \u0022indexed\u0022: [\n//           \u0022genre\u0022,\n//           \u0022title\u0022,\n//           \u0022imdb_rating\u0022\n//         ]\n//       },\n//       \u0022pod_type\u0022: \u0022p1.x1\u0022,\n//       \u0022pods\u0022: 1,\n//       \u0022replicas\u0022: 1,\n//       \u0022shards\u0022: 1\n//     }\n//   },\n//   \u0022status\u0022: {\n//     \u0022ready\u0022: false,\n//     \u0022state\u0022: \u0022Initializing\u0022\n//   },\n//   \u0022vector_type\u0022: \u0022dense\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "describe_index",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 17,
+      "Title": "Describe a restore job",
+      "Slug": "describe-restore-job",
+      "Description": "Get a description of a restore job.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar response = await client.ManageIndexes.DescribeRestoreJobAsync(\n    jobId: \u0022670e8400-e29b-41d4-a716-446655440000\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "describe_restore_job",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 18,
+      "Title": "List collections",
+      "Slug": "list-collections",
+      "Description": "List all collections in a project.\nServerless indexes do not support collections.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\nvar response = await client.ManageIndexes.ListCollectionsAsync();\n\n// Example response:\n// {\n//   \u0022collections\u0022: [\n//     {\n//       \u0022dimension\u0022: 3,\n//       \u0022environment\u0022: \u0022us-east1-gcp\u0022,\n//       \u0022name\u0022: \u0022small-collection\u0022,\n//       \u0022size\u0022: 3126700,\n//       \u0022status\u0022: \u0022Ready\u0022,\n//       \u0022vector_count\u0022: 99\n//     },\n//     {\n//       \u0022dimension\u0022: 3,\n//       \u0022environment\u0022: \u0022us-east1-gcp\u0022,\n//       \u0022name\u0022: \u0022small-collection-new\u0022,\n//       \u0022size\u0022: 3126700,\n//       \u0022status\u0022: \u0022Initializing\u0022,\n//       \u0022vector_count\u0022: 99\n//     },\n//     {\n//       \u0022dimension\u0022: 1536,\n//       \u0022environment\u0022: \u0022us-east1-gcp\u0022,\n//       \u0022name\u0022: \u0022big-collection\u0022,\n//       \u0022size\u0022: 160087040000000,\n//       \u0022status\u0022: \u0022Ready\u0022,\n//       \u0022vector_count\u0022: 10000000\n//     }\n//   ]\n// }",
+      "Format": "sdk",
+      "OperationId": "list_collections",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 19,
+      "Title": "List backups for an index",
+      "Slug": "list-index-backups",
+      "Description": "List all backups for an index.",
+      "Language": "http",
+      "Code": "### List backups for an index\n# @name list_index_backups\nGET {{host}}/indexes/{{index_name}}/backups?limit=10\u0026paginationToken={{paginationToken}}\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nAccept: application/json\n\n## Responses\n# 200\n# Description: This operation returns a list of all the backups that you have previously created, and which are associated with the given index.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 404\n# Description: Index not found.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "list_index_backups",
+      "Setup": null
+    },
+    {
+      "Order": 20,
+      "Title": "List indexes",
+      "Slug": "list-indexes",
+      "Description": "List all indexes in a project.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\nvar response = await client.ManageIndexes.ListIndexesAsync();\n\n// Example response:\n// {\n//   \u0022indexes\u0022: [\n//     {\n//       \u0022dimension\u0022: 384,\n//       \u0022host\u0022: \u0022semantic-search-c01b5b5.svc.us-west1-gcp.pinecone.io\u0022,\n//       \u0022metric\u0022: \u0022cosine\u0022,\n//       \u0022name\u0022: \u0022semantic-search\u0022,\n//       \u0022spec\u0022: {\n//         \u0022pod\u0022: {\n//           \u0022environment\u0022: \u0022us-west1-gcp\u0022,\n//           \u0022pod_type\u0022: \u0022p1.x1\u0022,\n//           \u0022pods\u0022: 4,\n//           \u0022replicas\u0022: 2,\n//           \u0022shards\u0022: 2\n//         }\n//       },\n//       \u0022status\u0022: {\n//         \u0022ready\u0022: true,\n//         \u0022state\u0022: \u0022Ready\u0022\n//       },\n//       \u0022vector_type\u0022: \u0022dense\u0022\n//     },\n//     {\n//       \u0022dimension\u0022: 200,\n//       \u0022host\u0022: \u0022image-search-a31f9c1.svc.us-east1-gcp.pinecone.io\u0022,\n//       \u0022metric\u0022: \u0022dotproduct\u0022,\n//       \u0022name\u0022: \u0022image-search\u0022,\n//       \u0022spec\u0022: {\n//         \u0022serverless\u0022: {\n//           \u0022cloud\u0022: \u0022aws\u0022,\n//           \u0022read_capacity\u0022: {\n//             \u0022mode\u0022: \u0022OnDemand\u0022,\n//             \u0022status\u0022: {\n//               \u0022state\u0022: \u0022Ready\u0022\n//             }\n//           },\n//           \u0022region\u0022: \u0022us-east-1\u0022\n//         }\n//       },\n//       \u0022status\u0022: {\n//         \u0022ready\u0022: false,\n//         \u0022state\u0022: \u0022Initializing\u0022\n//       },\n//       \u0022vector_type\u0022: \u0022dense\u0022\n//     },\n//     {\n//       \u0022host\u0022: \u0022sparse-index-1a2b3c4d.svc.us-east1-gcp.pinecone.io\u0022,\n//       \u0022metric\u0022: \u0022dotproduct\u0022,\n//       \u0022name\u0022: \u0022sparse-index\u0022,\n//       \u0022spec\u0022: {\n//         \u0022serverless\u0022: {\n//           \u0022cloud\u0022: \u0022aws\u0022,\n//           \u0022read_capacity\u0022: {\n//             \u0022mode\u0022: \u0022OnDemand\u0022,\n//             \u0022status\u0022: {\n//               \u0022state\u0022: \u0022Ready\u0022\n//             }\n//           },\n//           \u0022region\u0022: \u0022us-east-1\u0022\n//         }\n//       },\n//       \u0022status\u0022: {\n//         \u0022ready\u0022: true,\n//         \u0022state\u0022: \u0022Ready\u0022\n//       },\n//       \u0022vector_type\u0022: \u0022sparse\u0022\n//     }\n//   ]\n// }",
+      "Format": "sdk",
+      "OperationId": "list_indexes",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 21,
+      "Title": "List backups for all indexes in a project",
+      "Slug": "list-project-backups",
+      "Description": "List all backups for a project.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\nvar response = await client.ManageIndexes.ListProjectBackupsAsync();\n\n// Example response:\n// {\n//   \u0022data\u0022: [\n//     {\n//       \u0022backup_id\u0022: \u0022670e8400-e29b-41d4-a716-446655440000\u0022,\n//       \u0022cloud\u0022: \u0022aws\u0022,\n//       \u0022created_at\u0022: \u00222024-03-15 10:30:00\\u002B00:00\u0022,\n//       \u0022description\u0022: \u0022Monthly backup of production index\u0022,\n//       \u0022dimension\u0022: 1536,\n//       \u0022metric\u0022: \u0022cosine\u0022,\n//       \u0022name\u0022: \u0022backup_2024_03_15\u0022,\n//       \u0022namespace_count\u0022: 3,\n//       \u0022record_count\u0022: 120000,\n//       \u0022region\u0022: \u0022us-east-1\u0022,\n//       \u0022schema\u0022: {\n//         \u0022fields\u0022: {\n//           \u0022genre\u0022: {\n//             \u0022filterable\u0022: true\n//           },\n//           \u0022title\u0022: {\n//             \u0022filterable\u0022: true\n//           }\n//         }\n//       },\n//       \u0022size_bytes\u0022: 10000000,\n//       \u0022source_index_id\u0022: \u0022idx_456\u0022,\n//       \u0022source_index_name\u0022: \u0022my-index\u0022,\n//       \u0022status\u0022: \u0022Ready\u0022,\n//       \u0022tags\u0022: {\n//         \u0022environment\u0022: \u0022production\u0022,\n//         \u0022type\u0022: \u0022monthly\u0022\n//       }\n//     },\n//     {\n//       \u0022backup_id\u0022: \u0022670e8400-e29b-41d4-a716-446655440001\u0022,\n//       \u0022cloud\u0022: \u0022aws\u0022,\n//       \u0022created_at\u0022: \u00222024-03-20 15:45:00\\u002B00:00\u0022,\n//       \u0022description\u0022: \u0022Pre-deployment safety backup\u0022,\n//       \u0022dimension\u0022: 1536,\n//       \u0022metric\u0022: \u0022cosine\u0022,\n//       \u0022name\u0022: \u0022backup_2024_03_20\u0022,\n//       \u0022namespace_count\u0022: 4,\n//       \u0022record_count\u0022: 125000,\n//       \u0022region\u0022: \u0022us-east-1\u0022,\n//       \u0022schema\u0022: {\n//         \u0022fields\u0022: {\n//           \u0022genre\u0022: {\n//             \u0022filterable\u0022: true\n//           },\n//           \u0022title\u0022: {\n//             \u0022filterable\u0022: true\n//           }\n//         }\n//       },\n//       \u0022size_bytes\u0022: 10500000,\n//       \u0022source_index_id\u0022: \u0022idx_789\u0022,\n//       \u0022source_index_name\u0022: \u0022my-index-2\u0022,\n//       \u0022status\u0022: \u0022Ready\u0022,\n//       \u0022tags\u0022: {\n//         \u0022environment\u0022: \u0022production\u0022,\n//         \u0022type\u0022: \u0022pre-deploy\u0022\n//       }\n//     }\n//   ]\n// }",
+      "Format": "sdk",
+      "OperationId": "list_project_backups",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 22,
+      "Title": "List restore jobs",
+      "Slug": "list-restore-jobs",
+      "Description": "List all restore jobs for a project.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\nvar response = await client.ManageIndexes.ListRestoreJobsAsync();\n\n// Example response:\n// {\n//   \u0022data\u0022: [],\n//   \u0022pagination\u0022: \u0022openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "list_restore_jobs",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    }
+  ]
+}
