@@ -23,15 +23,38 @@ namespace Pinecone.JsonConverters
                 foreach (var __jsonProp in __jsonDocument.RootElement.EnumerateObject())
                 {
                     __jsonProps.Add(__jsonProp.Name);
+                    if (__jsonProp.Value.ValueKind == global::System.Text.Json.JsonValueKind.Object)
+                    {
+                        foreach (var __nestedJsonProp in __jsonProp.Value.EnumerateObject())
+                        {
+                            __jsonProps.Add(__jsonProp.Name + "." + __nestedJsonProp.Name);
+                        }
+                    }
+
                 }
             }
 
             var __score0 = 0;
             if (__jsonProps.Contains("serverless")) __score0++;
+            if (__jsonProps.Contains("serverless.cloud")) __score0++;
+            if (__jsonProps.Contains("serverless.read_capacity")) __score0++;
+            if (__jsonProps.Contains("serverless.region")) __score0++;
+            if (__jsonProps.Contains("serverless.schema")) __score0++;
+            if (__jsonProps.Contains("serverless.source_collection")) __score0++;
             var __score1 = 0;
             if (__jsonProps.Contains("pod")) __score1++;
+            if (__jsonProps.Contains("pod.environment")) __score1++;
+            if (__jsonProps.Contains("pod.metadata_config")) __score1++;
+            if (__jsonProps.Contains("pod.pod_type")) __score1++;
+            if (__jsonProps.Contains("pod.pods")) __score1++;
+            if (__jsonProps.Contains("pod.replicas")) __score1++;
+            if (__jsonProps.Contains("pod.shards")) __score1++;
+            if (__jsonProps.Contains("pod.source_collection")) __score1++;
             var __score2 = 0;
             if (__jsonProps.Contains("byoc")) __score2++;
+            if (__jsonProps.Contains("byoc.environment")) __score2++;
+            if (__jsonProps.Contains("byoc.read_capacity")) __score2++;
+            if (__jsonProps.Contains("byoc.schema")) __score2++;
             var __bestScore = 0;
             var __bestIndex = -1;
             if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
