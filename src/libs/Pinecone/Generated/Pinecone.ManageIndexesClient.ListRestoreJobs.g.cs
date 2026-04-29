@@ -146,7 +146,7 @@ namespace Pinecone
                 PrepareListRestoreJobsRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
+                    xPineconeApiVersion: xPineconeApiVersion!,
                     limit: limit,
                     paginationToken: paginationToken);
 

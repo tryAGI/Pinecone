@@ -149,8 +149,8 @@ namespace Pinecone
                 PrepareCreateIndexFromBackupOperationRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
-                    backupId: backupId,
+                    xPineconeApiVersion: xPineconeApiVersion!,
+                    backupId: backupId!,
                     request: request);
 
                 return __httpRequest;

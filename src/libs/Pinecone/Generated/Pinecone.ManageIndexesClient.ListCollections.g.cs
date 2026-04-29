@@ -131,7 +131,7 @@ namespace Pinecone
                 PrepareListCollectionsRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion);
+                    xPineconeApiVersion: xPineconeApiVersion!);
 
                 return __httpRequest;
             }

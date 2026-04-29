@@ -130,8 +130,8 @@ namespace Pinecone
                 PrepareDeleteIndexRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
-                    indexName: indexName);
+                    xPineconeApiVersion: xPineconeApiVersion!,
+                    indexName: indexName!);
 
                 return __httpRequest;
             }

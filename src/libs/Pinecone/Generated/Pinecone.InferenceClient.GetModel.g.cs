@@ -136,8 +136,8 @@ namespace Pinecone
                 PrepareGetModelRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
-                    modelName: modelName);
+                    xPineconeApiVersion: xPineconeApiVersion!,
+                    modelName: modelName!);
 
                 return __httpRequest;
             }

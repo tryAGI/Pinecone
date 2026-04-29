@@ -136,8 +136,8 @@ namespace Pinecone
                 PrepareDescribeCollectionRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
-                    collectionName: collectionName);
+                    xPineconeApiVersion: xPineconeApiVersion!,
+                    collectionName: collectionName!);
 
                 return __httpRequest;
             }

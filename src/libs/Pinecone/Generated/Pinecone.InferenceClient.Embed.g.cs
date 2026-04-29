@@ -144,7 +144,7 @@ namespace Pinecone
                 PrepareEmbedRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
+                    xPineconeApiVersion: xPineconeApiVersion!,
                     request: request);
 
                 return __httpRequest;

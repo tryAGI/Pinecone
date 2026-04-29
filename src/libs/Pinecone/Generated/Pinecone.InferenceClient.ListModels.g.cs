@@ -151,7 +151,7 @@ namespace Pinecone
                 PrepareListModelsRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
+                    xPineconeApiVersion: xPineconeApiVersion!,
                     type: type,
                     vectorType: vectorType);
 

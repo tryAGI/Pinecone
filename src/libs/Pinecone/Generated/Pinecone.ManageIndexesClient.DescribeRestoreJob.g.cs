@@ -135,8 +135,8 @@ namespace Pinecone
                 PrepareDescribeRestoreJobRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
-                    jobId: jobId);
+                    xPineconeApiVersion: xPineconeApiVersion!,
+                    jobId: jobId!);
 
                 return __httpRequest;
             }
