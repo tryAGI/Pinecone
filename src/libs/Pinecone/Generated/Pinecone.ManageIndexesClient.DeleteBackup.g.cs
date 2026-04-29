@@ -130,8 +130,8 @@ namespace Pinecone
                 PrepareDeleteBackupRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
-                    backupId: backupId);
+                    xPineconeApiVersion: xPineconeApiVersion!,
+                    backupId: backupId!);
 
                 return __httpRequest;
             }

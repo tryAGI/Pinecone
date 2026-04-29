@@ -130,7 +130,7 @@ namespace Pinecone
                 PrepareListIndexesRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion);
+                    xPineconeApiVersion: xPineconeApiVersion!);
 
                 return __httpRequest;
             }

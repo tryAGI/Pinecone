@@ -149,8 +149,8 @@ namespace Pinecone
                 PrepareCreateBackupRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
-                    indexName: indexName,
+                    xPineconeApiVersion: xPineconeApiVersion!,
+                    indexName: indexName!,
                     request: request);
 
                 return __httpRequest;

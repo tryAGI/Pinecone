@@ -151,8 +151,8 @@ namespace Pinecone
                 PrepareListIndexBackupsRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    xPineconeApiVersion: xPineconeApiVersion,
-                    indexName: indexName,
+                    xPineconeApiVersion: xPineconeApiVersion!,
+                    indexName: indexName!,
                     limit: limit,
                     paginationToken: paginationToken);
 
