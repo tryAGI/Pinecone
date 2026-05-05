@@ -31,6 +31,25 @@ namespace Pinecone
         /// Default Value: 2026-04
         /// </param>
         /// <param name="indexName"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Pinecone.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse<global::Pinecone.IndexModel>> ConfigureIndexAsResponseAsync(
+            string indexName,
+
+            global::Pinecone.ConfigureIndexRequest request,
+            string xPineconeApiVersion = "2026-04",
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Configure an index<br/>
+        /// Configure an existing index. For guidance and examples, see [Manage indexes](https://docs.pinecone.io/guides/manage-data/manage-indexes).
+        /// </summary>
+        /// <param name="xPineconeApiVersion">
+        /// Default Value: 2026-04
+        /// </param>
+        /// <param name="indexName"></param>
         /// <param name="spec">
         /// The spec object defines how the index should be deployed.  Only some attributes of an index's spec may be updated.  In general, you can modify settings related to scaling and  configuration but you cannot change the cloud or region  where the index is hosted.
         /// </param>
