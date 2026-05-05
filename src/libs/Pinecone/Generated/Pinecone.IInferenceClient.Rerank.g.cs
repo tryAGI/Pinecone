@@ -30,6 +30,24 @@ namespace Pinecone
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Pinecone.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse<global::Pinecone.RerankResult>> RerankAsResponseAsync(
+
+            global::Pinecone.RerankRequest request,
+            string xPineconeApiVersion = "2026-04",
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Rerank results<br/>
+        /// Rerank results according to their relevance to a query.<br/>
+        /// For guidance and examples, see [Rerank results](https://docs.pinecone.io/guides/search/rerank-results).
+        /// </summary>
+        /// <param name="xPineconeApiVersion">
+        /// Default Value: 2026-04
+        /// </param>
         /// <param name="model">
         /// The [model](https://docs.pinecone.io/guides/search/rerank-results#reranking-models) to use for reranking.<br/>
         /// Example: bge-reranker-v2-m3

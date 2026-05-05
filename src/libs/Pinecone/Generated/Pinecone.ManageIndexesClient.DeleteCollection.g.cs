@@ -56,6 +56,31 @@ namespace Pinecone
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+            await DeleteCollectionAsResponseAsync(
+                collectionName: collectionName,
+                xPineconeApiVersion: xPineconeApiVersion,
+                requestOptions: requestOptions,
+                cancellationToken: cancellationToken
+            ).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// Delete a collection<br/>
+        /// Delete an existing collection.<br/>
+        /// Serverless indexes do not support collections.
+        /// </summary>
+        /// <param name="xPineconeApiVersion">
+        /// Default Value: 2026-04
+        /// </param>
+        /// <param name="collectionName"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Pinecone.ApiException"></exception>
+        public async global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse> DeleteCollectionAsResponseAsync(
+            string collectionName,
+            string xPineconeApiVersion = "2026-04",
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
             PrepareArguments(
                 client: HttpClient);
             PrepareDeleteCollectionArguments(
@@ -85,6 +110,7 @@ namespace Pinecone
 
             global::System.Net.Http.HttpRequestMessage __CreateHttpRequest()
             {
+
                             var __pathBuilder = new global::Pinecone.PathBuilder(
                                 path: $"/collections/{collectionName}",
                                 baseUri: HttpClient.BaseAddress);
@@ -162,6 +188,8 @@ namespace Pinecone
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                     try
                     {
@@ -172,6 +200,11 @@ namespace Pinecone
                     }
                     catch (global::System.Net.Http.HttpRequestException __exception)
                     {
+                        var __retryDelay = global::Pinecone.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: null,
+                            attempt: __attempt);
                         var __willRetry = __attempt < __maxAttempts && !__effectiveCancellationToken.IsCancellationRequested;
                         await global::Pinecone.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
@@ -189,6 +222,8 @@ namespace Pinecone
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: __willRetry,
+                                retryDelay: __willRetry ? __retryDelay : (global::System.TimeSpan?)null,
+                                retryReason: "exception",
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         if (!__willRetry)
                         {
@@ -198,8 +233,7 @@ namespace Pinecone
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::Pinecone.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -208,6 +242,11 @@ namespace Pinecone
                         __attempt < __maxAttempts &&
                         global::Pinecone.AutoSDKRequestOptionsSupport.ShouldRetryStatusCode(__response.StatusCode))
                     {
+                        var __retryDelay = global::Pinecone.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: __response,
+                            attempt: __attempt);
                         await global::Pinecone.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Pinecone.AutoSDKRequestOptionsSupport.CreateHookContext(
@@ -224,14 +263,15 @@ namespace Pinecone
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: true,
+                                retryDelay: __retryDelay,
+                                retryReason: "status:" + ((int)__response.StatusCode).ToString(global::System.Globalization.CultureInfo.InvariantCulture),
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         __response.Dispose();
                         __response = null;
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::Pinecone.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -271,6 +311,8 @@ namespace Pinecone
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                 else
@@ -291,6 +333,8 @@ namespace Pinecone
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                             // Unauthorized. Possible causes: Invalid API key.
@@ -425,6 +469,10 @@ namespace Pinecone
                                 {
                                     __response.EnsureSuccessStatusCode();
 
+                return new global::Pinecone.AutoSDKHttpResponse(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::Pinecone.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -446,6 +494,10 @@ namespace Pinecone
                                 try
                                 {
                                     __response.EnsureSuccessStatusCode();
+                                    return new global::Pinecone.AutoSDKHttpResponse(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::Pinecone.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri);
                                 }
                                 catch (global::System.Exception __ex)
                                 {

@@ -43,7 +43,7 @@ namespace Pinecone
         /// <summary>
         /// Model inference.
         /// </summary>
-        public InferenceClient Inference => new InferenceClient(HttpClient, authorizations: Authorizations, options: Options)
+        public InferenceClient Inference => new InferenceClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -52,7 +52,7 @@ namespace Pinecone
         /// <summary>
         /// Actions that manage indexes.
         /// </summary>
-        public ManageIndexesClient ManageIndexes => new ManageIndexesClient(HttpClient, authorizations: Authorizations, options: Options)
+        public ManageIndexesClient ManageIndexes => new ManageIndexesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -91,10 +91,10 @@ namespace Pinecone
         /// <param name="options">Client-wide request defaults such as headers, query parameters, retries, and timeout.</param>
         /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
         public PineconeClient(
-            global::System.Net.Http.HttpClient? httpClient = null,
-            global::System.Uri? baseUri = null,
-            global::System.Collections.Generic.List<global::Pinecone.EndPointAuthorization>? authorizations = null,
-            global::Pinecone.AutoSDKClientOptions? options = null,
+            global::System.Net.Http.HttpClient? httpClient,
+            global::System.Uri? baseUri,
+            global::System.Collections.Generic.List<global::Pinecone.EndPointAuthorization>? authorizations,
+            global::Pinecone.AutoSDKClientOptions? options,
             bool disposeHttpClient = true)
         {
 

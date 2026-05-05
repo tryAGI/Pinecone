@@ -32,6 +32,25 @@ namespace Pinecone
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Pinecone.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse<global::Pinecone.IndexModel>> CreateIndexAsResponseAsync(
+
+            global::Pinecone.CreateIndexRequest request,
+            string xPineconeApiVersion = "2026-04",
+            global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Create an index<br/>
+        /// Create a Pinecone index. This is where you specify the measure of similarity, the dimension of vectors to be stored in the index, which cloud provider you would like to deploy with, and more.<br/>
+        ///   <br/>
+        /// For guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index).
+        /// </summary>
+        /// <param name="xPineconeApiVersion">
+        /// Default Value: 2026-04
+        /// </param>
         /// <param name="name">
         /// The name of the index. Resource name must be 1-45 characters long, start and end with an alphanumeric character, and consist only of lower case alphanumeric characters or '-'.<br/>
         /// Example: example-index
