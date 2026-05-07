@@ -27,14 +27,14 @@ public static class PineconeToolExtensions
                 var response = await client.ManageIndexes.ListIndexesAsync(
                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                return JsonSerializer.Serialize(response.Indexes?.Select(i => new
+                return response.Indexes?.Select(i => new
                 {
                     name = i.Name,
                     dimension = i.Dimension,
                     metric = i.Metric,
                     host = i.Host,
                     vector_type = i.VectorType,
-                }) ?? []);
+                }) ?? [];
             },
             name: "ListIndexes",
             description: "List all Pinecone indexes in the project, returning their names, dimensions, metrics, and hosts");
@@ -59,7 +59,7 @@ public static class PineconeToolExtensions
                     indexName: indexName,
                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                return JsonSerializer.Serialize(new
+                return new
                 {
                     name = response.Name,
                     dimension = response.Dimension,
@@ -68,7 +68,7 @@ public static class PineconeToolExtensions
                     vector_type = response.VectorType,
                     deletion_protection = response.DeletionProtection,
                     tags = response.Tags,
-                });
+                };
             },
             name: "DescribeIndex",
             description: "Get detailed information about a specific Pinecone index including its configuration, status, and host URL");
@@ -100,14 +100,14 @@ public static class PineconeToolExtensions
                 var embedding = response.Data.FirstOrDefault();
                 var values = embedding.Dense?.Values;
 
-                return JsonSerializer.Serialize(new
+                return new
                 {
                     model = response.Model,
                     vector_type = response.VectorType,
                     dimensions = values?.Count ?? 0,
                     values = values?.Take(5).ToList(),
                     truncated = (values?.Count ?? 0) > 5,
-                });
+                };
             },
             name: "GenerateEmbedding",
             description: "Generate a vector embedding for text using a Pinecone hosted embedding model");
@@ -134,8 +134,7 @@ public static class PineconeToolExtensions
                 [Description("The documents to rerank, as a JSON array of objects with a 'text' field")] string documentsJson,
                 CancellationToken cancellationToken) =>
             {
-                var documents = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(documentsJson)
-                    ?? throw new ArgumentException("Invalid documents JSON", nameof(documentsJson));
+                var documents = ParseDocumentList(documentsJson);
 
                 var docs = documents.Select(d =>
                 {
@@ -155,7 +154,7 @@ public static class PineconeToolExtensions
                     returnDocuments: true,
                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                return JsonSerializer.Serialize(new
+                return new
                 {
                     model = response.Model,
                     results = response.Data.Select(r => new
@@ -164,7 +163,7 @@ public static class PineconeToolExtensions
                         score = r.Score,
                         document = r.Document?.AdditionalProperties,
                     }),
-                });
+                };
             },
             name: "RerankDocuments",
             description: "Rerank documents by relevance to a query using a Pinecone reranking model");
@@ -186,7 +185,7 @@ public static class PineconeToolExtensions
                 var response = await client.Inference.ListModelsAsync(
                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                return JsonSerializer.Serialize(response.Models?.Select(m => new
+                return response.Models?.Select(m => new
                 {
                     model = m.Model,
                     type = m.Type,
@@ -195,7 +194,7 @@ public static class PineconeToolExtensions
                     default_dimension = m.DefaultDimension,
                     modality = m.Modality,
                     max_sequence_length = m.MaxSequenceLength,
-                }) ?? []);
+                }) ?? [];
             },
             name: "ListModels",
             description: "List available Pinecone embedding and reranking models with their capabilities");
@@ -217,7 +216,7 @@ public static class PineconeToolExtensions
                 var response = await client.ManageIndexes.ListCollectionsAsync(
                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                return JsonSerializer.Serialize(response.Collections?.Select(c => new
+                return response.Collections?.Select(c => new
                 {
                     name = c.Name,
                     status = c.Status,
@@ -225,9 +224,39 @@ public static class PineconeToolExtensions
                     vector_count = c.VectorCount,
                     size = c.Size,
                     environment = c.Environment,
-                }) ?? []);
+                }) ?? [];
             },
             name: "ListCollections",
             description: "List all Pinecone collections in the project");
+    }
+
+    private static List<Dictionary<string, string>> ParseDocumentList(string documentsJson)
+    {
+        using var document = JsonDocument.Parse(documentsJson);
+        if (document.RootElement.ValueKind != JsonValueKind.Array)
+        {
+            throw new ArgumentException("Expected a JSON array of documents.", nameof(documentsJson));
+        }
+
+        var documents = new List<Dictionary<string, string>>();
+        foreach (var item in document.RootElement.EnumerateArray())
+        {
+            if (item.ValueKind != JsonValueKind.Object)
+            {
+                throw new ArgumentException("Each document must be a JSON object.", nameof(documentsJson));
+            }
+
+            var values = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var property in item.EnumerateObject())
+            {
+                values[property.Name] = property.Value.ValueKind == JsonValueKind.String
+                    ? property.Value.GetString() ?? string.Empty
+                    : property.Value.ToString();
+            }
+
+            documents.Add(values);
+        }
+
+        return documents;
     }
 }
