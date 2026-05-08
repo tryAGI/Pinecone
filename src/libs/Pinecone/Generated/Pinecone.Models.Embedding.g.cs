@@ -32,6 +32,19 @@ namespace Pinecone
         public bool IsDense => Dense != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDense(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.DenseEmbedding? value)
+        {
+            value = Dense;
+            return IsDense;
+        }
+
+        /// <summary>
         /// A sparse embedding of a single input
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +60,19 @@ namespace Pinecone
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Sparse))]
 #endif
         public bool IsSparse => Sparse != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSparse(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.SparseEmbedding? value)
+        {
+            value = Sparse;
+            return IsSparse;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -126,8 +152,8 @@ namespace Pinecone
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Pinecone.DenseEmbedding?, TResult>? dense = null,
-            global::System.Func<global::Pinecone.SparseEmbedding?, TResult>? sparse = null,
+            global::System.Func<global::Pinecone.DenseEmbedding, TResult>? dense = null,
+            global::System.Func<global::Pinecone.SparseEmbedding, TResult>? sparse = null,
             bool validate = true)
         {
             if (validate)
@@ -151,8 +177,32 @@ namespace Pinecone
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Pinecone.DenseEmbedding?>? dense = null,
-            global::System.Action<global::Pinecone.SparseEmbedding?>? sparse = null,
+            global::System.Action<global::Pinecone.DenseEmbedding>? dense = null,
+
+            global::System.Action<global::Pinecone.SparseEmbedding>? sparse = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsDense)
+            {
+                dense?.Invoke(Dense!);
+            }
+            else if (IsSparse)
+            {
+                sparse?.Invoke(Sparse!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Pinecone.DenseEmbedding>? dense = null,
+            global::System.Action<global::Pinecone.SparseEmbedding>? sparse = null,
             bool validate = true)
         {
             if (validate)

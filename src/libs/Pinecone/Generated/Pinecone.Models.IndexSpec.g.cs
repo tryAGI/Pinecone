@@ -30,6 +30,19 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickServerless(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.IndexSpecServerless? value)
+        {
+            value = Serverless;
+            return IsServerless;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Pinecone.IndexSpecPodBased? PodBased { get; init; }
 #else
@@ -47,6 +60,19 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickPodBased(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.IndexSpecPodBased? value)
+        {
+            value = PodBased;
+            return IsPodBased;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Pinecone.IndexSpecByoc? Byoc { get; init; }
 #else
@@ -60,6 +86,19 @@ namespace Pinecone
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Byoc))]
 #endif
         public bool IsByoc => Byoc != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickByoc(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.IndexSpecByoc? value)
+        {
+            value = Byoc;
+            return IsByoc;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -158,9 +197,9 @@ namespace Pinecone
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Pinecone.IndexSpecServerless?, TResult>? serverless = null,
-            global::System.Func<global::Pinecone.IndexSpecPodBased?, TResult>? podBased = null,
-            global::System.Func<global::Pinecone.IndexSpecByoc?, TResult>? byoc = null,
+            global::System.Func<global::Pinecone.IndexSpecServerless, TResult>? serverless = null,
+            global::System.Func<global::Pinecone.IndexSpecPodBased, TResult>? podBased = null,
+            global::System.Func<global::Pinecone.IndexSpecByoc, TResult>? byoc = null,
             bool validate = true)
         {
             if (validate)
@@ -188,9 +227,39 @@ namespace Pinecone
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Pinecone.IndexSpecServerless?>? serverless = null,
-            global::System.Action<global::Pinecone.IndexSpecPodBased?>? podBased = null,
-            global::System.Action<global::Pinecone.IndexSpecByoc?>? byoc = null,
+            global::System.Action<global::Pinecone.IndexSpecServerless>? serverless = null,
+
+            global::System.Action<global::Pinecone.IndexSpecPodBased>? podBased = null,
+
+            global::System.Action<global::Pinecone.IndexSpecByoc>? byoc = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsServerless)
+            {
+                serverless?.Invoke(Serverless!);
+            }
+            else if (IsPodBased)
+            {
+                podBased?.Invoke(PodBased!);
+            }
+            else if (IsByoc)
+            {
+                byoc?.Invoke(Byoc!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Pinecone.IndexSpecServerless>? serverless = null,
+            global::System.Action<global::Pinecone.IndexSpecPodBased>? podBased = null,
+            global::System.Action<global::Pinecone.IndexSpecByoc>? byoc = null,
             bool validate = true)
         {
             if (validate)
