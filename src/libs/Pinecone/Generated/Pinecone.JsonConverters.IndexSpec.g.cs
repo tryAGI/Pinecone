@@ -117,6 +117,7 @@ namespace Pinecone.JsonConverters
             {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.IndexSpecServerless), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.IndexSpecServerless> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.IndexSpecServerless).Name}");
                     serverless = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
@@ -127,9 +128,13 @@ namespace Pinecone.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (serverless == null && podBased == null && byoc == null)
+            {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.IndexSpecPodBased), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.IndexSpecPodBased> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.IndexSpecPodBased).Name}");
                     podBased = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
@@ -140,9 +145,13 @@ namespace Pinecone.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (serverless == null && podBased == null && byoc == null)
+            {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Pinecone.IndexSpecByoc), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Pinecone.IndexSpecByoc> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Pinecone.IndexSpecByoc).Name}");
                     byoc = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
