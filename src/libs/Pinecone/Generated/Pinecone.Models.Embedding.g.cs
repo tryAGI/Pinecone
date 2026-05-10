@@ -94,6 +94,11 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public static Embedding FromDense(global::Pinecone.DenseEmbedding? value) => new Embedding(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator Embedding(global::Pinecone.SparseEmbedding value) => new Embedding((global::Pinecone.SparseEmbedding?)value);
 
         /// <summary>
@@ -108,6 +113,11 @@ namespace Pinecone
         {
             Sparse = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Embedding FromSparse(global::Pinecone.SparseEmbedding? value) => new Embedding(value);
 
         /// <summary>
         /// 
