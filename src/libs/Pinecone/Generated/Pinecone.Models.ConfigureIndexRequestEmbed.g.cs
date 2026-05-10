@@ -83,5 +83,6 @@ namespace Pinecone
         public ConfigureIndexRequestEmbed()
         {
         }
+
     }
 }

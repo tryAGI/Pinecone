@@ -129,5 +129,6 @@ namespace Pinecone
         public CreateIndexRequest()
         {
         }
+
     }
 }

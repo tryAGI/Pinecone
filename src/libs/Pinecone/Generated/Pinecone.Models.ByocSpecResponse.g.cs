@@ -72,5 +72,6 @@ namespace Pinecone
         public ByocSpecResponse()
         {
         }
+
     }
 }

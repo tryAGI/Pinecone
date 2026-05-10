@@ -43,6 +43,13 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public global::Pinecone.IndexSpecServerless PickServerless() => IsServerless
+            ? Serverless!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Serverless' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Pinecone.IndexSpecPodBased? PodBased { get; init; }
 #else
@@ -73,6 +80,13 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public global::Pinecone.IndexSpecPodBased PickPodBased() => IsPodBased
+            ? PodBased!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'PodBased' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Pinecone.IndexSpecByoc? Byoc { get; init; }
 #else
@@ -99,6 +113,13 @@ namespace Pinecone
             value = Byoc;
             return IsByoc;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.IndexSpecByoc PickByoc() => IsByoc
+            ? Byoc!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Byoc' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>

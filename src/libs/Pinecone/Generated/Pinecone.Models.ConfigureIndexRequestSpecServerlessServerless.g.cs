@@ -42,5 +42,6 @@ namespace Pinecone
         public ConfigureIndexRequestSpecServerlessServerless()
         {
         }
+
     }
 }
