@@ -56,5 +56,6 @@ namespace Pinecone
         public ConfigureIndexRequestSpecPodBasedPod()
         {
         }
+
     }
 }

@@ -85,5 +85,6 @@ namespace Pinecone
         public ReadCapacityStatus()
         {
         }
+
     }
 }

@@ -57,5 +57,6 @@ namespace Pinecone
         public CreateCollectionRequest()
         {
         }
+
     }
 }

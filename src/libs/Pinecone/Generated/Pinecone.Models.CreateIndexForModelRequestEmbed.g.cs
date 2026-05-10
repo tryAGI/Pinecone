@@ -109,5 +109,6 @@ namespace Pinecone
         public CreateIndexForModelRequestEmbed()
         {
         }
+
     }
 }

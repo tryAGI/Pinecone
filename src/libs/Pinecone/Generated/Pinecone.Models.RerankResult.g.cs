@@ -69,5 +69,6 @@ namespace Pinecone
         public RerankResult()
         {
         }
+
     }
 }

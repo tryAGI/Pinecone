@@ -151,5 +151,6 @@ namespace Pinecone
         public CreateIndexForModelRequest()
         {
         }
+
     }
 }

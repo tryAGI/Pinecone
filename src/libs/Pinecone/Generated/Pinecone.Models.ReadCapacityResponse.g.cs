@@ -45,6 +45,13 @@ namespace Pinecone
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.ReadCapacityOnDemandSpecResponse PickOnDemand() => IsOnDemand
+            ? OnDemand!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OnDemand' but the value was {ToString()}.");
+
+        /// <summary>
         /// Example: {"dedicated":{"manual":{"replicas":2,"shards":2},"node_type":"t1","scaling":"Manual"},"mode":"Dedicated","status":{"current_replicas":2,"current_shards":2,"state":"Ready"}}
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Pinecone
             value = Dedicated;
             return IsDedicated;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.ReadCapacityDedicatedSpecResponse PickDedicated() => IsDedicated
+            ? Dedicated!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Dedicated' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>

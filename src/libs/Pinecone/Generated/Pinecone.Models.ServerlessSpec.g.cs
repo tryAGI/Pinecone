@@ -102,5 +102,6 @@ namespace Pinecone
         public ServerlessSpec()
         {
         }
+
     }
 }

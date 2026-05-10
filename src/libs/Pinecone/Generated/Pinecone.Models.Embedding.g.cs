@@ -45,6 +45,13 @@ namespace Pinecone
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.DenseEmbedding PickDense() => IsDense
+            ? Dense!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Dense' but the value was {ToString()}.");
+
+        /// <summary>
         /// A sparse embedding of a single input
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Pinecone
             value = Sparse;
             return IsSparse;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.SparseEmbedding PickSparse() => IsSparse
+            ? Sparse!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Sparse' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
