@@ -120,6 +120,11 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public static IndexSpec FromServerless(global::Pinecone.IndexSpecServerless? value) => new IndexSpec(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator IndexSpec(global::Pinecone.IndexSpecPodBased value) => new IndexSpec((global::Pinecone.IndexSpecPodBased?)value);
 
         /// <summary>
@@ -138,6 +143,11 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public static IndexSpec FromPodBased(global::Pinecone.IndexSpecPodBased? value) => new IndexSpec(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator IndexSpec(global::Pinecone.IndexSpecByoc value) => new IndexSpec((global::Pinecone.IndexSpecByoc?)value);
 
         /// <summary>
@@ -152,6 +162,11 @@ namespace Pinecone
         {
             Byoc = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static IndexSpec FromByoc(global::Pinecone.IndexSpecByoc? value) => new IndexSpec(value);
 
         /// <summary>
         /// 

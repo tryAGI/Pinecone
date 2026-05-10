@@ -94,6 +94,11 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public static ReadCapacityResponse FromOnDemand(global::Pinecone.ReadCapacityOnDemandSpecResponse? value) => new ReadCapacityResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ReadCapacityResponse(global::Pinecone.ReadCapacityDedicatedSpecResponse value) => new ReadCapacityResponse((global::Pinecone.ReadCapacityDedicatedSpecResponse?)value);
 
         /// <summary>
@@ -108,6 +113,11 @@ namespace Pinecone
         {
             Dedicated = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ReadCapacityResponse FromDedicated(global::Pinecone.ReadCapacityDedicatedSpecResponse? value) => new ReadCapacityResponse(value);
 
         /// <summary>
         /// 
