@@ -54,5 +54,6 @@ namespace Pinecone
         public ReadCapacityOnDemandSpecResponse()
         {
         }
+
     }
 }

@@ -32,6 +32,26 @@ namespace Pinecone
         public bool IsOnDemand => OnDemand != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickOnDemand(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.ReadCapacityOnDemandSpec? value)
+        {
+            value = OnDemand;
+            return IsOnDemand;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.ReadCapacityOnDemandSpec PickOnDemand() => IsOnDemand
+            ? OnDemand!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OnDemand' but the value was {ToString()}.");
+
+        /// <summary>
         /// Example: {"dedicated":{"manual":{"replicas":1,"shards":1},"node_type":"t1","scaling":"Manual"},"mode":"Dedicated"}
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +67,26 @@ namespace Pinecone
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Dedicated))]
 #endif
         public bool IsDedicated => Dedicated != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDedicated(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.ReadCapacityDedicatedSpec? value)
+        {
+            value = Dedicated;
+            return IsDedicated;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.ReadCapacityDedicatedSpec PickDedicated() => IsDedicated
+            ? Dedicated!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Dedicated' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -68,6 +108,11 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public static ReadCapacity FromOnDemand(global::Pinecone.ReadCapacityOnDemandSpec? value) => new ReadCapacity(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ReadCapacity(global::Pinecone.ReadCapacityDedicatedSpec value) => new ReadCapacity((global::Pinecone.ReadCapacityDedicatedSpec?)value);
 
         /// <summary>
@@ -82,6 +127,11 @@ namespace Pinecone
         {
             Dedicated = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ReadCapacity FromDedicated(global::Pinecone.ReadCapacityDedicatedSpec? value) => new ReadCapacity(value);
 
         /// <summary>
         /// 
@@ -126,8 +176,8 @@ namespace Pinecone
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Pinecone.ReadCapacityOnDemandSpec?, TResult>? onDemand = null,
-            global::System.Func<global::Pinecone.ReadCapacityDedicatedSpec?, TResult>? dedicated = null,
+            global::System.Func<global::Pinecone.ReadCapacityOnDemandSpec, TResult>? onDemand = null,
+            global::System.Func<global::Pinecone.ReadCapacityDedicatedSpec, TResult>? dedicated = null,
             bool validate = true)
         {
             if (validate)
@@ -151,8 +201,32 @@ namespace Pinecone
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Pinecone.ReadCapacityOnDemandSpec?>? onDemand = null,
-            global::System.Action<global::Pinecone.ReadCapacityDedicatedSpec?>? dedicated = null,
+            global::System.Action<global::Pinecone.ReadCapacityOnDemandSpec>? onDemand = null,
+
+            global::System.Action<global::Pinecone.ReadCapacityDedicatedSpec>? dedicated = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsOnDemand)
+            {
+                onDemand?.Invoke(OnDemand!);
+            }
+            else if (IsDedicated)
+            {
+                dedicated?.Invoke(Dedicated!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Pinecone.ReadCapacityOnDemandSpec>? onDemand = null,
+            global::System.Action<global::Pinecone.ReadCapacityDedicatedSpec>? dedicated = null,
             bool validate = true)
         {
             if (validate)

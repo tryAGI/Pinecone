@@ -66,5 +66,6 @@ namespace Pinecone
         public ReadCapacityDedicatedSpecResponse()
         {
         }
+
     }
 }

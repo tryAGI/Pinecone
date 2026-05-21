@@ -41,5 +41,6 @@ namespace Pinecone
         public MetadataSchemaFields2()
         {
         }
+
     }
 }

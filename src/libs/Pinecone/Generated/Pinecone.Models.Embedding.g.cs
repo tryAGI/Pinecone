@@ -32,6 +32,26 @@ namespace Pinecone
         public bool IsDense => Dense != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDense(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.DenseEmbedding? value)
+        {
+            value = Dense;
+            return IsDense;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.DenseEmbedding PickDense() => IsDense
+            ? Dense!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Dense' but the value was {ToString()}.");
+
+        /// <summary>
         /// A sparse embedding of a single input
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +67,26 @@ namespace Pinecone
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Sparse))]
 #endif
         public bool IsSparse => Sparse != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSparse(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Pinecone.SparseEmbedding? value)
+        {
+            value = Sparse;
+            return IsSparse;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Pinecone.SparseEmbedding PickSparse() => IsSparse
+            ? Sparse!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Sparse' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -68,6 +108,11 @@ namespace Pinecone
         /// <summary>
         /// 
         /// </summary>
+        public static Embedding FromDense(global::Pinecone.DenseEmbedding? value) => new Embedding(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator Embedding(global::Pinecone.SparseEmbedding value) => new Embedding((global::Pinecone.SparseEmbedding?)value);
 
         /// <summary>
@@ -82,6 +127,11 @@ namespace Pinecone
         {
             Sparse = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Embedding FromSparse(global::Pinecone.SparseEmbedding? value) => new Embedding(value);
 
         /// <summary>
         /// 
@@ -126,8 +176,8 @@ namespace Pinecone
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Pinecone.DenseEmbedding?, TResult>? dense = null,
-            global::System.Func<global::Pinecone.SparseEmbedding?, TResult>? sparse = null,
+            global::System.Func<global::Pinecone.DenseEmbedding, TResult>? dense = null,
+            global::System.Func<global::Pinecone.SparseEmbedding, TResult>? sparse = null,
             bool validate = true)
         {
             if (validate)
@@ -151,8 +201,32 @@ namespace Pinecone
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Pinecone.DenseEmbedding?>? dense = null,
-            global::System.Action<global::Pinecone.SparseEmbedding?>? sparse = null,
+            global::System.Action<global::Pinecone.DenseEmbedding>? dense = null,
+
+            global::System.Action<global::Pinecone.SparseEmbedding>? sparse = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsDense)
+            {
+                dense?.Invoke(Dense!);
+            }
+            else if (IsSparse)
+            {
+                sparse?.Invoke(Sparse!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Pinecone.DenseEmbedding>? dense = null,
+            global::System.Action<global::Pinecone.SparseEmbedding>? sparse = null,
             bool validate = true)
         {
             if (validate)

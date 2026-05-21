@@ -61,5 +61,6 @@ namespace Pinecone
         public ErrorResponse()
         {
         }
+
     }
 }

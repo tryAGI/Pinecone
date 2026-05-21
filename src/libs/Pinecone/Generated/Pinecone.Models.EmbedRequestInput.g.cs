@@ -44,5 +44,6 @@ namespace Pinecone
         public EmbedRequestInput()
         {
         }
+
     }
 }

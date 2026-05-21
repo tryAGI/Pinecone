@@ -86,5 +86,6 @@ namespace Pinecone
         public SparseEmbedding()
         {
         }
+
     }
 }

@@ -122,5 +122,6 @@ namespace Pinecone
         public ModelIndexEmbed()
         {
         }
+
     }
 }

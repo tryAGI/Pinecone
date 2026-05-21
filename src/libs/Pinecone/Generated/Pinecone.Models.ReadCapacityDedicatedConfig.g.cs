@@ -63,5 +63,6 @@ namespace Pinecone
         public ReadCapacityDedicatedConfig()
         {
         }
+
     }
 }

@@ -119,5 +119,6 @@ namespace Pinecone
         public CollectionModel()
         {
         }
+
     }
 }

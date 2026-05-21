@@ -71,5 +71,6 @@ namespace Pinecone
         public RankedDocument()
         {
         }
+
     }
 }
