@@ -1,8 +1,20 @@
-dotnet tool install --global autosdk.cli --prerelease
+install_autosdk_cli() {
+  dotnet tool update --global autosdk.cli --prerelease >/dev/null 2>&1 || \
+    dotnet tool install --global autosdk.cli --prerelease
+}
+
+fetch_spec() {
+  curl "$@" \
+    --fail --silent --show-error --location \
+    --retry 5 --retry-delay 10 --retry-all-errors \
+    --connect-timeout 30 --max-time 300
+}
+
+install_autosdk_cli
 rm -rf Generated
 
-curl -o db_control.yaml https://raw.githubusercontent.com/pinecone-io/pinecone-api/main/2026-04/db_control_2026-04.oas.yaml
-curl -o inference.yaml https://raw.githubusercontent.com/pinecone-io/pinecone-api/main/2026-04/inference_2026-04.oas.yaml
+fetch_spec -o db_control.yaml https://raw.githubusercontent.com/pinecone-io/pinecone-api/main/2026-04/db_control_2026-04.oas.yaml
+fetch_spec -o inference.yaml https://raw.githubusercontent.com/pinecone-io/pinecone-api/main/2026-04/inference_2026-04.oas.yaml
 
 # Merge db_control + inference specs (same base URL: https://api.pinecone.io)
 python3 -c "
