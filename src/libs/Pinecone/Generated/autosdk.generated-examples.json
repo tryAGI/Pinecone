@@ -237,7 +237,7 @@
       "Slug": "list-restore-jobs",
       "Description": "List all restore jobs for a project.",
       "Language": "csharp",
-      "Code": "using var client = new PineconeClient(apiKey);\nvar response = await client.ManageIndexes.ListRestoreJobsAsync();\n\n// Example response:\n// {\n//   \u0022data\u0022: [],\n//   \u0022pagination\u0022: \u0022openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464\u0022\n// }",
+      "Code": "using var client = new PineconeClient(apiKey);\nvar response = await client.ManageIndexes.ListRestoreJobsAsync();\n\n// Example response:\n// {\n//   \u0022data\u0022: []\n// }",
       "Format": "sdk",
       "OperationId": "list_restore_jobs",
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
