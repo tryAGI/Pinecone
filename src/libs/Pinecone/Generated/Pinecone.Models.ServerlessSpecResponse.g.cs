@@ -44,6 +44,14 @@ namespace Pinecone
         public string? SourceCollection { get; set; }
 
         /// <summary>
+        /// The ID of the backup this index was restored from, if any.<br/>
+        /// Example: 670e8400-e29b-41d4-a716-446655440000
+        /// </summary>
+        /// <example>670e8400-e29b-41d4-a716-446655440000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("source_backup_id")]
+        public string? SourceBackupId { get; set; }
+
+        /// <summary>
         /// Schema for the behavior of Pinecone's internal metadata index. By default, all metadata is indexed; when `schema` is present, only fields which are present in the `fields` object with a `filterable: true` are indexed. Note that `filterable: false` is not currently supported.<br/>
         /// Example: {"fields":{"description":{"filterable":true},"genre":{"filterable":true},"year":{"filterable":true}}}
         /// </summary>
@@ -76,6 +84,10 @@ namespace Pinecone
         /// The name of the collection to be used as the source for the index.<br/>
         /// Example: movie-embeddings
         /// </param>
+        /// <param name="sourceBackupId">
+        /// The ID of the backup this index was restored from, if any.<br/>
+        /// Example: 670e8400-e29b-41d4-a716-446655440000
+        /// </param>
         /// <param name="schema">
         /// Schema for the behavior of Pinecone's internal metadata index. By default, all metadata is indexed; when `schema` is present, only fields which are present in the `fields` object with a `filterable: true` are indexed. Note that `filterable: false` is not currently supported.<br/>
         /// Example: {"fields":{"description":{"filterable":true},"genre":{"filterable":true},"year":{"filterable":true}}}
@@ -88,12 +100,14 @@ namespace Pinecone
             string region,
             global::Pinecone.ReadCapacityResponse readCapacity,
             string? sourceCollection,
+            string? sourceBackupId,
             global::Pinecone.MetadataSchema? schema)
         {
             this.Cloud = cloud ?? throw new global::System.ArgumentNullException(nameof(cloud));
             this.Region = region ?? throw new global::System.ArgumentNullException(nameof(region));
             this.ReadCapacity = readCapacity;
             this.SourceCollection = sourceCollection;
+            this.SourceBackupId = sourceBackupId;
             this.Schema = schema;
         }
 

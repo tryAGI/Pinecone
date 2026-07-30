@@ -6,7 +6,7 @@ namespace Pinecone
     {
         /// <summary>
         /// Create an index from a backup<br/>
-        /// Create an index from a backup.
+        /// Create an index from a backup. For serverless backups, you can optionally set `read_capacity` so the restored index is created with dedicated read nodes (DRN) instead of defaulting to on-demand capacity.
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
@@ -25,7 +25,7 @@ namespace Pinecone
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an index from a backup<br/>
-        /// Create an index from a backup.
+        /// Create an index from a backup. For serverless backups, you can optionally set `read_capacity` so the restored index is created with dedicated read nodes (DRN) instead of defaulting to on-demand capacity.
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
@@ -44,7 +44,7 @@ namespace Pinecone
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an index from a backup<br/>
-        /// Create an index from a backup.
+        /// Create an index from a backup. For serverless backups, you can optionally set `read_capacity` so the restored index is created with dedicated read nodes (DRN) instead of defaulting to on-demand capacity.
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
@@ -63,6 +63,9 @@ namespace Pinecone
         /// Possible values: `disabled` or `enabled`.<br/>
         /// Default Value: disabled
         /// </param>
+        /// <param name="readCapacity">
+        /// By default the index will be created with read capacity  mode `OnDemand`. If you prefer to allocate dedicated read  nodes for your workload, you must specify mode `Dedicated` and additional configurations for `node_type` and `scaling`.
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -72,6 +75,7 @@ namespace Pinecone
             string xPineconeApiVersion = "2026-04",
             global::System.Collections.Generic.Dictionary<string, string>? tags = default,
             string? deletionProtection = default,
+            global::Pinecone.ReadCapacity? readCapacity = default,
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

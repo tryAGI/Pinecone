@@ -46,7 +46,7 @@ namespace Pinecone
         /// <summary>
         /// Create an index<br/>
         /// Create a Pinecone index. This is where you specify the measure of similarity, the dimension of vectors to be stored in the index, which cloud provider you would like to deploy with, and more.<br/>
-        ///   <br/>
+        /// To restore from a backup, set `spec.serverless.source_backup_id` and specify the target `cloud` and `region`. Same-cloud cross-region restore is supported when available for the backup's source region. Cross-cloud restore is not supported.<br/>
         /// For guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index).
         /// </summary>
         /// <param name="xPineconeApiVersion">
@@ -76,7 +76,7 @@ namespace Pinecone
         /// <summary>
         /// Create an index<br/>
         /// Create a Pinecone index. This is where you specify the measure of similarity, the dimension of vectors to be stored in the index, which cloud provider you would like to deploy with, and more.<br/>
-        ///   <br/>
+        /// To restore from a backup, set `spec.serverless.source_backup_id` and specify the target `cloud` and `region`. Same-cloud cross-region restore is supported when available for the backup's source region. Cross-cloud restore is not supported.<br/>
         /// For guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index).
         /// </summary>
         /// <param name="xPineconeApiVersion">
@@ -505,7 +505,7 @@ namespace Pinecone
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Unknown cloud or region when creating a serverless index.
+                            // A resource required to create the index was not found. This includes an unknown cloud or region for serverless indexes, or a backup ID that does not exist when `spec.serverless.source_backup_id` is set.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -537,6 +537,43 @@ namespace Pinecone
                                     innerException: __exception_404,
                                     responseBody: __content_404,
                                     responseObject: __value_404,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // Cross-region restore is not available for the backup's source region.
+                            if ((int)__response.StatusCode == 412)
+                            {
+                                string? __content_412 = null;
+                                global::System.Exception? __exception_412 = null;
+                                global::Pinecone.ErrorResponse? __value_412 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_412 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_412 = global::Pinecone.ErrorResponse.FromJson(__content_412, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_412 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_412 = global::Pinecone.ErrorResponse.FromJson(__content_412, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_412 = __ex;
+                                }
+
+
+                                throw global::Pinecone.ApiException<global::Pinecone.ErrorResponse>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_412 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_412,
+                                    responseBody: __content_412,
+                                    responseObject: __value_412,
                                     responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,
@@ -752,7 +789,7 @@ namespace Pinecone
         /// <summary>
         /// Create an index<br/>
         /// Create a Pinecone index. This is where you specify the measure of similarity, the dimension of vectors to be stored in the index, which cloud provider you would like to deploy with, and more.<br/>
-        ///   <br/>
+        /// To restore from a backup, set `spec.serverless.source_backup_id` and specify the target `cloud` and `region`. Same-cloud cross-region restore is supported when available for the backup's source region. Cross-cloud restore is not supported.<br/>
         /// For guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index).
         /// </summary>
         /// <param name="xPineconeApiVersion">

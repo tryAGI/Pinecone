@@ -7,7 +7,7 @@ namespace Pinecone
     /// The pagination object that is returned with paginated responses.<br/>
     /// Example: {"next":"dXNlcl9pZD11c2VyXzE="}
     /// </summary>
-    public sealed partial class PaginationResponse
+    public sealed partial class BackupListPagination2
     {
         /// <summary>
         /// The token to use to retrieve the next page of results.<br/>
@@ -25,7 +25,7 @@ namespace Pinecone
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PaginationResponse" /> class.
+        /// Initializes a new instance of the <see cref="BackupListPagination2" /> class.
         /// </summary>
         /// <param name="next">
         /// The token to use to retrieve the next page of results.<br/>
@@ -34,16 +34,16 @@ namespace Pinecone
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
-        public PaginationResponse(
+        public BackupListPagination2(
             string next)
         {
             this.Next = next ?? throw new global::System.ArgumentNullException(nameof(next));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PaginationResponse" /> class.
+        /// Initializes a new instance of the <see cref="BackupListPagination2" /> class.
         /// </summary>
-        public PaginationResponse()
+        public BackupListPagination2()
         {
         }
 

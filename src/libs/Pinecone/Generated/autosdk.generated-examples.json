@@ -68,6 +68,17 @@
     },
     {
       "Order": 7,
+      "Title": "Create a backup schedule for an index",
+      "Slug": "create-backup-schedule",
+      "Description": "Create a time-based backup schedule for the specified index.",
+      "Language": "http",
+      "Code": "### Create a backup schedule for an index\n# @name create_backup_schedule\nPOST {{host}}/indexes/{{index_name}}/backup-schedules\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022name\u0022: \u0022daily-compliance-backup\u0022,\n  \u0022retention\u0022: {\n    \u0022expire_after_days\u0022: 90\n  },\n  \u0022schedule\u0022: {\n    \u0022frequency\u0022: \u0022daily\u0022,\n    \u0022type\u0022: \u0022time-based\u0022\n  }\n}\n\n## Responses\n# 201\n# Description: The backup schedule was created successfully.\n# Content-Type: application/json\n# 400\n# Description: Bad request. The request body included invalid request parameters.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 403\n# Description: Scheduled backups are not available for the caller\u0027s plan.\n# Content-Type: application/json\n# 404\n# Description: Index not found.\n# Content-Type: application/json\n# 409\n# Description: The index already has an enabled backup schedule.\n# Content-Type: application/json\n# 422\n# Description: Unprocessable entity. The request body could not be deserialized.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "create_backup_schedule",
+      "Setup": null
+    },
+    {
+      "Order": 8,
       "Title": "Create a collection",
       "Slug": "create-collection",
       "Description": "Create a Pinecone collection.\n  \nServerless indexes do not support collections.",
@@ -78,10 +89,10 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 8,
+      "Order": 9,
       "Title": "Create an index",
       "Slug": "create-index",
-      "Description": "Create a Pinecone index. This is where you specify the measure of similarity, the dimension of vectors to be stored in the index, which cloud provider you would like to deploy with, and more.\n  \nFor guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index).",
+      "Description": "Create a Pinecone index. This is where you specify the measure of similarity, the dimension of vectors to be stored in the index, which cloud provider you would like to deploy with, and more.\nTo restore from a backup, set \u0060spec.serverless.source_backup_id\u0060 and specify the target \u0060cloud\u0060 and \u0060region\u0060. Same-cloud cross-region restore is supported when available for the backup\u0027s source region. Cross-cloud restore is not supported.\nFor guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index).",
       "Language": "csharp",
       "Code": "using var client = new PineconeClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Pinecone.CreateIndexRequest\u003E(\n    @\u0022{\n  \u0022\u0022deletion_protection\u0022\u0022: \u0022\u0022enabled\u0022\u0022,\n  \u0022\u0022dimension\u0022\u0022: 1536,\n  \u0022\u0022metric\u0022\u0022: \u0022\u0022cosine\u0022\u0022,\n  \u0022\u0022name\u0022\u0022: \u0022\u0022movie-recommendations\u0022\u0022,\n  \u0022\u0022spec\u0022\u0022: {\n    \u0022\u0022pod\u0022\u0022: {\n      \u0022\u0022environment\u0022\u0022: \u0022\u0022us-east-1-aws\u0022\u0022,\n      \u0022\u0022metadata_config\u0022\u0022: {\n        \u0022\u0022indexed\u0022\u0022: [\n          \u0022\u0022genre\u0022\u0022,\n          \u0022\u0022title\u0022\u0022,\n          \u0022\u0022imdb_rating\u0022\u0022\n        ]\n      },\n      \u0022\u0022pod_type\u0022\u0022: \u0022\u0022p1.x1\u0022\u0022,\n      \u0022\u0022pods\u0022\u0022: 1,\n      \u0022\u0022replicas\u0022\u0022: 1,\n      \u0022\u0022shards\u0022\u0022: 1,\n      \u0022\u0022source_collection\u0022\u0022: \u0022\u0022movie-embeddings\u0022\u0022\n    }\n  }\n}\u0022)!;\n\nvar response = await client.ManageIndexes.CreateIndexAsync(\n    request: request\n);",
       "Format": "sdk",
@@ -89,7 +100,7 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 9,
+      "Order": 10,
       "Title": "Create an index with integrated embedding",
       "Slug": "create-index-for-model",
       "Description": "Create an index with integrated embedding.\nWith this type of index, you provide source text, and  Pinecone uses a [hosted embedding model](https://docs.pinecone.io/guides/index-data/create-an-index#embedding-models)  to convert the text automatically during [upsert](https://docs.pinecone.io/reference/api/2026-04/data-plane/upsert_records)  and [search](https://docs.pinecone.io/reference/api/2026-04/data-plane/search_records).  \nFor guidance and examples, see [Create an index](https://docs.pinecone.io/guides/index-data/create-an-index#integrated-embedding).",
@@ -100,18 +111,18 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 10,
+      "Order": 11,
       "Title": "Create an index from a backup",
       "Slug": "create-index-from-backup-operation",
-      "Description": "Create an index from a backup.",
-      "Language": "http",
-      "Code": "### Create an index from a backup\n# @name create_index_from_backup_operation\nPOST {{host}}/backups/{{backup_id}}/create-index\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022name\u0022: \u0022example-index\u0022,\n  \u0022tags\u0022: {\n    \u0022tag0\u0022: \u0022val0\u0022,\n    \u0022tag1\u0022: \u0022val1\u0022\n  },\n  \u0022deletion_protection\u0022: \u0022disabled\u0022\n}\n\n## Responses\n# 202\n# Description: The request to create the index has been accepted.\n# Content-Type: application/json\n# 400\n# Description: Bad request. The request body included invalid request parameters.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 402\n# Description: Payment required. Organization is on a paid plan and is delinquent on payment.\n# Content-Type: application/json\n# 403\n# Description: You\u0027ve exceed your pod quota.\n# Content-Type: application/json\n# 404\n# Description: Backup not found.\n# Content-Type: application/json\n# 409\n# Description: Index of given name already exists.\n# Content-Type: application/json\n# 422\n# Description: Unprocessable entity. The request body could not be deserialized.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
-      "Format": "http",
+      "Description": "Create an index from a backup. For serverless backups, you can optionally set \u0060read_capacity\u0060 so the restored index is created with dedicated read nodes (DRN) instead of defaulting to on-demand capacity.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Pinecone.CreateIndexFromBackupRequest\u003E(\n    @\u0022{\n  \u0022\u0022name\u0022\u0022: \u0022\u0022restored-drn-index\u0022\u0022,\n  \u0022\u0022read_capacity\u0022\u0022: {\n    \u0022\u0022dedicated\u0022\u0022: {\n      \u0022\u0022manual\u0022\u0022: {\n        \u0022\u0022replicas\u0022\u0022: 2,\n        \u0022\u0022shards\u0022\u0022: 2\n      },\n      \u0022\u0022node_type\u0022\u0022: \u0022\u0022t1\u0022\u0022,\n      \u0022\u0022scaling\u0022\u0022: \u0022\u0022Manual\u0022\u0022\n    },\n    \u0022\u0022mode\u0022\u0022: \u0022\u0022Dedicated\u0022\u0022\n  }\n}\u0022)!;\n\nvar response = await client.ManageIndexes.CreateIndexFromBackupOperationAsync(\n    backupId: \u0022670e8400-e29b-41d4-a716-446655440000\u0022,\n    request: request\n);",
+      "Format": "sdk",
       "OperationId": "create_index_from_backup_operation",
-      "Setup": null
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 11,
+      "Order": 12,
       "Title": "Delete a backup",
       "Slug": "delete-backup",
       "Description": "Delete a backup.",
@@ -122,7 +133,18 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 12,
+      "Order": 13,
+      "Title": "Delete a backup schedule",
+      "Slug": "delete-backup-schedule",
+      "Description": "Permanently remove a backup schedule.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nawait client.ManageIndexes.DeleteBackupScheduleAsync(\n    scheduleId: \u0022e88f7273-42aa-47e9-af73-593827136867\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "delete_backup_schedule",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 14,
       "Title": "Delete a collection",
       "Slug": "delete-collection",
       "Description": "Delete an existing collection.\nServerless indexes do not support collections.",
@@ -133,7 +155,7 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 13,
+      "Order": 15,
       "Title": "Delete an index",
       "Slug": "delete-index",
       "Description": "Delete an existing index.",
@@ -144,7 +166,7 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 14,
+      "Order": 16,
       "Title": "Describe a backup",
       "Slug": "describe-backup",
       "Description": "Get a description of a backup.",
@@ -155,7 +177,18 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 15,
+      "Order": 17,
+      "Title": "Describe a backup schedule",
+      "Slug": "describe-backup-schedule",
+      "Description": "Get a single backup schedule by ID.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar response = await client.ManageIndexes.DescribeBackupScheduleAsync(\n    scheduleId: \u0022e88f7273-42aa-47e9-af73-593827136867\u0022\n);\n\n// Example response:\n// {\n//   \u0022created_at\u0022: \u00222026-04-02 18:22:56.712605\\u002B00:00\u0022,\n//   \u0022enabled\u0022: true,\n//   \u0022frequency\u0022: \u0022daily\u0022,\n//   \u0022index_id\u0022: \u00228cbf7ba6-4135-438e-a3c3-4a89a3298905\u0022,\n//   \u0022name\u0022: \u0022daily-compliance-backup\u0022,\n//   \u0022next_scheduled_run\u0022: \u00222026-04-03 06:00:00\\u002B00:00\u0022,\n//   \u0022project_id\u0022: \u002271ce31ea-75f7-45d6-a147-ef67f661a1b0\u0022,\n//   \u0022retention_expire_after_days\u0022: 90,\n//   \u0022schedule_id\u0022: \u0022e88f7273-42aa-47e9-af73-593827136867\u0022,\n//   \u0022schedule_type\u0022: \u0022time-based\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "describe_backup_schedule",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 18,
       "Title": "Describe a collection",
       "Slug": "describe-collection",
       "Description": "Get a description of a collection.\nServerless indexes do not support collections.",
@@ -166,7 +199,7 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 16,
+      "Order": 19,
       "Title": "Describe an index",
       "Slug": "describe-index",
       "Description": "Get a description of an index.",
@@ -177,7 +210,7 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 17,
+      "Order": 20,
       "Title": "Describe a restore job",
       "Slug": "describe-restore-job",
       "Description": "Get a description of a restore job.",
@@ -188,7 +221,29 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 18,
+      "Order": 21,
+      "Title": "List backup history for a schedule",
+      "Slug": "list-backup-schedule-history",
+      "Description": "Return backups that were created by the specified backup schedule.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar response = await client.ManageIndexes.ListBackupScheduleHistoryAsync(\n    scheduleId: \u0022e88f7273-42aa-47e9-af73-593827136867\u0022\n);\n\n// Example response:\n// {\n//   \u0022data\u0022: [\n//     {\n//       \u0022backup_id\u0022: \u0022a1b2c3d4-e5f6-7890-abcd-ef1234567890\u0022,\n//       \u0022cloud\u0022: \u0022aws\u0022,\n//       \u0022created_at\u0022: \u00222026-04-03 06:00:00\\u002B00:00\u0022,\n//       \u0022dimension\u0022: 1536,\n//       \u0022metric\u0022: \u0022cosine\u0022,\n//       \u0022name\u0022: \u0022daily-compliance-backup-20260403T060000Z\u0022,\n//       \u0022namespace_count\u0022: 1,\n//       \u0022record_count\u0022: 500000,\n//       \u0022region\u0022: \u0022us-east-1\u0022,\n//       \u0022size_bytes\u0022: 104857600,\n//       \u0022source_index_id\u0022: \u00228cbf7ba6-4135-438e-a3c3-4a89a3298905\u0022,\n//       \u0022source_index_name\u0022: \u0022my-index\u0022,\n//       \u0022status\u0022: \u0022Ready\u0022\n//     }\n//   ]\n// }",
+      "Format": "sdk",
+      "OperationId": "list_backup_schedule_history",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 22,
+      "Title": "List backup schedules for an index",
+      "Slug": "list-backup-schedules",
+      "Description": "Return backup schedules associated with the given index.",
+      "Language": "http",
+      "Code": "### List backup schedules for an index\n# @name list_backup_schedules\nGET {{host}}/indexes/{{index_name}}/backup-schedules?limit=10\u0026paginationToken={{paginationToken}}\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nAccept: application/json\n\n## Responses\n# 200\n# Description: Backup schedules for the index.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 403\n# Description: Scheduled backups are not available for the caller\u0027s plan.\n# Content-Type: application/json\n# 404\n# Description: Index not found.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "list_backup_schedules",
+      "Setup": null
+    },
+    {
+      "Order": 23,
       "Title": "List collections",
       "Slug": "list-collections",
       "Description": "List all collections in a project.\nServerless indexes do not support collections.",
@@ -199,18 +254,18 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 19,
+      "Order": 24,
       "Title": "List backups for an index",
       "Slug": "list-index-backups",
-      "Description": "List all backups for an index.",
+      "Description": "When \u0060include_deleted\u0060 is false (or omitted), \u0060index_name\u0060 must resolve to an active index in the project. If no active index by that name exists\u2014including the case where only deleted indexes have used the name\u2014the API returns **404**, not an empty list.\nWhen \u0060include_deleted\u0060 is true, the API returns backups from every index in the project that has ever used this name (active and deleted). The \u0060source_index_deleted_at\u0060 field is present only when the backup is from a deleted index. **404** is returned only when no index by that name has ever existed in the project (active or deleted).",
       "Language": "http",
-      "Code": "### List backups for an index\n# @name list_index_backups\nGET {{host}}/indexes/{{index_name}}/backups?limit=10\u0026paginationToken={{paginationToken}}\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nAccept: application/json\n\n## Responses\n# 200\n# Description: This operation returns a list of all the backups that you have previously created, and which are associated with the given index.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 404\n# Description: Index not found.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
+      "Code": "### List backups for an index\n# @name list_index_backups\nGET {{host}}/indexes/{{index_name}}/backups?include_deleted=false\u0026limit=10\u0026paginationToken={{paginationToken}}\nApi-Key: {{api_key}}\nX-Pinecone-Api-Version: 2026-04\nAccept: application/json\n\n## Responses\n# 200\n# Description: Returns backups associated with the index name. With \u0060include_deleted\u0060 true, backups for all versions of the index name are returned. With \u0060include_deleted\u0060 false, only backups for the active index are returned, or **404** if there is no active index.\n# Content-Type: application/json\n# 401\n# Description: Unauthorized. Possible causes: Invalid API key.\n# Content-Type: application/json\n# 404\n# Description: Index not found.\n# Content-Type: application/json\n# 500\n# Description: Internal server error.\n# Content-Type: application/json",
       "Format": "http",
       "OperationId": "list_index_backups",
       "Setup": null
     },
     {
-      "Order": 20,
+      "Order": 25,
       "Title": "List indexes",
       "Slug": "list-indexes",
       "Description": "List all indexes in a project.",
@@ -221,7 +276,7 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 21,
+      "Order": 26,
       "Title": "List backups for all indexes in a project",
       "Slug": "list-project-backups",
       "Description": "List all backups for a project.",
@@ -232,7 +287,7 @@
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     },
     {
-      "Order": 22,
+      "Order": 27,
       "Title": "List restore jobs",
       "Slug": "list-restore-jobs",
       "Description": "List all restore jobs for a project.",
@@ -240,6 +295,17 @@
       "Code": "using var client = new PineconeClient(apiKey);\nvar response = await client.ManageIndexes.ListRestoreJobsAsync();\n\n// Example response:\n// {\n//   \u0022data\u0022: []\n// }",
       "Format": "sdk",
       "OperationId": "list_restore_jobs",
+      "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 28,
+      "Title": "Update a backup schedule",
+      "Slug": "update-backup-schedule",
+      "Description": "Update frequency, retention, or enabled state for a backup schedule.\nRe-enabling a disabled schedule (\u0060enabled: true\u0060) enqueues a new backup operation.",
+      "Language": "csharp",
+      "Code": "using var client = new PineconeClient(apiKey);\n\nvar request = global::System.Text.Json.JsonSerializer.Deserialize\u003Cglobal::Pinecone.UpdateBackupScheduleRequest\u003E(\n    @\u0022{\n  \u0022\u0022enabled\u0022\u0022: false,\n  \u0022\u0022frequency\u0022\u0022: \u0022\u0022weekly\u0022\u0022,\n  \u0022\u0022retention\u0022\u0022: {\n    \u0022\u0022expire_after_days\u0022\u0022: 30\n  }\n}\u0022)!;\n\nvar response = await client.ManageIndexes.UpdateBackupScheduleAsync(\n    scheduleId: \u0022e88f7273-42aa-47e9-af73-593827136867\u0022,\n    request: request\n);\n\n// Example response:\n// {\n//   \u0022created_at\u0022: \u00222026-04-02 18:22:56.712605\\u002B00:00\u0022,\n//   \u0022enabled\u0022: false,\n//   \u0022frequency\u0022: \u0022weekly\u0022,\n//   \u0022index_id\u0022: \u00228cbf7ba6-4135-438e-a3c3-4a89a3298905\u0022,\n//   \u0022name\u0022: \u0022daily-compliance-backup\u0022,\n//   \u0022project_id\u0022: \u002271ce31ea-75f7-45d6-a147-ef67f661a1b0\u0022,\n//   \u0022retention_expire_after_days\u0022: 30,\n//   \u0022schedule_id\u0022: \u0022e88f7273-42aa-47e9-af73-593827136867\u0022,\n//   \u0022schedule_type\u0022: \u0022time-based\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "update_backup_schedule",
       "Setup": "This example assumes \u0060using Pinecone;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
     }
   ]

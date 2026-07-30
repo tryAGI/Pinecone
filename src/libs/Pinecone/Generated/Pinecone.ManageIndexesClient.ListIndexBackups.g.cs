@@ -29,6 +29,7 @@ namespace Pinecone
             global::System.Net.Http.HttpClient httpClient,
             ref string xPineconeApiVersion,
             ref string indexName,
+            ref bool? includeDeleted,
             ref int? limit,
             ref string? paginationToken);
         partial void PrepareListIndexBackupsRequest(
@@ -36,6 +37,7 @@ namespace Pinecone
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             string xPineconeApiVersion,
             string indexName,
+            bool? includeDeleted,
             int? limit,
             string? paginationToken);
         partial void ProcessListIndexBackupsResponse(
@@ -49,12 +51,16 @@ namespace Pinecone
 
         /// <summary>
         /// List backups for an index<br/>
-        /// List all backups for an index.
+        /// When `include_deleted` is false (or omitted), `index_name` must resolve to an active index in the project. If no active index by that name exists—including the case where only deleted indexes have used the name—the API returns **404**, not an empty list.<br/>
+        /// When `include_deleted` is true, the API returns backups from every index in the project that has ever used this name (active and deleted). The `source_index_deleted_at` field is present only when the backup is from a deleted index. **404** is returned only when no index by that name has ever existed in the project (active or deleted).
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
         /// <param name="indexName"></param>
+        /// <param name="includeDeleted">
+        /// Default Value: false
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -65,6 +71,7 @@ namespace Pinecone
         public async global::System.Threading.Tasks.Task<global::Pinecone.BackupList> ListIndexBackupsAsync(
             string indexName,
             string xPineconeApiVersion = "2026-04",
+            bool? includeDeleted = default,
             int? limit = default,
             string? paginationToken = default,
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
@@ -73,6 +80,7 @@ namespace Pinecone
             var __response = await ListIndexBackupsAsResponseAsync(
                 indexName: indexName,
                 xPineconeApiVersion: xPineconeApiVersion,
+                includeDeleted: includeDeleted,
                 limit: limit,
                 paginationToken: paginationToken,
                 requestOptions: requestOptions,
@@ -83,12 +91,16 @@ namespace Pinecone
         }
         /// <summary>
         /// List backups for an index<br/>
-        /// List all backups for an index.
+        /// When `include_deleted` is false (or omitted), `index_name` must resolve to an active index in the project. If no active index by that name exists—including the case where only deleted indexes have used the name—the API returns **404**, not an empty list.<br/>
+        /// When `include_deleted` is true, the API returns backups from every index in the project that has ever used this name (active and deleted). The `source_index_deleted_at` field is present only when the backup is from a deleted index. **404** is returned only when no index by that name has ever existed in the project (active or deleted).
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
         /// <param name="indexName"></param>
+        /// <param name="includeDeleted">
+        /// Default Value: false
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -99,6 +111,7 @@ namespace Pinecone
         public async global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse<global::Pinecone.BackupList>> ListIndexBackupsAsResponseAsync(
             string indexName,
             string xPineconeApiVersion = "2026-04",
+            bool? includeDeleted = default,
             int? limit = default,
             string? paginationToken = default,
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
@@ -110,6 +123,7 @@ namespace Pinecone
                 httpClient: HttpClient,
                 xPineconeApiVersion: ref xPineconeApiVersion,
                 indexName: ref indexName,
+                includeDeleted: ref includeDeleted,
                 limit: ref limit,
                 paginationToken: ref paginationToken);
 
@@ -140,6 +154,7 @@ namespace Pinecone
                                 path: $"/indexes/{indexName}/backups",
                                 baseUri: HttpClient.BaseAddress);
                             __pathBuilder
+                                .AddOptionalParameter("include_deleted", includeDeleted?.ToString().ToLowerInvariant())
                                 .AddOptionalParameter("limit", limit?.ToString())
                                 .AddOptionalParameter("paginationToken", paginationToken)
                                 ;
@@ -188,6 +203,7 @@ namespace Pinecone
                     httpRequestMessage: __httpRequest,
                     xPineconeApiVersion: xPineconeApiVersion!,
                     indexName: indexName!,
+                    includeDeleted: includeDeleted,
                     limit: limit,
                     paginationToken: paginationToken);
 

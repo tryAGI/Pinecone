@@ -5,17 +5,13 @@ namespace Pinecone
     public partial interface IManageIndexesClient
     {
         /// <summary>
-        /// List backups for an index<br/>
-        /// When `include_deleted` is false (or omitted), `index_name` must resolve to an active index in the project. If no active index by that name exists—including the case where only deleted indexes have used the name—the API returns **404**, not an empty list.<br/>
-        /// When `include_deleted` is true, the API returns backups from every index in the project that has ever used this name (active and deleted). The `source_index_deleted_at` field is present only when the backup is from a deleted index. **404** is returned only when no index by that name has ever existed in the project (active or deleted).
+        /// List backup schedules for an index<br/>
+        /// Return backup schedules associated with the given index.
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
         /// <param name="indexName"></param>
-        /// <param name="includeDeleted">
-        /// Default Value: false
-        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -23,26 +19,21 @@ namespace Pinecone
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Pinecone.ApiException"></exception>
-        global::System.Threading.Tasks.Task<global::Pinecone.BackupList> ListIndexBackupsAsync(
+        global::System.Threading.Tasks.Task<global::Pinecone.BackupScheduleList> ListBackupSchedulesAsync(
             string indexName,
             string xPineconeApiVersion = "2026-04",
-            bool? includeDeleted = default,
             int? limit = default,
             string? paginationToken = default,
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// List backups for an index<br/>
-        /// When `include_deleted` is false (or omitted), `index_name` must resolve to an active index in the project. If no active index by that name exists—including the case where only deleted indexes have used the name—the API returns **404**, not an empty list.<br/>
-        /// When `include_deleted` is true, the API returns backups from every index in the project that has ever used this name (active and deleted). The `source_index_deleted_at` field is present only when the backup is from a deleted index. **404** is returned only when no index by that name has ever existed in the project (active or deleted).
+        /// List backup schedules for an index<br/>
+        /// Return backup schedules associated with the given index.
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
         /// <param name="indexName"></param>
-        /// <param name="includeDeleted">
-        /// Default Value: false
-        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -50,10 +41,9 @@ namespace Pinecone
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Pinecone.ApiException"></exception>
-        global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse<global::Pinecone.BackupList>> ListIndexBackupsAsResponseAsync(
+        global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse<global::Pinecone.BackupScheduleList>> ListBackupSchedulesAsResponseAsync(
             string indexName,
             string xPineconeApiVersion = "2026-04",
-            bool? includeDeleted = default,
             int? limit = default,
             string? paginationToken = default,
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
