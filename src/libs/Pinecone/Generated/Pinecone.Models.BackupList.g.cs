@@ -15,12 +15,10 @@ namespace Pinecone
         public global::System.Collections.Generic.IList<global::Pinecone.BackupModel>? Data { get; set; }
 
         /// <summary>
-        /// The pagination object that is returned with paginated responses.<br/>
-        /// Example: {"next":"dXNlcl9pZD11c2VyXzE="}
+        /// Cursor envelope for the next page. `null` (or absent) on the final page of results.
         /// </summary>
-        /// <example>{"next":"dXNlcl9pZD11c2VyXzE="}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("pagination")]
-        public global::Pinecone.PaginationResponse? Pagination { get; set; }
+        public global::Pinecone.BackupListPagination2? Pagination { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -35,15 +33,14 @@ namespace Pinecone
         /// List of backup objects
         /// </param>
         /// <param name="pagination">
-        /// The pagination object that is returned with paginated responses.<br/>
-        /// Example: {"next":"dXNlcl9pZD11c2VyXzE="}
+        /// Cursor envelope for the next page. `null` (or absent) on the final page of results.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public BackupList(
             global::System.Collections.Generic.IList<global::Pinecone.BackupModel>? data,
-            global::Pinecone.PaginationResponse? pagination)
+            global::Pinecone.BackupListPagination2? pagination)
         {
             this.Data = data;
             this.Pagination = pagination;

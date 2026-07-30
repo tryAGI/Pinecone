@@ -4,18 +4,27 @@
 namespace Pinecone
 {
     /// <summary>
-    /// The BackupModel describes the configuration and status of a Pinecone backup.
+    /// A backup produced by a schedule, including lifecycle status. When `status` is `Scheduled`, `scheduled_execution_at` is set to the planned run time.
     /// </summary>
-    public sealed partial class BackupModel
+    public sealed partial class BackupScheduleHistoryItem
     {
         /// <summary>
         /// Unique identifier for the backup.<br/>
-        /// Example: 670e8400-e29b-41d4-a716-446655440001
+        /// Example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         /// </summary>
-        /// <example>670e8400-e29b-41d4-a716-446655440001</example>
+        /// <example>a1b2c3d4-e5f6-7890-abcd-ef1234567890</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("backup_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string BackupId { get; set; }
+
+        /// <summary>
+        /// ID of the index from which the backup was taken.<br/>
+        /// Example: 8cbf7ba6-4135-438e-a3c3-4a89a3298905
+        /// </summary>
+        /// <example>8cbf7ba6-4135-438e-a3c3-4a89a3298905</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("source_index_id")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string SourceIndexId { get; set; }
 
         /// <summary>
         /// Name of the index from which the backup was taken.<br/>
@@ -27,40 +36,28 @@ namespace Pinecone
         public required string SourceIndexName { get; set; }
 
         /// <summary>
-        /// ID of the index.<br/>
-        /// Example: 670e8400-e29b-41d4-a716-446655440000
+        /// Custom user tags on this backup snapshot. Keys must be 80 characters or less. Values must be 120 characters or less. Keys must be alphanumeric, '_', or '-'. Values must be alphanumeric, ';', '@', '_', '-', '.', '+', or ' '. To unset a key, set the value to be an empty string. `null` when no tags are set.
         /// </summary>
-        /// <example>670e8400-e29b-41d4-a716-446655440000</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("source_index_id")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string SourceIndexId { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("tags")]
+        public global::System.Collections.Generic.Dictionary<string, string>? Tags { get; set; }
 
         /// <summary>
-        /// The deletion timestamp when the source index has been deleted. Not present for backups associated with an active index.<br/>
-        /// Example: 2024-03-05 12:00:00+00:00
+        /// Name of the backup.<br/>
+        /// Example: daily-compliance-backup-20260403T060000Z
         /// </summary>
-        /// <example>2024-03-05 12:00:00+00:00</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("source_index_deleted_at")]
-        public global::System.DateTime? SourceIndexDeletedAt { get; set; }
-
-        /// <summary>
-        /// Optional user-defined name for the backup.<br/>
-        /// Example: backup-2025-02-04
-        /// </summary>
-        /// <example>backup-2025-02-04</example>
+        /// <example>daily-compliance-backup-20260403T060000Z</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
-        /// Optional description providing context for the backup.<br/>
-        /// Example: Backup before bulk update.
+        /// Optional description of the backup, or `null`.
         /// </summary>
-        /// <example>Backup before bulk update.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
 
         /// <summary>
-        /// Current status of the backup (e.g., Initializing, Ready, Failed).<br/>
+        /// Current lifecycle status of the backup.<br/>
         /// Example: Ready
         /// </summary>
         /// <example>Ready</example>
@@ -92,60 +89,66 @@ namespace Pinecone
         /// </summary>
         /// <example>1536</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("dimension")]
-        public int? Dimension { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required int Dimension { get; set; }
 
         /// <summary>
         /// The distance metric to be used for similarity search. You can use 'euclidean', 'cosine', or 'dotproduct'. If the 'vector_type' is 'sparse', the metric must be 'dotproduct'. If the `vector_type` is `dense`, the metric defaults to 'cosine'.<br/>
         /// Possible values: `cosine`, `euclidean`, or `dotproduct`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metric")]
-        public string? Metric { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Metric { get; set; }
 
         /// <summary>
-        /// Schema for the behavior of Pinecone's internal metadata index. By default, all metadata is indexed; when `schema` is present, only fields which are present in the `fields` object with a `filterable: true` are indexed. Note that `filterable: false` is not currently supported.<br/>
-        /// Example: {"fields":{"description":{"filterable":true},"genre":{"filterable":true},"year":{"filterable":true}}}
+        /// Metadata schema associated with the backup, or `null` if not applicable.
         /// </summary>
-        /// <example>{"fields":{"description":{"filterable":true},"genre":{"filterable":true},"year":{"filterable":true}}}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("schema")]
         public global::Pinecone.MetadataSchema? Schema { get; set; }
 
         /// <summary>
         /// Total number of records in the backup.<br/>
-        /// Example: 120000
+        /// Example: 500000
         /// </summary>
-        /// <example>120000</example>
+        /// <example>500000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("record_count")]
-        public int? RecordCount { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required long RecordCount { get; set; }
 
         /// <summary>
         /// Number of namespaces in the backup.<br/>
-        /// Example: 3
+        /// Example: 1
         /// </summary>
-        /// <example>3</example>
+        /// <example>1</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("namespace_count")]
-        public int? NamespaceCount { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required int NamespaceCount { get; set; }
 
         /// <summary>
-        /// Size of the backup in bytes.<br/>
-        /// Example: 10000000
+        /// Approximate stored size of this scheduled-backup snapshot, in bytes.<br/>
+        /// Example: 104857600
         /// </summary>
-        /// <example>10000000</example>
+        /// <example>104857600</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("size_bytes")]
-        public long? SizeBytes { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required long SizeBytes { get; set; }
 
         /// <summary>
-        /// Custom user tags added to an index. Keys must be 80 characters or less. Values must be 120 characters or less. Keys must be alphanumeric, '_', or '-'.  Values must be alphanumeric, ';', '@', '_', '-', '.', '+', or ' '. To unset a key, set the value to be an empty string.<br/>
-        /// Example: {"tag0":"val0","tag1":"val1"}
+        /// RFC 3339 timestamp when the backup record was created.<br/>
+        /// Example: 2026-04-03 06:00:00+00:00
         /// </summary>
-        /// <example>{"tag0":"val0","tag1":"val1"}</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("tags")]
-        public global::System.Collections.Generic.Dictionary<string, string>? Tags { get; set; }
-
-        /// <summary>
-        /// Timestamp when the backup was created.
-        /// </summary>
+        /// <example>2026-04-03 06:00:00+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
-        public string? CreatedAt { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::System.DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// Present when `status` is `Scheduled`. RFC 3339 timestamp when the backup is planned to run.<br/>
+        /// Example: 2026-04-04 06:00:00+00:00
+        /// </summary>
+        /// <example>2026-04-04 06:00:00+00:00</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("scheduled_execution_at")]
+        public global::System.DateTime? ScheduledExecutionAt { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -154,22 +157,26 @@ namespace Pinecone
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BackupModel" /> class.
+        /// Initializes a new instance of the <see cref="BackupScheduleHistoryItem" /> class.
         /// </summary>
         /// <param name="backupId">
         /// Unique identifier for the backup.<br/>
-        /// Example: 670e8400-e29b-41d4-a716-446655440001
+        /// Example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        /// </param>
+        /// <param name="sourceIndexId">
+        /// ID of the index from which the backup was taken.<br/>
+        /// Example: 8cbf7ba6-4135-438e-a3c3-4a89a3298905
         /// </param>
         /// <param name="sourceIndexName">
         /// Name of the index from which the backup was taken.<br/>
         /// Example: my-index
         /// </param>
-        /// <param name="sourceIndexId">
-        /// ID of the index.<br/>
-        /// Example: 670e8400-e29b-41d4-a716-446655440000
+        /// <param name="name">
+        /// Name of the backup.<br/>
+        /// Example: daily-compliance-backup-20260403T060000Z
         /// </param>
         /// <param name="status">
-        /// Current status of the backup (e.g., Initializing, Ready, Failed).<br/>
+        /// Current lifecycle status of the backup.<br/>
         /// Example: Ready
         /// </param>
         /// <param name="cloud">
@@ -180,18 +187,6 @@ namespace Pinecone
         /// Cloud region where the backup is stored.<br/>
         /// Example: us-east-1
         /// </param>
-        /// <param name="sourceIndexDeletedAt">
-        /// The deletion timestamp when the source index has been deleted. Not present for backups associated with an active index.<br/>
-        /// Example: 2024-03-05 12:00:00+00:00
-        /// </param>
-        /// <param name="name">
-        /// Optional user-defined name for the backup.<br/>
-        /// Example: backup-2025-02-04
-        /// </param>
-        /// <param name="description">
-        /// Optional description providing context for the backup.<br/>
-        /// Example: Backup before bulk update.
-        /// </param>
         /// <param name="dimension">
         /// The dimensions of the vectors to be inserted in the index.<br/>
         /// Example: 1536
@@ -200,74 +195,80 @@ namespace Pinecone
         /// The distance metric to be used for similarity search. You can use 'euclidean', 'cosine', or 'dotproduct'. If the 'vector_type' is 'sparse', the metric must be 'dotproduct'. If the `vector_type` is `dense`, the metric defaults to 'cosine'.<br/>
         /// Possible values: `cosine`, `euclidean`, or `dotproduct`.
         /// </param>
-        /// <param name="schema">
-        /// Schema for the behavior of Pinecone's internal metadata index. By default, all metadata is indexed; when `schema` is present, only fields which are present in the `fields` object with a `filterable: true` are indexed. Note that `filterable: false` is not currently supported.<br/>
-        /// Example: {"fields":{"description":{"filterable":true},"genre":{"filterable":true},"year":{"filterable":true}}}
-        /// </param>
         /// <param name="recordCount">
         /// Total number of records in the backup.<br/>
-        /// Example: 120000
+        /// Example: 500000
         /// </param>
         /// <param name="namespaceCount">
         /// Number of namespaces in the backup.<br/>
-        /// Example: 3
+        /// Example: 1
         /// </param>
         /// <param name="sizeBytes">
-        /// Size of the backup in bytes.<br/>
-        /// Example: 10000000
-        /// </param>
-        /// <param name="tags">
-        /// Custom user tags added to an index. Keys must be 80 characters or less. Values must be 120 characters or less. Keys must be alphanumeric, '_', or '-'.  Values must be alphanumeric, ';', '@', '_', '-', '.', '+', or ' '. To unset a key, set the value to be an empty string.<br/>
-        /// Example: {"tag0":"val0","tag1":"val1"}
+        /// Approximate stored size of this scheduled-backup snapshot, in bytes.<br/>
+        /// Example: 104857600
         /// </param>
         /// <param name="createdAt">
-        /// Timestamp when the backup was created.
+        /// RFC 3339 timestamp when the backup record was created.<br/>
+        /// Example: 2026-04-03 06:00:00+00:00
+        /// </param>
+        /// <param name="tags">
+        /// Custom user tags on this backup snapshot. Keys must be 80 characters or less. Values must be 120 characters or less. Keys must be alphanumeric, '_', or '-'. Values must be alphanumeric, ';', '@', '_', '-', '.', '+', or ' '. To unset a key, set the value to be an empty string. `null` when no tags are set.
+        /// </param>
+        /// <param name="description">
+        /// Optional description of the backup, or `null`.
+        /// </param>
+        /// <param name="schema">
+        /// Metadata schema associated with the backup, or `null` if not applicable.
+        /// </param>
+        /// <param name="scheduledExecutionAt">
+        /// Present when `status` is `Scheduled`. RFC 3339 timestamp when the backup is planned to run.<br/>
+        /// Example: 2026-04-04 06:00:00+00:00
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
-        public BackupModel(
+        public BackupScheduleHistoryItem(
             string backupId,
-            string sourceIndexName,
             string sourceIndexId,
+            string sourceIndexName,
+            string name,
             string status,
             string cloud,
             string region,
-            global::System.DateTime? sourceIndexDeletedAt,
-            string? name,
-            string? description,
-            int? dimension,
-            string? metric,
-            global::Pinecone.MetadataSchema? schema,
-            int? recordCount,
-            int? namespaceCount,
-            long? sizeBytes,
+            int dimension,
+            string metric,
+            long recordCount,
+            int namespaceCount,
+            long sizeBytes,
+            global::System.DateTime createdAt,
             global::System.Collections.Generic.Dictionary<string, string>? tags,
-            string? createdAt)
+            string? description,
+            global::Pinecone.MetadataSchema? schema,
+            global::System.DateTime? scheduledExecutionAt)
         {
             this.BackupId = backupId ?? throw new global::System.ArgumentNullException(nameof(backupId));
-            this.SourceIndexName = sourceIndexName ?? throw new global::System.ArgumentNullException(nameof(sourceIndexName));
             this.SourceIndexId = sourceIndexId ?? throw new global::System.ArgumentNullException(nameof(sourceIndexId));
-            this.SourceIndexDeletedAt = sourceIndexDeletedAt;
-            this.Name = name;
+            this.SourceIndexName = sourceIndexName ?? throw new global::System.ArgumentNullException(nameof(sourceIndexName));
+            this.Tags = tags;
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
             this.Status = status ?? throw new global::System.ArgumentNullException(nameof(status));
             this.Cloud = cloud ?? throw new global::System.ArgumentNullException(nameof(cloud));
             this.Region = region ?? throw new global::System.ArgumentNullException(nameof(region));
             this.Dimension = dimension;
-            this.Metric = metric;
+            this.Metric = metric ?? throw new global::System.ArgumentNullException(nameof(metric));
             this.Schema = schema;
             this.RecordCount = recordCount;
             this.NamespaceCount = namespaceCount;
             this.SizeBytes = sizeBytes;
-            this.Tags = tags;
             this.CreatedAt = createdAt;
+            this.ScheduledExecutionAt = scheduledExecutionAt;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BackupModel" /> class.
+        /// Initializes a new instance of the <see cref="BackupScheduleHistoryItem" /> class.
         /// </summary>
-        public BackupModel()
+        public BackupScheduleHistoryItem()
         {
         }
 

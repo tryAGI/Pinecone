@@ -34,6 +34,13 @@ namespace Pinecone
         public string? DeletionProtection { get; set; }
 
         /// <summary>
+        /// By default the index will be created with read capacity  mode `OnDemand`. If you prefer to allocate dedicated read  nodes for your workload, you must specify mode `Dedicated` and additional configurations for `node_type` and `scaling`.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("read_capacity")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Pinecone.JsonConverters.ReadCapacityJsonConverter))]
+        public global::Pinecone.ReadCapacity? ReadCapacity { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -55,17 +62,22 @@ namespace Pinecone
         /// Possible values: `disabled` or `enabled`.<br/>
         /// Default Value: disabled
         /// </param>
+        /// <param name="readCapacity">
+        /// By default the index will be created with read capacity  mode `OnDemand`. If you prefer to allocate dedicated read  nodes for your workload, you must specify mode `Dedicated` and additional configurations for `node_type` and `scaling`.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public CreateIndexFromBackupRequest(
             string name,
             global::System.Collections.Generic.Dictionary<string, string>? tags,
-            string? deletionProtection)
+            string? deletionProtection,
+            global::Pinecone.ReadCapacity? readCapacity)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Tags = tags;
             this.DeletionProtection = deletionProtection;
+            this.ReadCapacity = readCapacity;
         }
 
         /// <summary>

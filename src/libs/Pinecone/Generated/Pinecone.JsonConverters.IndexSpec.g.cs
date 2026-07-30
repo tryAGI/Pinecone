@@ -40,6 +40,7 @@ namespace Pinecone.JsonConverters
             if (__jsonProps.Contains("serverless.read_capacity")) __score0++;
             if (__jsonProps.Contains("serverless.region")) __score0++;
             if (__jsonProps.Contains("serverless.schema")) __score0++;
+            if (__jsonProps.Contains("serverless.source_backup_id")) __score0++;
             if (__jsonProps.Contains("serverless.source_collection")) __score0++;
             var __score1 = 0;
             if (__jsonProps.Contains("pod")) __score1++;

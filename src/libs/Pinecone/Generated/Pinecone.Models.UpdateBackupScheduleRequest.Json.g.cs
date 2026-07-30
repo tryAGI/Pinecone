@@ -2,7 +2,7 @@
 
 namespace Pinecone
 {
-    public sealed partial class PaginationResponse
+    public sealed partial class UpdateBackupScheduleRequest
     {
         /// <summary>
         /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
@@ -47,20 +47,20 @@ namespace Pinecone
         /// <summary>
         /// Deserializes a JSON string using the provided JsonSerializerContext.
         /// </summary>
-        public static global::Pinecone.PaginationResponse? FromJson(
+        public static global::Pinecone.UpdateBackupScheduleRequest? FromJson(
             string json,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return global::System.Text.Json.JsonSerializer.Deserialize(
                 json,
-                typeof(global::Pinecone.PaginationResponse),
-                jsonSerializerContext) as global::Pinecone.PaginationResponse;
+                typeof(global::Pinecone.UpdateBackupScheduleRequest),
+                jsonSerializerContext) as global::Pinecone.UpdateBackupScheduleRequest;
         }
 
         /// <summary>
         /// Deserializes a JSON string using the generated default JsonSerializerContext.
         /// </summary>
-        public static global::Pinecone.PaginationResponse? FromJson(
+        public static global::Pinecone.UpdateBackupScheduleRequest? FromJson(
             string json)
         {
             return FromJson(
@@ -75,7 +75,7 @@ namespace Pinecone
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::Pinecone.PaginationResponse? FromJson(
+        public static global::Pinecone.UpdateBackupScheduleRequest? FromJson(
             string json,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
@@ -86,7 +86,7 @@ namespace Pinecone
                     global::Pinecone.SourceGenerationContext.Default);
             }
 
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Pinecone.PaginationResponse>(
+            return global::System.Text.Json.JsonSerializer.Deserialize<global::Pinecone.UpdateBackupScheduleRequest>(
                 json,
                 jsonSerializerOptions);
         }
@@ -94,20 +94,20 @@ namespace Pinecone
         /// <summary>
         /// Deserializes a JSON stream using the provided JsonSerializerContext.
         /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Pinecone.PaginationResponse?> FromJsonStreamAsync(
+        public static async global::System.Threading.Tasks.ValueTask<global::Pinecone.UpdateBackupScheduleRequest?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
                 jsonStream,
-                typeof(global::Pinecone.PaginationResponse),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Pinecone.PaginationResponse;
+                typeof(global::Pinecone.UpdateBackupScheduleRequest),
+                jsonSerializerContext).ConfigureAwait(false)) as global::Pinecone.UpdateBackupScheduleRequest;
         }
 
         /// <summary>
         /// Deserializes a JSON stream using the generated default JsonSerializerContext.
         /// </summary>
-        public static global::System.Threading.Tasks.ValueTask<global::Pinecone.PaginationResponse?> FromJsonStreamAsync(
+        public static global::System.Threading.Tasks.ValueTask<global::Pinecone.UpdateBackupScheduleRequest?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream)
         {
             return FromJsonStreamAsync(
@@ -122,7 +122,7 @@ namespace Pinecone
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::System.Threading.Tasks.ValueTask<global::Pinecone.PaginationResponse?> FromJsonStreamAsync(
+        public static global::System.Threading.Tasks.ValueTask<global::Pinecone.UpdateBackupScheduleRequest?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
@@ -133,7 +133,7 @@ namespace Pinecone
                     global::Pinecone.SourceGenerationContext.Default);
             }
 
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Pinecone.PaginationResponse?>(
+            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Pinecone.UpdateBackupScheduleRequest?>(
                 jsonStream,
                 jsonSerializerOptions);
         }

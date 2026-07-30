@@ -7,7 +7,7 @@ namespace Pinecone
     {
 
 
-        private static readonly global::Pinecone.EndPointSecurityRequirement s_CreateIndexFromBackupOperationSecurityRequirement0 =
+        private static readonly global::Pinecone.EndPointSecurityRequirement s_CreateBackupScheduleSecurityRequirement0 =
             new global::Pinecone.EndPointSecurityRequirement
             {
                 Authorizations = new global::Pinecone.EndPointAuthorizationRequirement[]
@@ -21,52 +21,52 @@ namespace Pinecone
                     },
                 },
             };
-        private static readonly global::Pinecone.EndPointSecurityRequirement[] s_CreateIndexFromBackupOperationSecurityRequirements =
+        private static readonly global::Pinecone.EndPointSecurityRequirement[] s_CreateBackupScheduleSecurityRequirements =
             new global::Pinecone.EndPointSecurityRequirement[]
-            {                s_CreateIndexFromBackupOperationSecurityRequirement0,
+            {                s_CreateBackupScheduleSecurityRequirement0,
             };
-        partial void PrepareCreateIndexFromBackupOperationArguments(
+        partial void PrepareCreateBackupScheduleArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref string xPineconeApiVersion,
-            ref string backupId,
-            global::Pinecone.CreateIndexFromBackupRequest request);
-        partial void PrepareCreateIndexFromBackupOperationRequest(
+            ref string indexName,
+            global::Pinecone.CreateBackupScheduleRequest request);
+        partial void PrepareCreateBackupScheduleRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             string xPineconeApiVersion,
-            string backupId,
-            global::Pinecone.CreateIndexFromBackupRequest request);
-        partial void ProcessCreateIndexFromBackupOperationResponse(
+            string indexName,
+            global::Pinecone.CreateBackupScheduleRequest request);
+        partial void ProcessCreateBackupScheduleResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessCreateIndexFromBackupOperationResponseContent(
+        partial void ProcessCreateBackupScheduleResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// Create an index from a backup<br/>
-        /// Create an index from a backup. For serverless backups, you can optionally set `read_capacity` so the restored index is created with dedicated read nodes (DRN) instead of defaulting to on-demand capacity.
+        /// Create a backup schedule for an index<br/>
+        /// Create a time-based backup schedule for the specified index.
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
-        /// <param name="backupId"></param>
+        /// <param name="indexName"></param>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Pinecone.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Pinecone.CreateIndexFromBackupResponse> CreateIndexFromBackupOperationAsync(
-            string backupId,
+        public async global::System.Threading.Tasks.Task<global::Pinecone.BackupScheduleResponse> CreateBackupScheduleAsync(
+            string indexName,
 
-            global::Pinecone.CreateIndexFromBackupRequest request,
+            global::Pinecone.CreateBackupScheduleRequest request,
             string xPineconeApiVersion = "2026-04",
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __response = await CreateIndexFromBackupOperationAsResponseAsync(
-                backupId: backupId,
+            var __response = await CreateBackupScheduleAsResponseAsync(
+                indexName: indexName,
 
                 request: request,
                 xPineconeApiVersion: xPineconeApiVersion,
@@ -77,21 +77,21 @@ namespace Pinecone
             return __response.Body;
         }
         /// <summary>
-        /// Create an index from a backup<br/>
-        /// Create an index from a backup. For serverless backups, you can optionally set `read_capacity` so the restored index is created with dedicated read nodes (DRN) instead of defaulting to on-demand capacity.
+        /// Create a backup schedule for an index<br/>
+        /// Create a time-based backup schedule for the specified index.
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
-        /// <param name="backupId"></param>
+        /// <param name="indexName"></param>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Pinecone.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse<global::Pinecone.CreateIndexFromBackupResponse>> CreateIndexFromBackupOperationAsResponseAsync(
-            string backupId,
+        public async global::System.Threading.Tasks.Task<global::Pinecone.AutoSDKHttpResponse<global::Pinecone.BackupScheduleResponse>> CreateBackupScheduleAsResponseAsync(
+            string indexName,
 
-            global::Pinecone.CreateIndexFromBackupRequest request,
+            global::Pinecone.CreateBackupScheduleRequest request,
             string xPineconeApiVersion = "2026-04",
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -100,17 +100,17 @@ namespace Pinecone
 
             PrepareArguments(
                 client: HttpClient);
-            PrepareCreateIndexFromBackupOperationArguments(
+            PrepareCreateBackupScheduleArguments(
                 httpClient: HttpClient,
                 xPineconeApiVersion: ref xPineconeApiVersion,
-                backupId: ref backupId,
+                indexName: ref indexName,
                 request: request);
 
 
             var __authorizations = global::Pinecone.EndPointSecurityResolver.ResolveAuthorizations(
                 availableAuthorizations: Authorizations,
-                securityRequirements: s_CreateIndexFromBackupOperationSecurityRequirements,
-                operationName: "CreateIndexFromBackupOperationAsync");
+                securityRequirements: s_CreateBackupScheduleSecurityRequirements,
+                operationName: "CreateBackupScheduleAsync");
 
             using var __timeoutCancellationTokenSource = global::Pinecone.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
@@ -130,7 +130,7 @@ namespace Pinecone
             {
 
                             var __pathBuilder = new global::Pinecone.PathBuilder(
-                                path: $"/backups/{backupId}/create-index",
+                                path: $"/indexes/{indexName}/backup-schedules",
                                 baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::Pinecone.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -178,11 +178,11 @@ namespace Pinecone
                 PrepareRequest(
                     client: HttpClient,
                     request: __httpRequest);
-                PrepareCreateIndexFromBackupOperationRequest(
+                PrepareCreateBackupScheduleRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     xPineconeApiVersion: xPineconeApiVersion!,
-                    backupId: backupId!,
+                    indexName: indexName!,
                     request: request);
 
                 return __httpRequest;
@@ -200,9 +200,9 @@ namespace Pinecone
                     await global::Pinecone.AutoSDKRequestOptionsSupport.OnBeforeRequestAsync(
                             clientOptions: Options,
                             context: global::Pinecone.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateIndexFromBackupOperation",
-                                methodName: "CreateIndexFromBackupOperationAsync",
-                                pathTemplate: "$\"/backups/{backupId}/create-index\"",
+                                operationId: "CreateBackupSchedule",
+                                methodName: "CreateBackupScheduleAsync",
+                                pathTemplate: "$\"/indexes/{indexName}/backup-schedules\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -234,9 +234,9 @@ namespace Pinecone
                         await global::Pinecone.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Pinecone.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateIndexFromBackupOperation",
-                                methodName: "CreateIndexFromBackupOperationAsync",
-                                pathTemplate: "$\"/backups/{backupId}/create-index\"",
+                                operationId: "CreateBackupSchedule",
+                                methodName: "CreateBackupScheduleAsync",
+                                pathTemplate: "$\"/indexes/{indexName}/backup-schedules\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -275,9 +275,9 @@ namespace Pinecone
                         await global::Pinecone.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Pinecone.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateIndexFromBackupOperation",
-                                methodName: "CreateIndexFromBackupOperationAsync",
-                                pathTemplate: "$\"/backups/{backupId}/create-index\"",
+                                operationId: "CreateBackupSchedule",
+                                methodName: "CreateBackupScheduleAsync",
+                                pathTemplate: "$\"/indexes/{indexName}/backup-schedules\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -315,7 +315,7 @@ namespace Pinecone
                 ProcessResponse(
                     client: HttpClient,
                     response: __response);
-                ProcessCreateIndexFromBackupOperationResponse(
+                ProcessCreateBackupScheduleResponse(
                     httpClient: HttpClient,
                     httpResponseMessage: __response);
                 if (__response.IsSuccessStatusCode)
@@ -323,9 +323,9 @@ namespace Pinecone
                     await global::Pinecone.AutoSDKRequestOptionsSupport.OnAfterSuccessAsync(
                             clientOptions: Options,
                             context: global::Pinecone.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateIndexFromBackupOperation",
-                                methodName: "CreateIndexFromBackupOperationAsync",
-                                pathTemplate: "$\"/backups/{backupId}/create-index\"",
+                                operationId: "CreateBackupSchedule",
+                                methodName: "CreateBackupScheduleAsync",
+                                pathTemplate: "$\"/indexes/{indexName}/backup-schedules\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -345,9 +345,9 @@ namespace Pinecone
                     await global::Pinecone.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Pinecone.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateIndexFromBackupOperation",
-                                methodName: "CreateIndexFromBackupOperationAsync",
-                                pathTemplate: "$\"/backups/{backupId}/create-index\"",
+                                operationId: "CreateBackupSchedule",
+                                methodName: "CreateBackupScheduleAsync",
+                                pathTemplate: "$\"/indexes/{indexName}/backup-schedules\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -436,44 +436,7 @@ namespace Pinecone
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Payment required. Organization is on a paid plan and is delinquent on payment.
-                            if ((int)__response.StatusCode == 402)
-                            {
-                                string? __content_402 = null;
-                                global::System.Exception? __exception_402 = null;
-                                global::Pinecone.ErrorResponse? __value_402 = null;
-                                try
-                                {
-                                    if (__effectiveReadResponseAsString)
-                                    {
-                                        __content_402 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
-                                        __value_402 = global::Pinecone.ErrorResponse.FromJson(__content_402, JsonSerializerContext);
-                                    }
-                                    else
-                                    {
-                                        __content_402 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
-
-                                        __value_402 = global::Pinecone.ErrorResponse.FromJson(__content_402, JsonSerializerContext);
-                                    }
-                                }
-                                catch (global::System.Exception __ex)
-                                {
-                                    __exception_402 = __ex;
-                                }
-
-
-                                throw global::Pinecone.ApiException<global::Pinecone.ErrorResponse>.Create(
-                                    statusCode: __response.StatusCode,
-                                    message: __content_402 ?? __response.ReasonPhrase ?? string.Empty,
-                                    innerException: __exception_402,
-                                    responseBody: __content_402,
-                                    responseObject: __value_402,
-                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
-                                        __response.Headers,
-                                        h => h.Key,
-                                        h => h.Value));
-                            }
-                            // You've exceed your pod quota.
+                            // Scheduled backups are not available for the caller's plan.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -510,7 +473,7 @@ namespace Pinecone
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Backup not found.
+                            // Index not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -547,7 +510,7 @@ namespace Pinecone
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Index of given name already exists.
+                            // The index already has an enabled backup schedule.
                             if ((int)__response.StatusCode == 409)
                             {
                                 string? __content_409 = null;
@@ -671,7 +634,7 @@ namespace Pinecone
                                     client: HttpClient,
                                     response: __response,
                                     content: ref __content);
-                                ProcessCreateIndexFromBackupOperationResponseContent(
+                                ProcessCreateBackupScheduleResponseContent(
                                     httpClient: HttpClient,
                                     httpResponseMessage: __response,
                                     content: ref __content);
@@ -680,9 +643,9 @@ namespace Pinecone
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::Pinecone.CreateIndexFromBackupResponse.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::Pinecone.BackupScheduleResponse.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::Pinecone.AutoSDKHttpResponse<global::Pinecone.CreateIndexFromBackupResponse>(
+                                    return new global::Pinecone.AutoSDKHttpResponse<global::Pinecone.BackupScheduleResponse>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Pinecone.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -712,9 +675,9 @@ namespace Pinecone
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    var __value = await global::Pinecone.CreateIndexFromBackupResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::Pinecone.BackupScheduleResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::Pinecone.AutoSDKHttpResponse<global::Pinecone.CreateIndexFromBackupResponse>(
+                                    return new global::Pinecone.AutoSDKHttpResponse<global::Pinecone.BackupScheduleResponse>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Pinecone.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -755,53 +718,45 @@ namespace Pinecone
             }
         }
         /// <summary>
-        /// Create an index from a backup<br/>
-        /// Create an index from a backup. For serverless backups, you can optionally set `read_capacity` so the restored index is created with dedicated read nodes (DRN) instead of defaulting to on-demand capacity.
+        /// Create a backup schedule for an index<br/>
+        /// Create a time-based backup schedule for the specified index.
         /// </summary>
         /// <param name="xPineconeApiVersion">
         /// Default Value: 2026-04
         /// </param>
-        /// <param name="backupId"></param>
+        /// <param name="indexName"></param>
         /// <param name="name">
-        /// The name of the index. Resource name must be 1-45 characters long, start and end with an alphanumeric character, and consist only of lower case alphanumeric characters or '-'.<br/>
-        /// Example: example-index
+        /// User-defined name for the backup schedule.<br/>
+        /// Example: daily-compliance-backup
         /// </param>
-        /// <param name="tags">
-        /// Custom user tags added to an index. Keys must be 80 characters or less. Values must be 120 characters or less. Keys must be alphanumeric, '_', or '-'.  Values must be alphanumeric, ';', '@', '_', '-', '.', '+', or ' '. To unset a key, set the value to be an empty string.<br/>
-        /// Example: {"tag0":"val0","tag1":"val1"}
+        /// <param name="schedule">
+        /// Time-based schedule configuration for automatic index backups. Only time-based schedules are supported.
         /// </param>
-        /// <param name="deletionProtection">
-        /// Whether [deletion protection](http://docs.pinecone.io/guides/manage-data/manage-indexes#configure-deletion-protection) is enabled/disabled for the index.<br/>
-        /// Possible values: `disabled` or `enabled`.<br/>
-        /// Default Value: disabled
-        /// </param>
-        /// <param name="readCapacity">
-        /// By default the index will be created with read capacity  mode `OnDemand`. If you prefer to allocate dedicated read  nodes for your workload, you must specify mode `Dedicated` and additional configurations for `node_type` and `scaling`.
+        /// <param name="retention">
+        /// Retention policy for backups created by this schedule. Backups older than the retention window may be removed.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Pinecone.CreateIndexFromBackupResponse> CreateIndexFromBackupOperationAsync(
-            string backupId,
+        public async global::System.Threading.Tasks.Task<global::Pinecone.BackupScheduleResponse> CreateBackupScheduleAsync(
+            string indexName,
             string name,
+            global::Pinecone.BackupScheduleRequestSchedule schedule,
+            global::Pinecone.BackupScheduleRetentionInput retention,
             string xPineconeApiVersion = "2026-04",
-            global::System.Collections.Generic.Dictionary<string, string>? tags = default,
-            string? deletionProtection = default,
-            global::Pinecone.ReadCapacity? readCapacity = default,
             global::Pinecone.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __request = new global::Pinecone.CreateIndexFromBackupRequest
+            var __request = new global::Pinecone.CreateBackupScheduleRequest
             {
                 Name = name,
-                Tags = tags,
-                DeletionProtection = deletionProtection,
-                ReadCapacity = readCapacity,
+                Schedule = schedule,
+                Retention = retention,
             };
 
-            return await CreateIndexFromBackupOperationAsync(
+            return await CreateBackupScheduleAsync(
                 xPineconeApiVersion: xPineconeApiVersion,
-                backupId: backupId,
+                indexName: indexName,
                 request: __request,
                 requestOptions: requestOptions,
                 cancellationToken: cancellationToken).ConfigureAwait(false);
