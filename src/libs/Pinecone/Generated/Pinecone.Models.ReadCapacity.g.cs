@@ -10,7 +10,7 @@ namespace Pinecone
     public readonly partial struct ReadCapacity : global::System.IEquatable<ReadCapacity>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.ReadCapacityDiscriminatorMode? Mode { get; }
 
@@ -24,7 +24,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OnDemand))]
@@ -32,7 +32,7 @@ namespace Pinecone
         public bool IsOnDemand => OnDemand != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOnDemand(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.ReadCapacityOnDemandSpec PickOnDemand() => IsOnDemand
             ? OnDemand!
@@ -61,7 +61,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Dedicated))]
@@ -69,7 +69,7 @@ namespace Pinecone
         public bool IsDedicated => Dedicated != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDedicated(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.ReadCapacityDedicatedSpec PickDedicated() => IsDedicated
             ? Dedicated!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Dedicated' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ReadCapacity(global::Pinecone.ReadCapacityOnDemandSpec value) => new ReadCapacity((global::Pinecone.ReadCapacityOnDemandSpec?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.ReadCapacityOnDemandSpec?(ReadCapacity @this) => @this.OnDemand;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReadCapacity(global::Pinecone.ReadCapacityOnDemandSpec? value)
         {
@@ -106,22 +106,22 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ReadCapacity FromOnDemand(global::Pinecone.ReadCapacityOnDemandSpec? value) => new ReadCapacity(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ReadCapacity(global::Pinecone.ReadCapacityDedicatedSpec value) => new ReadCapacity((global::Pinecone.ReadCapacityDedicatedSpec?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.ReadCapacityDedicatedSpec?(ReadCapacity @this) => @this.Dedicated;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReadCapacity(global::Pinecone.ReadCapacityDedicatedSpec? value)
         {
@@ -129,12 +129,12 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ReadCapacity FromDedicated(global::Pinecone.ReadCapacityDedicatedSpec? value) => new ReadCapacity(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReadCapacity(
             global::Pinecone.ReadCapacityDiscriminatorMode? mode,
@@ -149,23 +149,23 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Dedicated as object ??
-            OnDemand as object 
+            OnDemand as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             OnDemand?.ToString() ??
-            Dedicated?.ToString() 
+            Dedicated?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Pinecone.ReadCapacityOnDemandSpec, TResult>? onDemand = null,
@@ -198,7 +198,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Pinecone.ReadCapacityOnDemandSpec>? onDemand = null,
@@ -222,7 +222,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Pinecone.ReadCapacityOnDemandSpec>? onDemand = null,
@@ -245,7 +245,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ReadCapacity other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Pinecone.ReadCapacityOnDemandSpec?>.Default.Equals(OnDemand, other.OnDemand) &&
-                global::System.Collections.Generic.EqualityComparer<global::Pinecone.ReadCapacityDedicatedSpec?>.Default.Equals(Dedicated, other.Dedicated) 
+                global::System.Collections.Generic.EqualityComparer<global::Pinecone.ReadCapacityDedicatedSpec?>.Default.Equals(Dedicated, other.Dedicated)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ReadCapacity obj1, ReadCapacity obj2)
         {
@@ -285,7 +285,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ReadCapacity obj1, ReadCapacity obj2)
         {
@@ -293,7 +293,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

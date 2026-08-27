@@ -20,7 +20,7 @@ namespace Pinecone.JsonConverters
                     {
                         return global::Pinecone.EmbeddingDiscriminatorVectorTypeExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

@@ -4,16 +4,16 @@
 namespace Pinecone
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ReadCapacityResponseDiscriminatorMode
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Dedicated,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OnDemand,
     }

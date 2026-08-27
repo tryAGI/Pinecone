@@ -4,12 +4,12 @@
 namespace Pinecone
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class EmbeddingDiscriminator
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("vector_type")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Pinecone.JsonConverters.EmbeddingDiscriminatorVectorTypeJsonConverter))]

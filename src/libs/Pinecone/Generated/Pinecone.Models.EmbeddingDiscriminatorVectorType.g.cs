@@ -4,16 +4,16 @@
 namespace Pinecone
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum EmbeddingDiscriminatorVectorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Dense,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Sparse,
     }

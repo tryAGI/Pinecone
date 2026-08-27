@@ -10,7 +10,7 @@ namespace Pinecone
     public readonly partial struct Embedding : global::System.IEquatable<Embedding>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.EmbeddingDiscriminatorVectorType? VectorType { get; }
 
@@ -24,7 +24,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Dense))]
@@ -32,7 +32,7 @@ namespace Pinecone
         public bool IsDense => Dense != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDense(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.DenseEmbedding PickDense() => IsDense
             ? Dense!
@@ -61,7 +61,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Sparse))]
@@ -69,7 +69,7 @@ namespace Pinecone
         public bool IsSparse => Sparse != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSparse(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.SparseEmbedding PickSparse() => IsSparse
             ? Sparse!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Sparse' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Embedding(global::Pinecone.DenseEmbedding value) => new Embedding((global::Pinecone.DenseEmbedding?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.DenseEmbedding?(Embedding @this) => @this.Dense;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Embedding(global::Pinecone.DenseEmbedding? value)
         {
@@ -106,22 +106,22 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Embedding FromDense(global::Pinecone.DenseEmbedding? value) => new Embedding(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Embedding(global::Pinecone.SparseEmbedding value) => new Embedding((global::Pinecone.SparseEmbedding?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.SparseEmbedding?(Embedding @this) => @this.Sparse;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Embedding(global::Pinecone.SparseEmbedding? value)
         {
@@ -129,12 +129,12 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Embedding FromSparse(global::Pinecone.SparseEmbedding? value) => new Embedding(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Embedding(
             global::Pinecone.EmbeddingDiscriminatorVectorType? vectorType,
@@ -149,23 +149,23 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Sparse as object ??
-            Dense as object 
+            Dense as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Dense?.ToString() ??
-            Sparse?.ToString() 
+            Sparse?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Pinecone.DenseEmbedding, TResult>? dense = null,
@@ -198,7 +198,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Pinecone.DenseEmbedding>? dense = null,
@@ -222,7 +222,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Pinecone.DenseEmbedding>? dense = null,
@@ -245,7 +245,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(Embedding other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Pinecone.DenseEmbedding?>.Default.Equals(Dense, other.Dense) &&
-                global::System.Collections.Generic.EqualityComparer<global::Pinecone.SparseEmbedding?>.Default.Equals(Sparse, other.Sparse) 
+                global::System.Collections.Generic.EqualityComparer<global::Pinecone.SparseEmbedding?>.Default.Equals(Sparse, other.Sparse)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(Embedding obj1, Embedding obj2)
         {
@@ -285,7 +285,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(Embedding obj1, Embedding obj2)
         {
@@ -293,7 +293,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

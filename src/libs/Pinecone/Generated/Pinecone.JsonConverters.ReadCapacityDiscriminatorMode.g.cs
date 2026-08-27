@@ -20,7 +20,7 @@ namespace Pinecone.JsonConverters
                     {
                         return global::Pinecone.ReadCapacityDiscriminatorModeExtensions.ToEnum(stringValue) ?? default;
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

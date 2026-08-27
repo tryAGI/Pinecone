@@ -11,7 +11,7 @@ namespace Pinecone
     public readonly partial struct IndexSpec : global::System.IEquatable<IndexSpec>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Pinecone.IndexSpecServerless? Serverless { get; init; }
@@ -20,7 +20,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Serverless))]
@@ -28,7 +28,7 @@ namespace Pinecone
         public bool IsServerless => Serverless != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickServerless(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.IndexSpecServerless PickServerless() => IsServerless
             ? Serverless!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Serverless' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Pinecone.IndexSpecPodBased? PodBased { get; init; }
@@ -57,7 +57,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(PodBased))]
@@ -65,7 +65,7 @@ namespace Pinecone
         public bool IsPodBased => PodBased != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickPodBased(
 #if NET6_0_OR_GREATER
@@ -78,14 +78,14 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.IndexSpecPodBased PickPodBased() => IsPodBased
             ? PodBased!
             : throw new global::System.InvalidOperationException($"Expected union variant 'PodBased' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Pinecone.IndexSpecByoc? Byoc { get; init; }
@@ -94,7 +94,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Byoc))]
@@ -102,7 +102,7 @@ namespace Pinecone
         public bool IsByoc => Byoc != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickByoc(
 #if NET6_0_OR_GREATER
@@ -115,23 +115,23 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.IndexSpecByoc PickByoc() => IsByoc
             ? Byoc!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Byoc' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator IndexSpec(global::Pinecone.IndexSpecServerless value) => new IndexSpec((global::Pinecone.IndexSpecServerless?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.IndexSpecServerless?(IndexSpec @this) => @this.Serverless;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IndexSpec(global::Pinecone.IndexSpecServerless? value)
         {
@@ -139,22 +139,22 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static IndexSpec FromServerless(global::Pinecone.IndexSpecServerless? value) => new IndexSpec(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator IndexSpec(global::Pinecone.IndexSpecPodBased value) => new IndexSpec((global::Pinecone.IndexSpecPodBased?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.IndexSpecPodBased?(IndexSpec @this) => @this.PodBased;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IndexSpec(global::Pinecone.IndexSpecPodBased? value)
         {
@@ -162,22 +162,22 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static IndexSpec FromPodBased(global::Pinecone.IndexSpecPodBased? value) => new IndexSpec(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator IndexSpec(global::Pinecone.IndexSpecByoc value) => new IndexSpec((global::Pinecone.IndexSpecByoc?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.IndexSpecByoc?(IndexSpec @this) => @this.Byoc;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IndexSpec(global::Pinecone.IndexSpecByoc? value)
         {
@@ -185,12 +185,12 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static IndexSpec FromByoc(global::Pinecone.IndexSpecByoc? value) => new IndexSpec(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IndexSpec(
             global::Pinecone.IndexSpecServerless? serverless,
@@ -204,25 +204,25 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Byoc as object ??
             PodBased as object ??
-            Serverless as object 
+            Serverless as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Serverless?.ToString() ??
             PodBased?.ToString() ??
-            Byoc?.ToString() 
+            Byoc?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -230,7 +230,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Pinecone.IndexSpecServerless, TResult>? serverless = null,
@@ -260,7 +260,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Pinecone.IndexSpecServerless>? serverless = null,
@@ -290,7 +290,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Pinecone.IndexSpecServerless>? serverless = null,
@@ -318,7 +318,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -341,19 +341,19 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(IndexSpec other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Pinecone.IndexSpecServerless?>.Default.Equals(Serverless, other.Serverless) &&
                 global::System.Collections.Generic.EqualityComparer<global::Pinecone.IndexSpecPodBased?>.Default.Equals(PodBased, other.PodBased) &&
-                global::System.Collections.Generic.EqualityComparer<global::Pinecone.IndexSpecByoc?>.Default.Equals(Byoc, other.Byoc) 
+                global::System.Collections.Generic.EqualityComparer<global::Pinecone.IndexSpecByoc?>.Default.Equals(Byoc, other.Byoc)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(IndexSpec obj1, IndexSpec obj2)
         {
@@ -361,7 +361,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(IndexSpec obj1, IndexSpec obj2)
         {
@@ -369,7 +369,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {
