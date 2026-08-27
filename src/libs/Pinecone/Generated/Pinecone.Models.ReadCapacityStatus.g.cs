@@ -27,7 +27,7 @@ namespace Pinecone
         public int? CurrentReplicas { get; set; }
 
         /// <summary>
-        /// The number of shards. Each shard has dedicated storage.  Increasing shards alleiviates index fullness. 
+        /// The number of shards. Each shard has dedicated storage.  Increasing shards alleiviates index fullness.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("current_shards")]
         public int? CurrentShards { get; set; }
@@ -59,7 +59,7 @@ namespace Pinecone
         /// The number of replicas. Each replica has dedicated  compute resources and data storage. Increasing this number  will increase the total throughput of the index.
         /// </param>
         /// <param name="currentShards">
-        /// The number of shards. Each shard has dedicated storage.  Increasing shards alleiviates index fullness. 
+        /// The number of shards. Each shard has dedicated storage.  Increasing shards alleiviates index fullness.
         /// </param>
         /// <param name="errorMessage">
         /// An optional error message indicating any issues with your read capacity configuration

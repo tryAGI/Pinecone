@@ -10,7 +10,7 @@ namespace Pinecone
     public readonly partial struct ReadCapacityResponse : global::System.IEquatable<ReadCapacityResponse>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.ReadCapacityResponseDiscriminatorMode? Mode { get; }
 
@@ -24,7 +24,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OnDemand))]
@@ -32,7 +32,7 @@ namespace Pinecone
         public bool IsOnDemand => OnDemand != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOnDemand(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.ReadCapacityOnDemandSpecResponse PickOnDemand() => IsOnDemand
             ? OnDemand!
@@ -61,7 +61,7 @@ namespace Pinecone
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Dedicated))]
@@ -69,7 +69,7 @@ namespace Pinecone
         public bool IsDedicated => Dedicated != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDedicated(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Pinecone.ReadCapacityDedicatedSpecResponse PickDedicated() => IsDedicated
             ? Dedicated!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Dedicated' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ReadCapacityResponse(global::Pinecone.ReadCapacityOnDemandSpecResponse value) => new ReadCapacityResponse((global::Pinecone.ReadCapacityOnDemandSpecResponse?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.ReadCapacityOnDemandSpecResponse?(ReadCapacityResponse @this) => @this.OnDemand;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReadCapacityResponse(global::Pinecone.ReadCapacityOnDemandSpecResponse? value)
         {
@@ -106,22 +106,22 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ReadCapacityResponse FromOnDemand(global::Pinecone.ReadCapacityOnDemandSpecResponse? value) => new ReadCapacityResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ReadCapacityResponse(global::Pinecone.ReadCapacityDedicatedSpecResponse value) => new ReadCapacityResponse((global::Pinecone.ReadCapacityDedicatedSpecResponse?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Pinecone.ReadCapacityDedicatedSpecResponse?(ReadCapacityResponse @this) => @this.Dedicated;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReadCapacityResponse(global::Pinecone.ReadCapacityDedicatedSpecResponse? value)
         {
@@ -129,12 +129,12 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ReadCapacityResponse FromDedicated(global::Pinecone.ReadCapacityDedicatedSpecResponse? value) => new ReadCapacityResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReadCapacityResponse(
             global::Pinecone.ReadCapacityResponseDiscriminatorMode? mode,
@@ -149,23 +149,23 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Dedicated as object ??
-            OnDemand as object 
+            OnDemand as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             OnDemand?.ToString() ??
-            Dedicated?.ToString() 
+            Dedicated?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Pinecone.ReadCapacityOnDemandSpecResponse, TResult>? onDemand = null,
@@ -198,7 +198,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Pinecone.ReadCapacityOnDemandSpecResponse>? onDemand = null,
@@ -222,7 +222,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Pinecone.ReadCapacityOnDemandSpecResponse>? onDemand = null,
@@ -245,7 +245,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ReadCapacityResponse other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Pinecone.ReadCapacityOnDemandSpecResponse?>.Default.Equals(OnDemand, other.OnDemand) &&
-                global::System.Collections.Generic.EqualityComparer<global::Pinecone.ReadCapacityDedicatedSpecResponse?>.Default.Equals(Dedicated, other.Dedicated) 
+                global::System.Collections.Generic.EqualityComparer<global::Pinecone.ReadCapacityDedicatedSpecResponse?>.Default.Equals(Dedicated, other.Dedicated)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ReadCapacityResponse obj1, ReadCapacityResponse obj2)
         {
@@ -285,7 +285,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ReadCapacityResponse obj1, ReadCapacityResponse obj2)
         {
@@ -293,7 +293,7 @@ namespace Pinecone
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

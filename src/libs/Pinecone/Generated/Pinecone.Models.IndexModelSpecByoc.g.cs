@@ -4,7 +4,7 @@
 namespace Pinecone
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class IndexModelSpecByoc
     {
