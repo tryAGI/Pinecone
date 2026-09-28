@@ -47,8 +47,8 @@ namespace Pinecone
         /// <summary>
         ///
         /// </summary>
-        public global::Pinecone.ReadCapacityOnDemandSpec PickOnDemand() => IsOnDemand
-            ? OnDemand!
+        public global::Pinecone.ReadCapacityOnDemandSpec PickOnDemand() => OnDemand is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OnDemand' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Pinecone
         /// <summary>
         ///
         /// </summary>
-        public global::Pinecone.ReadCapacityDedicatedSpec PickDedicated() => IsDedicated
-            ? Dedicated!
+        public global::Pinecone.ReadCapacityDedicatedSpec PickDedicated() => Dedicated is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Dedicated' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsOnDemand && onDemand != null)
+            if (OnDemand is { } __value0 && onDemand != null)
             {
-                return onDemand(OnDemand!);
+                return onDemand(__value0);
             }
-            else if (IsDedicated && dedicated != null)
+            else if (Dedicated is { } __value1 && dedicated != null)
             {
-                return dedicated(Dedicated!);
+                return dedicated(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsOnDemand)
+            if (OnDemand is { } __value0)
             {
-                onDemand?.Invoke(OnDemand!);
+                onDemand?.Invoke(__value0);
             }
-            else if (IsDedicated)
+            else if (Dedicated is { } __value1)
             {
-                dedicated?.Invoke(Dedicated!);
+                dedicated?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsOnDemand)
+            if (OnDemand is { } __value0)
             {
-                onDemand?.Invoke(OnDemand!);
+                onDemand?.Invoke(__value0);
             }
-            else if (IsDedicated)
+            else if (Dedicated is { } __value1)
             {
-                dedicated?.Invoke(Dedicated!);
+                dedicated?.Invoke(__value1);
             }
         }
 

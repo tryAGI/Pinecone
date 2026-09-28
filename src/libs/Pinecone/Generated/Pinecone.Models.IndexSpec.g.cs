@@ -43,8 +43,8 @@ namespace Pinecone
         /// <summary>
         ///
         /// </summary>
-        public global::Pinecone.IndexSpecServerless PickServerless() => IsServerless
-            ? Serverless!
+        public global::Pinecone.IndexSpecServerless PickServerless() => Serverless is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Serverless' but the value was {ToString()}.");
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace Pinecone
         /// <summary>
         ///
         /// </summary>
-        public global::Pinecone.IndexSpecPodBased PickPodBased() => IsPodBased
-            ? PodBased!
+        public global::Pinecone.IndexSpecPodBased PickPodBased() => PodBased is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'PodBased' but the value was {ToString()}.");
 
         /// <summary>
@@ -117,8 +117,8 @@ namespace Pinecone
         /// <summary>
         ///
         /// </summary>
-        public global::Pinecone.IndexSpecByoc PickByoc() => IsByoc
-            ? Byoc!
+        public global::Pinecone.IndexSpecByoc PickByoc() => Byoc is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Byoc' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -243,17 +243,17 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsServerless && serverless != null)
+            if (Serverless is { } __value0 && serverless != null)
             {
-                return serverless(Serverless!);
+                return serverless(__value0);
             }
-            else if (IsPodBased && podBased != null)
+            else if (PodBased is { } __value1 && podBased != null)
             {
-                return podBased(PodBased!);
+                return podBased(__value1);
             }
-            else if (IsByoc && byoc != null)
+            else if (Byoc is { } __value2 && byoc != null)
             {
-                return byoc(Byoc!);
+                return byoc(__value2);
             }
 
             return default(TResult);
@@ -275,17 +275,17 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsServerless)
+            if (Serverless is { } __value0)
             {
-                serverless?.Invoke(Serverless!);
+                serverless?.Invoke(__value0);
             }
-            else if (IsPodBased)
+            else if (PodBased is { } __value1)
             {
-                podBased?.Invoke(PodBased!);
+                podBased?.Invoke(__value1);
             }
-            else if (IsByoc)
+            else if (Byoc is { } __value2)
             {
-                byoc?.Invoke(Byoc!);
+                byoc?.Invoke(__value2);
             }
         }
 
@@ -303,17 +303,17 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsServerless)
+            if (Serverless is { } __value0)
             {
-                serverless?.Invoke(Serverless!);
+                serverless?.Invoke(__value0);
             }
-            else if (IsPodBased)
+            else if (PodBased is { } __value1)
             {
-                podBased?.Invoke(PodBased!);
+                podBased?.Invoke(__value1);
             }
-            else if (IsByoc)
+            else if (Byoc is { } __value2)
             {
-                byoc?.Invoke(Byoc!);
+                byoc?.Invoke(__value2);
             }
         }
 
