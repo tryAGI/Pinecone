@@ -47,8 +47,8 @@ namespace Pinecone
         /// <summary>
         ///
         /// </summary>
-        public global::Pinecone.DenseEmbedding PickDense() => IsDense
-            ? Dense!
+        public global::Pinecone.DenseEmbedding PickDense() => Dense is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Dense' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Pinecone
         /// <summary>
         ///
         /// </summary>
-        public global::Pinecone.SparseEmbedding PickSparse() => IsSparse
-            ? Sparse!
+        public global::Pinecone.SparseEmbedding PickSparse() => Sparse is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Sparse' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsDense && dense != null)
+            if (Dense is { } __value0 && dense != null)
             {
-                return dense(Dense!);
+                return dense(__value0);
             }
-            else if (IsSparse && sparse != null)
+            else if (Sparse is { } __value1 && sparse != null)
             {
-                return sparse(Sparse!);
+                return sparse(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsDense)
+            if (Dense is { } __value0)
             {
-                dense?.Invoke(Dense!);
+                dense?.Invoke(__value0);
             }
-            else if (IsSparse)
+            else if (Sparse is { } __value1)
             {
-                sparse?.Invoke(Sparse!);
+                sparse?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Pinecone
                 Validate();
             }
 
-            if (IsDense)
+            if (Dense is { } __value0)
             {
-                dense?.Invoke(Dense!);
+                dense?.Invoke(__value0);
             }
-            else if (IsSparse)
+            else if (Sparse is { } __value1)
             {
-                sparse?.Invoke(Sparse!);
+                sparse?.Invoke(__value1);
             }
         }
 
